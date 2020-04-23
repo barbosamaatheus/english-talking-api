@@ -6,9 +6,6 @@
   This API aims to provide users with the possibility of conducting dialogues in English where the conversations and answers are registered and evaluated by the users themselves. <br> :alien:
 </h3>
 
-
-# [English Talking API](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
-
 <div align="center">
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
@@ -16,6 +13,7 @@
 
 </div>
 
+# [English Talking API](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
 
 # Overview
 
