@@ -16,12 +16,14 @@ Thank you for being interested on making this project better. We encourage every
 2. Under your repository name, click  Issues.  
   ![issue](https://help.github.com/assets/images/help/repository/repo-tabs-issues.png)
   
-3. Click New issue.  
+3. Click New issue. 
 
-4. Type a title and description for your issue.  
+4. If there are multiple issue types, click Get started next to the type of issue you'd like to open.
+
+5. Type a title and description for your issue.  
   ![description](https://help.github.com/assets/images/help/issues/sample_issue.png)
   
-5. When you're finished, click Submit new issue.
+6. When you're finished, click Submit new issue.
 
 ## Submitting a Pull Request 
 
