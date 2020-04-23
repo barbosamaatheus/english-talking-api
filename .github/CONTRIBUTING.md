@@ -1,12 +1,15 @@
+# Contribution Guidelines
 
-# Submitting an issue
+Thank you for being interested on making this project better. We encourage everyone to help improving this project with some new features, bug fixes and performance issues. Please take a little bit of your time to read our guides, so this process can be faster and easier.
+
+## Submitting an issue
 
 - Please search for similar issues before opening a new one;
 - Use a clear and descriptive title;
 - Include as much information as possible by filling out the provided issue
   template;
 
-## Creating an issue
+### Creating an issue
 
 1. On GitHub, navigate to the main page of the repository.
 
@@ -20,7 +23,7 @@
   
 5. When you're finished, click Submit new issue.
 
-# Submitting a Pull Request 
+## Submitting a Pull Request 
 
 - All pull requests should be to the develop branch.
 - Every pull request should have associated issue(s) on our [issue tracker](https://github.com/barbosamaatheus/english-talking-api/issues).
@@ -29,12 +32,14 @@
 - New functionality codes and bug fixes must be sent with their respective integration and/or unit tests
 <img align="right" width="300" src="https://github.com/firstcontributions/first-contributions/raw/master/assets/fork.png" alt="fork this repository" />
 
-## Fork this repository
+### Fork this repository
 
 Fork this repository by clicking on the fork button on the top of this page.  
 This will create a copy of this repository in your account.
 
-## Clone the repository
+> To fork, you must first place in your Github account.
+
+### Clone the repository
 
 <img align="right" width="300" src="https://github.com/firstcontributions/first-contributions/raw/master/assets/clone.png" alt="clone this repository" />
 
@@ -55,7 +60,7 @@ git clone https://github.com/this-is-you/english-talking-api.git
 ```
 where `this-is-you` is your GitHub username. Here you're copying the contents of the first-contributions repository on GitHub to your computer.
 
-## Create a branch
+### Create a branch
 
 Change to the repository directory on your computer (if you are not already there):
 
@@ -78,7 +83,7 @@ or
 git checkout -b bug/#2
 ```
 
-## Make necessary changes and commit those changes
+### Make necessary changes and commit those changes
 
 Now open the project in a text editor and make necessary changes. Don't forget to save the changed files.
 
@@ -117,7 +122,7 @@ Example of a commit message:
 
 `feat(#1): Commit message style guide for Git`
 
-## Push changes to GitHub
+### Push changes to GitHub
 
 Push your changes using the command `git push`:
 ```
@@ -125,7 +130,7 @@ git push origin <add-your-branch-name>
 ```
 replacing `<add-your-branch-name>` with the name of the branch you created earlier.
 
-## Submit your changes for review
+### Submit your changes for review
 
 If you go to your repository on GitHub, you'll see a  `Compare & pull request` button. Click on that button.
 
@@ -137,7 +142,7 @@ Now submit the pull request.
 
 Soon I'll be merging all your changes into the master branch of this project. You will get a notification email once the changes have been merged.
 
-## Where to go from here?
+### Where to go from here?
 
 Congrats!  You just completed the standard _fork -> clone -> edit -> PR_ workflow that you'll encounter often as a contributor!
 
