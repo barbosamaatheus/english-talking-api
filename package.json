@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/IsabelleMello/english-talking-api#readme",
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "husky": "^4.2.5",
     "nodemon": "^2.0.3"
   },
   "dependencies": {
@@ -25,5 +28,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.10"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
