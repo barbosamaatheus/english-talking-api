@@ -1,0 +1,29 @@
+{
+  "name": "english-talking-api",
+  "version": "0.1.0",
+  "description": "This API aims to provide users with the possibility of conducting dialogues in English where the conversations and answers are registered and evaluated by the users themselves.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barbosamaatheus/english-talking-api.git"
+  },
+  "author": "https://github.com/barbosamaatheus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IsabelleMello/english-talking-api/issues"
+  },
+  "homepage": "https://github.com/IsabelleMello/english-talking-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.10"
+  }
+}
