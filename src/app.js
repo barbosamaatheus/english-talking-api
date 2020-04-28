@@ -1,4 +1,4 @@
-require('dotenv').config;
+require("dotenv").config();
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,13 +8,11 @@ const app = express();
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-
-/*mongoose.connect(MONGODB_URI,
-    {useNewUrlParser:true
+mongoose.connect(MONGODB_URI,
+    {useNewUrlParser:true,
+    useUnifiedTopology:true
 });
-*/
 
-console.log(MONGODB_URI);
 
 app.use(express.json());
 app.use(routes);
