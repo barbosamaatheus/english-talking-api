@@ -27,10 +27,9 @@ We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as
 3. [Editor config](https://github.com/editorconfig/editorconfig-vscode)
 
 > For make sure Prettier formats on save. Insert `"editor.formatOnSave": true` into your User Settings if you use VSCode.
+> To learn more, you can be this [post](https://medium.com/matheus-barbosa/integrating-prettier-eslint-airbnb-style-guide-editorconfig-no-vscode-ff950263adbf)
 
 The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
-
-To learn more, you can be this [post](https://medium.com/matheus-barbosa/integrating-prettier-eslint-airbnb-style-guide-editorconfig-no-vscode-ff950263adbf)
 
 See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
 
