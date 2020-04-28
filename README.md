@@ -17,12 +17,22 @@
 
 # Overview
 
-This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database 
+This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database
 [MongoDB](https://www.mongodb.com/)
 
-the tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest) 
+We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as an automatic code formatter. Please download the plugins in your editor.
 
-See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest) 
+1. [ESLint](https://github.com/Microsoft/vscode-eslint)
+2. [Prettier](https://github.com/prettier/prettier-vscode)
+3. [Editor config](https://github.com/editorconfig/editorconfig-vscode)
+
+> For make sure Prettier formats on save. Insert `"editor.formatOnSave": true` into your User Settings if you use VSCode.
+
+The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
+
+To learn more, you can be this [post](https://medium.com/matheus-barbosa/integrating-prettier-eslint-airbnb-style-guide-editorconfig-no-vscode-ff950263adbf)
+
+See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
 
 # Authentication
 
@@ -46,4 +56,4 @@ If you need help with this, feel free to open an issue with a description of the
 
 ## License
 
-[MIT License ](https://github.com/barbosamaatheus/english-talking-api/blob/master/LICENSE) © 
+[MIT License ](https://github.com/barbosamaatheus/english-talking-api/blob/master/LICENSE) ©
