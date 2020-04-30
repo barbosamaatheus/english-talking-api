@@ -18,6 +18,8 @@ const DialogSchema = new Schema(
     status: {
       type: String,
       required: true,
+      enum: ["approved", "analyzing"],
+      default: "analyzing",
     },
     approvals: [
       {
