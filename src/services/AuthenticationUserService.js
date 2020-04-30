@@ -10,10 +10,10 @@ module.exports = async (req, res) => {
 
   if (!user) return res.status(400).json({ error: "User not found" });
 
-  if (!(await bcrypt.compare(password, user.password)))
+  if (!password || !(await bcrypt.compare(password, user.password)))
     return res.status(400).json({ error: "Invalid Password" });
 
   user.password = undefined;
 
-  return res.status(201).json({ user, token: jwtGenerate({ id: user.id }) });
+  return res.status(200).json({ user, token: jwtGenerate({ id: user.id }) });
 };

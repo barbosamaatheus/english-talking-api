@@ -1,5 +1,5 @@
-const RegisterUserService = require("../Services/RegisterUserService");
-const AuthenticationUserService = require("../Services/AuthenticationUserService");
+const RegisterUserService = require("../services/RegisterUserService");
+const AuthenticationUserService = require("../services/AuthenticationUserService");
 
 module.exports = {
   async register(req, res) {

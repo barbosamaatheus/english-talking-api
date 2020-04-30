@@ -1,4 +1,4 @@
-const CreateDialogService = require("../Services/CreateDialogService");
+const CreateDialogService = require("../services/CreateDialogService");
 
 module.exports = {
   async store(req, res) {
