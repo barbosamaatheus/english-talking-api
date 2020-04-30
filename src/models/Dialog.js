@@ -6,7 +6,6 @@ const DialogSchema = new Schema(
       type: String,
       required: true,
     },
-
     answer: {
       type: String,
       required: true,

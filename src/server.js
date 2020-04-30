@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 
-console.log("Conectado: ", config.MONGODB_URI);
 app.listen(PORT);
