@@ -1,14 +1,11 @@
-require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const config = require("./utils/config");
 
 const app = express();
 
-const { MONGODB_URI } = process.env;
-
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -16,4 +13,4 @@ mongoose.connect(MONGODB_URI, {
 app.use(express.json());
 app.use(routes);
 
-module.exports = app;
+module.exports = { app, mongoose };
