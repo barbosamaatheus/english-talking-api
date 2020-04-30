@@ -6,11 +6,10 @@ beforeAll(async () => {
   mongoose.connect(config.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   });
-  console.log("... Test Started");
 });
 afterAll(async () => {
   await mongoose.connection.dropDatabase();
   await mongoose.disconnect();
-  console.log("... Test Ended");
 });

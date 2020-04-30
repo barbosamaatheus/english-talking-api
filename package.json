@@ -4,7 +4,7 @@
   "description": "This API aims to provide users with the possibility of conducting dialogues in English where the conversations and answers are registered and evaluated by the users themselves.",
   "main": "src/server.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=tests jest",
+    "test": "cross-env NODE_ENV=tests jest --verbose --runInBand",
     "lint": "eslint .",
     "dev": "cross-env nodemon src/server.js"
   },
