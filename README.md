@@ -15,6 +15,16 @@
 
 # [English Talking API](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
 
+# Table of Contents
+
+- [Overview](#Overview)
+- [Authentication](#Authentication)
+- [Contributing](#Contributing)
+  - [Contribution Guidelines](#Contribution-Guidelines)
+- [Code of Conduct](#Code-of-Conduct)
+- [Need help?](#Need-help?)
+- [License](#License)
+
 # Overview
 
 This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database
@@ -49,14 +59,14 @@ Thank you for being interested on making this project better. We encourage every
 
 Take a moment to read about our [Contribution Guidelines](/.github/CONTRIBUTING.md) so you can understand how to submit an issue, commit and create pull requests.
 
-### Code of Conduct
+# Code of Conduct
 
 We expect you to follow our [Code of Conduct](/.github/CODE_OF_CONDUCT.md). You can read it to understand what kind of behaviour will and will not be tolerated.
 
-## Need help?
+# Need help?
 
 If you need help with this, feel free to open an issue with a description of the problem you're facing. Or, if you prefer, you can send email to maatheusb96@gmail.com
 
-## License
+# License
 
 [MIT License ](https://github.com/barbosamaatheus/english-talking-api/blob/master/LICENSE) ©

@@ -1,5 +1,22 @@
 # Contribution Guidelines
 
+## Table of Contents
+
+- [Overview](#Overview)
+- [Submitting an issue](#submitting-an-issue)
+  - [Creating an issue](#Creating-an-issue)
+- [Submitting a Pull Request](#Submitting-a-Pull-Request)
+  - [Fork this repository](#Fork-this-repository)
+  - [Clone the repository](#Clone-the-repository)
+  - [Create a branch](#Create-a-branch)
+  - [Make necessary changes and commit those changes](#Make-necessary-changes-and-commit-those-changes)
+    - [Commiting](#commiting)
+  - [Push changes to GitHub](#Push-changes-to-GitHub)
+  - [Submit your changes for review](#Submit-your-changes-for-review)
+- [Where to go from here?](#Where-to-go-from-here?)
+
+## Overview
+
 Thank you for being interested on making this project better. We encourage everyone to help improving this project with some new features, bug fixes and performance issues. Please take a little bit of your time to read our guides, so this process can be faster and easier.
 
 ## Submitting an issue
@@ -106,6 +123,8 @@ Add those changes to the branch you just created using the `git add` command:
 git add .
 ```
 
+#### Commiting
+
 Now commit those changes using the `git commit` command:
 
 ```
@@ -157,7 +176,7 @@ Now submit the pull request.
 
 Soon I'll be merging all your changes into the master branch of this project. You will get a notification email once the changes have been merged.
 
-### Where to go from here?
+## Where to go from here?
 
 Congrats! You just completed the standard _fork -> clone -> edit -> PR_ workflow that you'll encounter often as a contributor!
 
