@@ -35,14 +35,14 @@ describe("Authentication User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(404);
     expect(response.body.error).toBe("User not found");
   });
 
   it("Check user authentication without sending the email field", async () => {
     const response = await request.post("/v1/authenticate").send({ password });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(404);
     expect(response.body.error).toBe("User not found");
   });
 
