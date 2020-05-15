@@ -1,5 +1,4 @@
 /* eslint-disable dot-notation */
-/* eslint-disable no-undef */
 const supertest = require("supertest");
 const faker = require("faker");
 const app = require("../../../src/app");
@@ -7,6 +6,9 @@ const app = require("../../../src/app");
 const request = supertest(app);
 
 let authorization;
+let userId;
+let dialogId;
+
 const speech = faker.lorem.sentence();
 const answer = faker.lorem.sentence();
 beforeAll(async () => {
@@ -16,7 +18,10 @@ beforeAll(async () => {
     password: faker.internet.password(),
   });
   authorization = `Bearer ${response.body.token}`;
-  await request
+
+  userId = response.body.user["_id"];
+
+  const dialog = await request
     .post("/v1/dialog")
     .set("Authorization", authorization)
     .send({ speech, answer });
@@ -25,6 +30,8 @@ beforeAll(async () => {
     .post("/v1/dialog")
     .set("Authorization", authorization)
     .send({ speech: faker.lorem.sentence(), answer: faker.lorem.sentence() });
+
+  dialogId = dialog.body["_id"];
 });
 describe("Dialog consultation", () => {
   it("Check the limit with a valid value", async () => {
@@ -56,7 +63,6 @@ describe("Dialog consultation", () => {
 
     expect(page1.statusCode).toBe(200);
     expect(page2.statusCode).toBe(200);
-    // eslint-disable-next-line dot-notation
     expect(page1.body[0]["_id"]).not.toBe(page2.body[0]["_id"]);
   });
 
@@ -70,11 +76,31 @@ describe("Dialog consultation", () => {
     const responseStatus = await request.get("/v1/dialog").query({
       status: "analyzing",
     });
+
+    const responseUser = await request.get("/v1/dialog").query({
+      user: userId,
+    });
+
+    const responseId = await request.get("/v1/dialog").query({
+      _id: dialogId,
+    });
+
     const responseSpeech = await request.get("/v1/dialog").query({ speech });
+
     const responseAnswer = await request.get("/v1/dialog").query({ answer });
 
     expect(responseStatus.body[0].status).toBe("analyzing");
+    expect(responseUser.body[0].user).toBe(userId);
+    expect(responseId.body[0]["_id"]).toBe(dialogId);
     expect(responseSpeech.body[0].speech).toBe(speech);
     expect(responseAnswer.body[0].answer).toBe(answer);
+  });
+  it("Check invalid query", async () => {
+    const responseQuery = await request.get("/v1/dialog").query({
+      invalid: "invalid",
+    });
+
+    expect(responseQuery.statusCode).toBe(404);
+    expect(responseQuery.header["x-total-count"]).toBe("0");
   });
 });
