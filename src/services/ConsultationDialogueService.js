@@ -23,8 +23,9 @@ module.exports = async (req, res) => {
       ? res.status(400).json({ error: error.message })
       : res.status(500).json({ error: "Dialog consultation failed" })
   );
-  if (!dialogues) return res.status(404).send();
-
+  if (dialogues === null || dialogues.length === 0) {
+    return res.status(404).send();
+  }
   const response = dialogues.map((element) => {
     return {
       // eslint-disable-next-line dot-notation
