@@ -36,10 +36,8 @@ module.exports = async (req, res) => {
     });
     return res.status(200).json(response);
   } catch (err) {
-    if (err.name === "ValidationError") {
-      res.status(400).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: "Dialog consultation failed" });
-    }
+    return err.name === "ValidationError"
+      ? res.status(400).json({ error: err.message })
+      : res.status(500).json({ error: "Dialog consultation failed" });
   }
 };
