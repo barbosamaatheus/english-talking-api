@@ -1,5 +1,3 @@
-import { CalculatesApprovalRate } from "../utils/calculatesApprovalRate";
-
 const { Schema, model } = require("mongoose");
 
 const DialogSchema = new Schema(
@@ -40,6 +38,11 @@ const DialogSchema = new Schema(
   }
 );
 
-DialogSchema.virtual("approval_rate").get(CalculatesApprovalRate);
+DialogSchema.virtual("approval_rate").get(function CalculatesApprovalRate() {
+  const total = this.approvals.length + this.disapprovals.length;
+
+  if (!this.approvals.length) return 0;
+  return parseInt((this.approvals.length / total) * 100, 10);
+});
 
 module.exports = model("Dialog", DialogSchema);
