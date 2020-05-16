@@ -1,5 +1,5 @@
 const CreateDialogService = require("../services/CreateDialogService");
-const ConsultationDialogueService = require("../services/ConsultationDialogueService");
+const ConsultDialogService = require("../services/ConsultDialogService");
 
 module.exports = {
   async store(req, res) {
@@ -8,7 +8,7 @@ module.exports = {
   },
 
   async index(req, res) {
-    const response = await ConsultationDialogueService(req, res);
+    const response = await ConsultDialogService(req, res);
     return response;
   },
 };
