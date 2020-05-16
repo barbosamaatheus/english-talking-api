@@ -119,6 +119,6 @@ describe("Dialog consultation", () => {
     expect(response.body[0]["_id"]).toBe(dialogId);
     expect(response.body[0].speech).toBe(speech);
     expect(response.body[0].answer).toBe(answer);
-    expect(response.body[0].aproval_rate).toBe(0);
+    expect(response.body[0].approval_rate).toBe(0);
   });
 });
