@@ -11,6 +11,7 @@ let dialogId;
 
 const speech = faker.lorem.sentence();
 const answer = faker.lorem.sentence();
+
 beforeAll(async () => {
   const response = await request.post("/v1/register").send({
     name: faker.name.findName(),
@@ -18,20 +19,18 @@ beforeAll(async () => {
     password: faker.internet.password(),
   });
   authorization = `Bearer ${response.body.token}`;
-
   userId = response.body.user["_id"];
 
   const dialog = await request
     .post("/v1/dialog")
     .set("Authorization", authorization)
     .send({ speech, answer });
+  dialogId = dialog.body["_id"];
 
   await request
     .post("/v1/dialog")
     .set("Authorization", authorization)
     .send({ speech: faker.lorem.sentence(), answer: faker.lorem.sentence() });
-
-  dialogId = dialog.body["_id"];
 });
 describe("Dialog consultation", () => {
   it("Check the limit with a valid value", async () => {
@@ -41,7 +40,7 @@ describe("Dialog consultation", () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveLength(1);
   });
-  it("Check a threshold that receives an invalid value", async () => {
+  it("Check the limit with an invalid value", async () => {
     const response = await request
       .get("/v1/dialog")
       .set("limit", "invalidLimit");
@@ -65,28 +64,32 @@ describe("Dialog consultation", () => {
     expect(page2.statusCode).toBe(200);
     expect(page1.body[0]["_id"]).not.toBe(page2.body[0]["_id"]);
   });
+  it("Check the page with an invalid value", async () => {
+    const page = await request
+      .get("/v1/dialog")
+      .set("limit", 1)
+      .set("page", "invalidPage");
 
-  it("Check that the count was correct", async () => {
+    expect(page.statusCode).toBe(200);
+  });
+
+  it("Check that the x-total-count was correct", async () => {
     const response = await request.get("/v1/dialog");
 
     expect(response.statusCode).toBe(200);
     expect(response.header["x-total-count"]).toBe("2");
   });
-  it("Check all fields of the dialog", async () => {
+  it("Check all queries of the dialog", async () => {
     const responseStatus = await request.get("/v1/dialog").query({
       status: "analyzing",
     });
-
     const responseUser = await request.get("/v1/dialog").query({
       user: userId,
     });
-
     const responseId = await request.get("/v1/dialog").query({
       _id: dialogId,
     });
-
     const responseSpeech = await request.get("/v1/dialog").query({ speech });
-
     const responseAnswer = await request.get("/v1/dialog").query({ answer });
 
     expect(responseStatus.body[0].status).toBe("analyzing");
@@ -102,5 +105,14 @@ describe("Dialog consultation", () => {
 
     expect(responseQuery.statusCode).toBe(404);
     expect(responseQuery.header["x-total-count"]).toBe("0");
+  });
+  it("Check return of fields and status", async () => {
+    const response = await request.get("/v1/dialog");
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body[0].user).toBe(userId);
+    expect(response.body[0]["_id"]).toBe(dialogId);
+    expect(response.body[0].speech).toBe(speech);
+    expect(response.body[0].answer).toBe(answer);
   });
 });
