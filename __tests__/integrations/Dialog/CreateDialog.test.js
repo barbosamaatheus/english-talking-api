@@ -58,7 +58,7 @@ describe("Authentication POST /dialog", () => {
 });
 
 describe("Create Dialog", () => {
-  it("Check dialogue creation with all fields correctly fille d.", async () => {
+  it("Check dialogue creation with all fields correctly filled.", async () => {
     const speech = faker.lorem.sentence();
     const answer = faker.lorem.sentence();
 
