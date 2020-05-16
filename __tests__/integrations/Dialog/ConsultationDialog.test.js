@@ -32,6 +32,7 @@ beforeAll(async () => {
     .set("Authorization", authorization)
     .send({ speech: faker.lorem.sentence(), answer: faker.lorem.sentence() });
 });
+
 describe("Dialog consultation", () => {
   it("Check the limit with a valid value", async () => {
     const limit = 1;
@@ -64,6 +65,7 @@ describe("Dialog consultation", () => {
     expect(page2.statusCode).toBe(200);
     expect(page1.body[0]["_id"]).not.toBe(page2.body[0]["_id"]);
   });
+
   it("Check the page with an invalid value", async () => {
     const page = await request
       .get("/v1/dialog")
@@ -79,6 +81,7 @@ describe("Dialog consultation", () => {
     expect(response.statusCode).toBe(200);
     expect(response.header["x-total-count"]).toBe("2");
   });
+
   it("Check all queries of the dialog", async () => {
     const responseStatus = await request.get("/v1/dialog").query({
       status: "analyzing",
@@ -98,6 +101,7 @@ describe("Dialog consultation", () => {
     expect(responseSpeech.body[0].speech).toBe(speech);
     expect(responseAnswer.body[0].answer).toBe(answer);
   });
+
   it("Check invalid query", async () => {
     const responseQuery = await request.get("/v1/dialog").query({
       invalid: "invalid",
@@ -106,6 +110,7 @@ describe("Dialog consultation", () => {
     expect(responseQuery.statusCode).toBe(404);
     expect(responseQuery.header["x-total-count"]).toBe("0");
   });
+
   it("Check return of fields and status", async () => {
     const response = await request.get("/v1/dialog");
 
@@ -114,5 +119,6 @@ describe("Dialog consultation", () => {
     expect(response.body[0]["_id"]).toBe(dialogId);
     expect(response.body[0].speech).toBe(speech);
     expect(response.body[0].answer).toBe(answer);
+    expect(response.body[0].aproval_rate).toBe(0);
   });
 });
