@@ -24,3 +24,7 @@ jobs:
       run: yarn
     - name: Run tests
       run: yarn test
+      env: 
+        DB_TEST: ${{secrets.DB_TEST}}
+        SECRET_KEY: ${{secrets.SECRET_KEY}}
+      
