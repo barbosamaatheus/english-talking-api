@@ -5,6 +5,7 @@ name: Node Github CI
 on:
   pull_request:
     branches:
+      - develop
       - master
 
 jobs:
