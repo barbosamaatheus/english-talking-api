@@ -1,4 +1,4 @@
-exports.default = function CalculatesApprovalRate() {
+module.exports = function CalculatesApprovalRate() {
   const total = this.approvals.length + this.disapprovals.length;
 
   if (!this.approvals.length) return 0;
