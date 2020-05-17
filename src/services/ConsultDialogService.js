@@ -1,20 +1,11 @@
 const Dialog = require("../models/Dialog");
 
-function parserPageArgs(property, value) {
-  const passed = parseInt(value, 10);
-  if (property === "limit") {
-    if (Number.isNaN(passed) || !passed) return 10;
-  } else if (Number.isNaN(passed) || !passed) return 1;
-  return passed;
-}
-
-// eslint-disable-next-line consistent-return
 module.exports = async (req, res) => {
   const { limit, page } = req.headers;
 
   const options = {
-    limit: parserPageArgs("limit", limit),
-    page: parserPageArgs("page", page),
+    limit: parseInt(limit, 10) || 10,
+    page: parseInt(page, 10) || 1,
   };
   try {
     const dialogues = await Dialog.find(req.query, null, {
