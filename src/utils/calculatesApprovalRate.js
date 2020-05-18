@@ -1,6 +1,8 @@
-module.exports = function CalculatesApprovalRate() {
-  const total = this.approvals.length + this.disapprovals.length;
+module.exports = function calculatesApprovalRate() {
+  const positive = this.approvals || [];
+  const negative = this.disapprovals || [];
 
-  if (!this.approvals.length) return 0;
-  return parseInt((this.approvals.length / total) * 100, 10);
+  const total = positive.length + negative.length;
+
+  return parseInt((positive.length / total) * 100, 10) || 0;
 };
