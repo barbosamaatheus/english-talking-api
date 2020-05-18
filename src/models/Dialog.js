@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
 
+const calculatesApprovalRate = require("../utils/calculatesApprovalRate");
+
 const DialogSchema = new Schema(
   {
     speech: {
@@ -37,5 +39,7 @@ const DialogSchema = new Schema(
     timestamps: true,
   }
 );
+
+DialogSchema.virtual("approval_rate").get(calculatesApprovalRate);
 
 module.exports = model("Dialog", DialogSchema);

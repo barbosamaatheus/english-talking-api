@@ -12,4 +12,6 @@ routes.post("/v1/authenticate", SessionController.authenticate);
 
 routes.post("/v1/dialog", AuthMiddleware, DialogController.store);
 
+routes.get("/v1/dialog", DialogController.index);
+
 module.exports = routes;

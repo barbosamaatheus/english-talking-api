@@ -1,6 +1,6 @@
 const supertest = require("supertest");
 const faker = require("faker");
-const app = require("../../src/app");
+const app = require("../../../src/app");
 
 const request = supertest(app);
 
