@@ -1,9 +1,7 @@
 const calculatesApprovalRate = require("../../src/utils/calculatesApprovalRate");
 
-it("check function without approvals and disapprovals", () => {
-  const response = calculatesApprovalRate();
-
-  expect(response).toBe(0);
+it("Check function without approvals and disapprovals", () => {
+  expect(calculatesApprovalRate()).toBe(0);
 });
 
 it("To vary the role with approvals and disapprovals", () => {
@@ -15,7 +13,7 @@ it("To vary the role with approvals and disapprovals", () => {
   expect(calculatesApprovalRate.call(possibilities)).toBe(50);
 });
 
-it("check the function without the approvals", () => {
+it("Check the function without the approvals", () => {
   const possibilities = {
     approvals: [],
     disapprovals: [1],
@@ -24,7 +22,7 @@ it("check the function without the approvals", () => {
   expect(calculatesApprovalRate.call(possibilities)).toBe(0);
 });
 
-it("check function without disappprovals", () => {
+it("Check function without disappprovals", () => {
   const possibilities = {
     approvals: [1],
     disapprovals: [],
