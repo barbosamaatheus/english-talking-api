@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const CalculatesApprovalRate = require("../utils/calculatesApprovalRate");
+const calculatesApprovalRate = require("../utils/calculatesApprovalRate");
 
 const DialogSchema = new Schema(
   {
@@ -40,6 +40,6 @@ const DialogSchema = new Schema(
   }
 );
 
-DialogSchema.virtual("approval_rate").get(CalculatesApprovalRate);
+DialogSchema.virtual("approval_rate").get(calculatesApprovalRate);
 
 module.exports = model("Dialog", DialogSchema);
