@@ -103,12 +103,13 @@ describe("Dialog consultation", () => {
   });
 
   it("Check invalid query", async () => {
-    const responseQuery = await request.get("/v1/dialog").query({
+    const response = await request.get("/v1/dialog").query({
       invalid: "invalid",
     });
 
-    expect(responseQuery.statusCode).toBe(404);
-    expect(responseQuery.header["x-total-count"]).toBe("0");
+    expect(response.statusCode).toBe(404);
+    expect(response.body.error).toBeTruthy();
+    expect(response.header["x-total-count"]).toBe("0");
   });
 
   it("Check return of fields and status", async () => {
