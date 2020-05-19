@@ -2,10 +2,12 @@ const User = require("../models/User");
 
 const Response = require("../utils/responses");
 
-const jwtGenerate = require("../utils/jwtGenerate");
+const JwtManager = require("../utils/jwtManager");
 
 module.exports = async (req, res) => {
   const { name, picture, email, password } = req.body;
+
+  const jwt = new JwtManager();
 
   const response = new Response(res);
   const { entities } = response;
@@ -33,7 +35,7 @@ module.exports = async (req, res) => {
       .code(response.SUCCESS_POST)
       .data({ user })
       .metadata({
-        token: jwtGenerate({ id: user.id }),
+        token: jwt.generate({ id: user.id }),
       })
       .send();
   } catch (error) {

@@ -2,12 +2,14 @@ const bcrypt = require("bcrypt");
 const Response = require("../utils/responses");
 const User = require("../models/User");
 
-const jwtGenerate = require("../utils/jwtGenerate");
+const JwtManager = require("../utils/jwtManager");
 
 module.exports = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
+
+  const jwt = new JwtManager();
 
   const response = new Response(res);
   const { entities } = response;
@@ -34,6 +36,6 @@ module.exports = async (req, res) => {
     .entity(entities.USER)
     .code(response.SUCCESS_POST)
     .data({ user })
-    .metadata({ token: jwtGenerate({ id: user.id }) })
+    .metadata({ token: jwt.generate({ id: user.id }) })
     .send();
 };

@@ -1,12 +1,13 @@
 /* eslint-disable consistent-return */
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
+
+const JwtManager = require("../utils/jwtManager");
 
 const Response = require("../utils/responses");
 
-const { SECRET_KEY } = process.env;
+module.exports = async (req, res, next) => {
+  const jwt = new JwtManager();
 
-module.exports = (req, res, next) => {
   const response = new Response(res);
   const { entities } = response;
 
@@ -28,10 +29,13 @@ module.exports = (req, res, next) => {
   if (!/^Bearer$/i.test(schema))
     return badRequest.message("Token malformatted").send();
 
-  jwt.verify(token, SECRET_KEY, (err, decoded) => {
-    if (err) return badRequest.message("Token invalid").send();
+  try {
+    const decoded = await jwt.verify(token);
 
     req.userId = decoded.id;
+
     return next();
-  });
+  } catch (error) {
+    badRequest.message("Token invalid").send();
+  }
 };
