@@ -1,5 +1,7 @@
 const User = require("../models/User");
 
+const Response = require("../utils/responses");
+
 const jwtGenerate = require("../utils/jwtGenerate");
 
 module.exports = async (req, res) => {
@@ -15,11 +17,22 @@ module.exports = async (req, res) => {
 
     return res.status(201).json({ user, token: jwtGenerate({ id: user.id }) });
   } catch (err) {
-    const error =
-      err.name === "ValidationError"
-        ? res.status(400).json({ error: err.message })
-        : res.status(500).json({ error: "Registration failed" });
+    const isValidationError = err.name === "ValidationError";
 
-    return error;
+    const response = new Response(res);
+    const { entities } = response;
+
+    const code = isValidationError
+      ? response.INVALID_REQUEST
+      : response.INTERNAL_ERROR;
+
+    const message = isValidationError ? err.message : "Registration failed";
+
+    return response
+      .isError()
+      .entity(entities.USER)
+      .code(code)
+      .message(message)
+      .send();
   }
 };

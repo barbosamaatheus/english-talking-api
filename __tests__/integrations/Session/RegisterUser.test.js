@@ -57,7 +57,8 @@ describe("Register User", () => {
     });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe(
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(
       "User validation failed: email: email adreess is not a valid!"
     );
   });
@@ -72,7 +73,8 @@ describe("Register User", () => {
     });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe(
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(
       "User validation failed: email: Path `email` is required."
     );
   });
@@ -86,7 +88,8 @@ describe("Register User", () => {
     });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe(
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(
       "User validation failed: name: Path `name` is required."
     );
   });
@@ -100,7 +103,8 @@ describe("Register User", () => {
     });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe(
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(
       "User validation failed: password: Path `password` is required."
     );
   });
