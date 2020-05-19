@@ -92,6 +92,12 @@ module.exports = class Response {
     return `success-created/${this.required.entity.value}`;
   }
 
+  // When the action required is a get request and request is successful
+  get SUCCESS_GET() {
+    this.status = 200;
+    return `success-get/${this.required.entity.value}`;
+  }
+
   // When the action required is a delete request and request is successful
   get SUCCESS_DELETE() {
     this.status = 204;

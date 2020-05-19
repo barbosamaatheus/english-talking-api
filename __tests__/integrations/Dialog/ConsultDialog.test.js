@@ -39,7 +39,7 @@ describe("Dialog consultation", () => {
     const response = await request.get("/v1/dialog").set("limit", limit);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveLength(1);
+    expect(response.body.data).toHaveLength(1);
   });
   it("Check the limit with an invalid value", async () => {
     const response = await request
@@ -47,7 +47,7 @@ describe("Dialog consultation", () => {
       .set("limit", "invalidLimit");
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveLength(2);
+    expect(response.body.data).toHaveLength(2);
   });
 
   it("Check the page with a valid value", async () => {
@@ -63,7 +63,7 @@ describe("Dialog consultation", () => {
 
     expect(page1.statusCode).toBe(200);
     expect(page2.statusCode).toBe(200);
-    expect(page1.body[0]["_id"]).not.toBe(page2.body[0]["_id"]);
+    expect(page1.body.data[0]["_id"]).not.toBe(page2.body.data[0]["_id"]);
   });
 
   it("Check the page with an invalid value", async () => {
@@ -95,11 +95,11 @@ describe("Dialog consultation", () => {
     const responseSpeech = await request.get("/v1/dialog").query({ speech });
     const responseAnswer = await request.get("/v1/dialog").query({ answer });
 
-    expect(responseStatus.body[0].status).toBe("analyzing");
-    expect(responseUser.body[0].user).toBe(userId);
-    expect(responseId.body[0]["_id"]).toBe(dialogId);
-    expect(responseSpeech.body[0].speech).toBe(speech);
-    expect(responseAnswer.body[0].answer).toBe(answer);
+    expect(responseStatus.body.data[0].status).toBe("analyzing");
+    expect(responseUser.body.data[0].user).toBe(userId);
+    expect(responseId.body.data[0]["_id"]).toBe(dialogId);
+    expect(responseSpeech.body.data[0].speech).toBe(speech);
+    expect(responseAnswer.body.data[0].answer).toBe(answer);
   });
 
   it("Check invalid query", async () => {
@@ -115,10 +115,10 @@ describe("Dialog consultation", () => {
     const response = await request.get("/v1/dialog");
 
     expect(response.statusCode).toBe(200);
-    expect(response.body[0].user).toBe(userId);
-    expect(response.body[0]["_id"]).toBe(dialogId);
-    expect(response.body[0].speech).toBe(speech);
-    expect(response.body[0].answer).toBe(answer);
-    expect(response.body[0].approval_rate).toBe(0);
+    expect(response.body.data[0].user).toBe(userId);
+    expect(response.body.data[0]["_id"]).toBe(dialogId);
+    expect(response.body.data[0].speech).toBe(speech);
+    expect(response.body.data[0].answer).toBe(answer);
+    expect(response.body.data[0].approval_rate).toBe(0);
   });
 });
