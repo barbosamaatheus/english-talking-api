@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
   return response
     .entity(entities.USER)
-    .code(response.SUCCESS_POST)
+    .code(response.SUCCESS_GET)
     .data({ user })
     .metadata({ token: jwt.generate({ id: user.id }) })
     .send();

@@ -12,7 +12,7 @@ class JwtManager {
     return jwt.sign(params, this.SECRET_KEY, { expiresIn: 86400 });
   }
 
-  vefy(token) {
+  verify(token) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, this.SECRET_KEY, (error, decoded) => {
         if (error) return reject(error);

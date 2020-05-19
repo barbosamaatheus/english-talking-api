@@ -5,14 +5,14 @@ const Response = require("../utils/responses");
 const JwtManager = require("../utils/jwtManager");
 
 module.exports = async (req, res) => {
-  const { name, picture, email, password } = req.body;
-
   const jwt = new JwtManager();
 
   const response = new Response(res);
   const { entities } = response;
 
   try {
+    const { name, picture, email, password } = req.body;
+
     if (await User.findOne({ email }))
       return response
         .isError()

@@ -8,8 +8,11 @@ module.exports = async (req, res) => {
   const { entities } = response;
 
   try {
+    const { speech, answer } = req.body;
+
     const dialog = await Dialog.create({
-      ...req.body,
+      speech,
+      answer,
       user: req.userId,
     });
 

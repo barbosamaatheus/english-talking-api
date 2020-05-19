@@ -23,7 +23,7 @@ describe("Authentication User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(201);
+    expect(response.statusCode).toBe(200);
     expect(response.body.error).toBeUndefined();
     expect(response.body.data.user.name).toBe(name);
     expect(response.body.data.user.email).toBe(email);
