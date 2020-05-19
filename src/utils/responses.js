@@ -4,7 +4,6 @@ module.exports = class Response {
     this.entities = {
       USER: "user",
       DIALOG: "dialog",
-      SERVICE: "service",
     };
 
     // Required properties
