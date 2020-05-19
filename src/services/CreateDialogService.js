@@ -1,11 +1,11 @@
 const Dialog = require("../models/Dialog");
 
-// const Response = require("../utils/responses");
+const Response = require("../utils/responses");
 
 module.exports = async (req, res) => {
-  // const response = new Response(res);
+  const response = new Response(res);
 
-  // const { entities } = response;
+  const { entities } = response;
 
   try {
     const dialog = await Dialog.create({
@@ -13,10 +13,21 @@ module.exports = async (req, res) => {
       user: req.userId,
     });
 
-    return res.status(201).json(dialog);
+    return response
+      .entity(entities.DIALOG)
+      .code(response.SUCCESS_POST)
+      .data(dialog)
+      .send();
   } catch (error) {
-    return error.name === "ValidationError"
-      ? res.status(400).json({ error: error.message })
-      : res.status(500).json({ error: "Dialog creation failed" });
+    const isValidationError = error.name === "ValidationError";
+
+    return response
+      .isError()
+      .entity(entities.DIALOG)
+      .code(
+        isValidationError ? response.INVALID_REQUEST : response.INTERNAL_ERROR
+      )
+      .message(isValidationError ? error.message : "Dialog creation failed")
+      .send();
   }
 };

@@ -112,7 +112,7 @@ module.exports = class Response {
 
   // When the client dont have permission to do X action
   get INVALID_AUTH() {
-    this.status = 403;
+    this.status = 401;
     return `invalid-auth/${this.response.entity}`;
   }
 

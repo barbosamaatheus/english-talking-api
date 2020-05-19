@@ -18,14 +18,14 @@ beforeAll(async () => {
     email: faker.internet.email(),
     password: faker.internet.password(),
   });
-  authorization = `Bearer ${response.body.token}`;
-  userId = response.body.user["_id"];
+  authorization = `Bearer ${response.body.metadata.token}`;
+  userId = response.body.data.user["_id"];
 
   const dialog = await request
     .post("/v1/dialog")
     .set("Authorization", authorization)
     .send({ speech, answer });
-  dialogId = dialog.body["_id"];
+  dialogId = dialog.body.data["_id"];
 
   await request
     .post("/v1/dialog")
