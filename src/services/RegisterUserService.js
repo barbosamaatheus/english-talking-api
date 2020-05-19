@@ -5,7 +5,7 @@ const Response = require("../utils/responses");
 const jwtGenerate = require("../utils/jwtGenerate");
 
 module.exports = async (req, res) => {
-  const { email } = req.body;
+  const { name, picture, email, password } = req.body;
 
   const response = new Response(res);
   const { entities } = response;
@@ -19,7 +19,12 @@ module.exports = async (req, res) => {
         .message("User already exists")
         .send();
 
-    const user = await User.create(req.body);
+    const user = await User.create({
+      name,
+      picture,
+      email,
+      password,
+    });
 
     user.password = undefined;
 
