@@ -41,7 +41,7 @@ describe("Register User", () => {
       email,
       password,
     });
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(409);
     expect(response.body.error).toBe(true);
     expect(response.body.message).toBe("User already exists");
   });

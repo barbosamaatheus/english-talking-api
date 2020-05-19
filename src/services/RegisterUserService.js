@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
       return response
         .isError()
         .entity(entities.USER)
-        .code(response.BAD_REQUEST_400)
+        .code(response.CONFLICT_409)
         .message("User already exists")
         .send();
 
