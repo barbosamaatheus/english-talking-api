@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     return response
       .isError()
       .entity(entities.USER)
-      .code(response.RESOURCE_NOT_FOUND)
+      .code(response.NOT_FOUND_404)
       .message("User not found")
       .send();
 
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     return response
       .isError()
       .entity(entities.USER)
-      .code(response.INVALID_REQUEST)
+      .code(response.BAD_REQUEST_400)
       .message("Invalid Password")
       .send();
 
@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
   return response
     .entity(entities.USER)
-    .code(response.SUCCESS_GET)
+    .code(response.OK_200)
     .data({ user })
     .metadata({ token: jwt.generate({ id: user.id }) })
     .send();

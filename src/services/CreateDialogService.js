@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
 
     return response
       .entity(entities.DIALOG)
-      .code(response.SUCCESS_POST)
+      .code(response.CREATED_201)
       .data(dialog)
       .send();
   } catch (error) {
@@ -28,7 +28,9 @@ module.exports = async (req, res) => {
       .isError()
       .entity(entities.DIALOG)
       .code(
-        isValidationError ? response.INVALID_REQUEST : response.INTERNAL_ERROR
+        isValidationError
+          ? response.BAD_REQUEST_400
+          : response.INTERNAL_SERVER_ERROR_500
       )
       .message(isValidationError ? error.message : "Dialog creation failed")
       .send();

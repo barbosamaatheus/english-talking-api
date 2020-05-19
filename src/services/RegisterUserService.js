@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
       return response
         .isError()
         .entity(entities.USER)
-        .code(response.INVALID_REQUEST)
+        .code(response.BAD_REQUEST_400)
         .message("User already exists")
         .send();
 
@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
 
     return response
       .entity(entities.USER)
-      .code(response.SUCCESS_POST)
+      .code(response.CREATED_201)
       .data({ user })
       .metadata({
         token: jwt.generate({ id: user.id }),
@@ -42,8 +42,8 @@ module.exports = async (req, res) => {
     const isValidationError = error.name === "ValidationError";
 
     const code = isValidationError
-      ? response.INVALID_REQUEST
-      : response.INTERNAL_ERROR;
+      ? response.BAD_REQUEST_400
+      : response.INTERNAL_SERVER_ERROR_500;
 
     const message = isValidationError ? error.message : "Registration failed";
 

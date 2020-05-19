@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       return response
         .isError()
         .entity(entities.DIALOG)
-        .code(response.RESOURCE_NOT_FOUND)
+        .code(response.NOT_FOUND_404)
         .message("Resource not found")
         .send();
 
@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
 
     return response
       .entity(entities.DIALOG)
-      .code(response.SUCCESS_GET)
+      .code(response.OK_200)
       .data(data)
       .send();
   } catch (err) {
@@ -49,7 +49,9 @@ module.exports = async (req, res) => {
       .isError()
       .entity(entities.DIALOG)
       .code(
-        isValidationError ? response.INVALID_REQUEST : response.INTERNAL_ERROR
+        isValidationError
+          ? response.BAD_REQUEST_400
+          : response.INTERNAL_SERVER_ERROR_500
       )
       .message(isValidationError ? err.message : "Dialog consultation failed")
       .send();

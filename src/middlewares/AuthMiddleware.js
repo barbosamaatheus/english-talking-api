@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
   const badRequest = response
     .isError()
     .entity(entities.USER)
-    .code(response.INVALID_AUTH);
+    .code(response.UNAUTHORIZED_401);
 
   const authHeader = req.headers.authorization;
 
