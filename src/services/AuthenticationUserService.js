@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const Response = require("../utils/responses");
 const User = require("../models/User");
 
 const jwtGenerate = require("../utils/jwtGenerate");
@@ -8,12 +9,31 @@ module.exports = async (req, res) => {
 
   const user = await User.findOne({ email }).select("+password");
 
-  if (!user) return res.status(404).json({ error: "User not found" });
+  const response = new Response(res);
+  const { entities } = response;
+
+  if (!user)
+    return response
+      .isError()
+      .entity(entities.USER)
+      .code(response.RESOURCE_NOT_FOUND)
+      .message("User not found")
+      .send();
 
   if (!password || !(await bcrypt.compare(password, user.password)))
-    return res.status(400).json({ error: "Invalid Password" });
+    return response
+      .isError()
+      .entity(entities.USER)
+      .code(response.INVALID_REQUEST)
+      .message("Invalid Password")
+      .send();
 
   user.password = undefined;
 
-  return res.status(200).json({ user, token: jwtGenerate({ id: user.id }) });
+  return response
+    .entity(entities.USER)
+    .code(response.SUCCESS_POST)
+    .data({ user })
+    .metadata({ token: jwtGenerate({ id: user.id }) })
+    .send();
 };

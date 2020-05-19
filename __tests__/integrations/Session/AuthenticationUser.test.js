@@ -24,9 +24,10 @@ describe("Authentication User", () => {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.user.name).toBe(name);
-    expect(response.body.user.email).toBe(email);
-    expect(response.body.token).toBeTruthy();
+    expect(response.body.error).toBeUndefined();
+    expect(response.body.data.user.name).toBe(name);
+    expect(response.body.data.user.email).toBe(email);
+    expect(response.body.metadata.token).toBeTruthy();
   });
 
   it("Check user authentication with invalid email", async () => {
@@ -36,14 +37,16 @@ describe("Authentication User", () => {
     });
 
     expect(response.statusCode).toBe(404);
-    expect(response.body.error).toBe("User not found");
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe("User not found");
   });
 
   it("Check user authentication without sending the email field", async () => {
     const response = await request.post("/v1/authenticate").send({ password });
 
     expect(response.statusCode).toBe(404);
-    expect(response.body.error).toBe("User not found");
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe("User not found");
   });
 
   it("Check user authentication with invalid password", async () => {
@@ -53,7 +56,8 @@ describe("Authentication User", () => {
     });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe("Invalid Password");
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe("Invalid Password");
   });
 
   it("Check user authentication without sending the password field", async () => {
@@ -61,6 +65,7 @@ describe("Authentication User", () => {
       email,
     });
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe("Invalid Password");
+    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe("Invalid Password");
   });
 });
