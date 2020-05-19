@@ -70,7 +70,7 @@ it("Check Response Class with successfully correctly usage", () => {
 
   expect(objectResponse.data).toBe(dataRequest);
   expect(objectResponse.metadata).toBe(metadataRequest);
-  expect(objectResponse.status).toBe(200);
+  expect(objectResponse.status).toBe(201);
   expect(objectResponse.message).toBe("Successful post");
   expect(objectResponse.code).toBe("success-created/user");
   expect(objectResponse.entity).toBe("user");

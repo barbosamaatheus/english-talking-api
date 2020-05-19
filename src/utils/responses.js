@@ -88,7 +88,7 @@ module.exports = class Response {
 
   // When the action required is a post request and request is successful
   get SUCCESS_POST() {
-    this.status = 200;
+    this.status = 201;
     return `success-created/${this.required.entity.value}`;
   }
 

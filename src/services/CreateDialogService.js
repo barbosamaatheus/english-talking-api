@@ -1,6 +1,12 @@
 const Dialog = require("../models/Dialog");
 
+// const Response = require("../utils/responses");
+
 module.exports = async (req, res) => {
+  // const response = new Response(res);
+
+  // const { entities } = response;
+
   try {
     const dialog = await Dialog.create({
       ...req.body,
