@@ -1,25 +1,57 @@
 const User = require("../models/User");
 
-const jwtGenerate = require("../utils/jwtGenerate");
+const Response = require("../utils/responses");
+
+const JwtManager = require("../utils/jwtManager");
 
 module.exports = async (req, res) => {
-  const { email } = req.body;
+  const jwt = new JwtManager();
+
+  const response = new Response(res);
+  const { entities } = response;
 
   try {
-    if (await User.findOne({ email }))
-      return res.status(400).json({ error: "User already exists" });
+    const { name, picture, email, password } = req.body;
 
-    const user = await User.create(req.body);
+    if (await User.findOne({ email }))
+      return response
+        .isError()
+        .entity(entities.USER)
+        .code(response.CONFLICT_409)
+        .message("User already exists")
+        .send();
+
+    const user = await User.create({
+      name,
+      picture,
+      email,
+      password,
+    });
 
     user.password = undefined;
 
-    return res.status(201).json({ user, token: jwtGenerate({ id: user.id }) });
-  } catch (err) {
-    const error =
-      err.name === "ValidationError"
-        ? res.status(400).json({ error: err.message })
-        : res.status(500).json({ error: "Registration failed" });
+    return response
+      .entity(entities.USER)
+      .code(response.CREATED_201)
+      .data({ user })
+      .metadata({
+        token: jwt.generate({ id: user.id }),
+      })
+      .send();
+  } catch (error) {
+    const isValidationError = error.name === "ValidationError";
 
-    return error;
+    const code = isValidationError
+      ? response.BAD_REQUEST_400
+      : response.INTERNAL_SERVER_ERROR_500;
+
+    const message = isValidationError ? error.message : "Registration failed";
+
+    return response
+      .isError()
+      .entity(entities.USER)
+      .code(code)
+      .message(message)
+      .send();
   }
 };

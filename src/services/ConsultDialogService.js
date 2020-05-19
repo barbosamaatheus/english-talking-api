@@ -1,4 +1,5 @@
 const Dialog = require("../models/Dialog");
+const Response = require("../utils/responses");
 
 module.exports = async (req, res) => {
   const { limit, page } = req.headers;
@@ -7,6 +8,10 @@ module.exports = async (req, res) => {
     limit: parseInt(limit, 10) || 10,
     page: parseInt(page, 10) || 1,
   };
+
+  const response = new Response(res);
+  const { entities } = response;
+
   try {
     const dialogues = await Dialog.find(req.query, null, {
       limit: options.limit,
@@ -16,19 +21,39 @@ module.exports = async (req, res) => {
     const count = await Dialog.countDocuments(req.query);
     res.header("X-Total-Count", count);
 
-    if (!count) return res.status(404).send();
+    if (!count)
+      return response
+        .isError()
+        .entity(entities.DIALOG)
+        .code(response.NOT_FOUND_404)
+        .message("Resource not found")
+        .send();
 
-    const response = dialogues.map((element) => {
+    const data = dialogues.map((element) => {
       return {
         // eslint-disable-next-line dot-notation
         ...element["_doc"],
         approval_rate: element.approval_rate,
       };
     });
-    return res.status(200).json(response);
+
+    return response
+      .entity(entities.DIALOG)
+      .code(response.OK_200)
+      .data(data)
+      .send();
   } catch (err) {
-    return err.name === "ValidationError"
-      ? res.status(400).json({ error: err.message })
-      : res.status(500).json({ error: "Dialog consultation failed" });
+    const isValidationError = err.name === "ValidationError";
+
+    return response
+      .isError()
+      .entity(entities.DIALOG)
+      .code(
+        isValidationError
+          ? response.BAD_REQUEST_400
+          : response.INTERNAL_SERVER_ERROR_500
+      )
+      .message(isValidationError ? err.message : "Dialog consultation failed")
+      .send();
   }
 };

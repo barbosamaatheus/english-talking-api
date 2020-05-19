@@ -1,13 +1,38 @@
 const Dialog = require("../models/Dialog");
 
-module.exports = async (req, res) => {
-  const response = await Dialog.create({ ...req.body, user: req.userId })
-    .then((item) => res.status(201).json(item))
-    .catch((error) =>
-      error.name === "ValidationError"
-        ? res.status(400).json({ error: error.message })
-        : res.status(500).json({ error: "Dialog creation failed" })
-    );
+const Response = require("../utils/responses");
 
-  return response;
+module.exports = async (req, res) => {
+  const response = new Response(res);
+
+  const { entities } = response;
+
+  try {
+    const { speech, answer } = req.body;
+
+    const dialog = await Dialog.create({
+      speech,
+      answer,
+      user: req.userId,
+    });
+
+    return response
+      .entity(entities.DIALOG)
+      .code(response.CREATED_201)
+      .data(dialog)
+      .send();
+  } catch (error) {
+    const isValidationError = error.name === "ValidationError";
+
+    return response
+      .isError()
+      .entity(entities.DIALOG)
+      .code(
+        isValidationError
+          ? response.BAD_REQUEST_400
+          : response.INTERNAL_SERVER_ERROR_500
+      )
+      .message(isValidationError ? error.message : "Dialog creation failed")
+      .send();
+  }
 };
