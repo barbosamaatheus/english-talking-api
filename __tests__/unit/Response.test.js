@@ -1,3 +1,4 @@
+const faker = require("faker");
 const Response = require("../../src/utils/responses");
 
 const FakeRes = class {
@@ -36,7 +37,7 @@ it("Check Response Class without sending the 'entity' field", () => {
 
   const response = new Response(res);
 
-  const test = () => response.message("I am a test").send();
+  const test = () => response.message(faker.lorem.paragraph()).send();
 
   expect(test).toThrow(
     "This request dont have a entity, set this with: response.entity(response.entities.CHOOSE_A_ENTITY);"
