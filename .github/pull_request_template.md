@@ -2,5 +2,4 @@ Resolves: IssueID
 
 
 **Changelogs**
-
-clearly describe your changes
+<!-- clearly describe your changes. -->
