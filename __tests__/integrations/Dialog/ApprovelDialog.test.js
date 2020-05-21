@@ -1,0 +1,78 @@
+/* eslint-disable dot-notation */
+const supertest = require("supertest");
+const faker = require("faker");
+const app = require("../../../src/app");
+
+const request = supertest(app);
+
+let authorization;
+let dialogId;
+
+beforeAll(async () => {
+  const response = await request.post("/v1/register").send({
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+  });
+  authorization = `Bearer ${response.body.metadata.token}`;
+});
+
+beforeEach(async () => {
+  const dialog = await request
+    .post("/v1/dialog")
+    .set("Authorization", authorization)
+    .send({ speech: faker.lorem.sentence(), answer: faker.lorem.sentence() });
+  dialogId = dialog.body.data["_id"];
+});
+
+describe("Dialog consultation", () => {
+  it("Check successful dialogue approval", async () => {
+    const response = await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    const consult = await request.get("/v1/dialog").query({ _id: dialogId });
+
+    expect(response.statusCode).toBe(204);
+
+    expect(consult.statusCode).toBe(200);
+    expect(consult.body.data[0].status).toBe("approved");
+    expect(consult.body.data[0].approval_rate).toBe(100);
+    expect(consult.body.data[0].approvals[0]).toBeTruthy();
+  });
+
+  it("Check approval of non-existent dialogue", async () => {
+    dialogId = "5e1a0651741b255ddda996c4"; // This _id not exits
+
+    const response = await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body.error).toBeTruthy();
+    expect(response.body.message).toBe("Resource not found");
+  });
+
+  it("Check behavior with the user already experienced in this dialog", async () => {
+    await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    const response = await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    expect(response.statusCode).toBe(409);
+    expect(response.body.error).toBeTruthy();
+    expect(response.body.entity).toBe("user");
+    expect(response.body.message).toBe("User has already approved this dialog");
+  });
+
+  /* 
+  
+  ------> TODO <-------
+  When the feature disapproves is complete. Add here a test that checks for an approval_rate less than 70. 
+  In this case, the status should continue to be "analyzing".
+
+  */
+});

@@ -37,7 +37,7 @@ describe("Authentication User", () => {
     });
 
     expect(response.statusCode).toBe(404);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("User not found");
   });
 
@@ -45,7 +45,7 @@ describe("Authentication User", () => {
     const response = await request.post("/v1/authenticate").send({ password });
 
     expect(response.statusCode).toBe(404);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("User not found");
   });
 
@@ -56,7 +56,7 @@ describe("Authentication User", () => {
     });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Invalid Password");
   });
 
@@ -65,7 +65,7 @@ describe("Authentication User", () => {
       email,
     });
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Invalid Password");
   });
 });

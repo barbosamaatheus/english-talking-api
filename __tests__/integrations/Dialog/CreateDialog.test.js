@@ -23,7 +23,7 @@ describe("Authentication POST /dialog", () => {
     const response = await request.post("/v1/dialog").send({ speech, answer });
 
     expect(response.statusCode).toBe(401);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("No token provider");
   });
 
@@ -34,7 +34,7 @@ describe("Authentication POST /dialog", () => {
       .send({ speech, answer });
 
     expect(response.statusCode).toBe(401);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Token error");
   });
 
@@ -45,7 +45,7 @@ describe("Authentication POST /dialog", () => {
       .send({ speech, answer });
 
     expect(response.statusCode).toBe(401);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Token malformatted");
   });
 
@@ -56,7 +56,7 @@ describe("Authentication POST /dialog", () => {
       .send({ speech, answer });
 
     expect(response.statusCode).toBe(401);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Token invalid");
   });
 });
