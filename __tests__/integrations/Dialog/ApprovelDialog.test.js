@@ -75,4 +75,22 @@ describe("Dialog consultation", () => {
   In this case, the status should continue to be "analyzing".
 
   */
+  it("Verify that the pass rate is less than 70", async () => {
+    const responseApproval = await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    const responseDisapproval = await request
+      .put(`/v1/dialog/${dialogId}/reject`)
+      .set("Authorization", authorization);
+
+    const consult = await request.get("/v1/dialog").query({ _id: dialogId });
+
+    expect(responseApproval.statusCode).toBe(204);
+    expect(responseDisapproval.statusCode).toBe(204);
+
+    expect(consult.statusCode).toBe(200);
+    expect(consult.body.data[0].approval_rate).toBe(50);
+    expect(consult.body.data[0].status).toBe("analyzing");
+  });
 });
