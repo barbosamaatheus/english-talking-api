@@ -34,7 +34,11 @@ module.exports = async (req, res) => {
 
     dialogue.approvals.push(userId);
 
-    if (dialogue.approval_rate >= 70) dialogue.status = "approved";
+    if (dialogue.approval_rate >= 70) {
+      dialogue.status = "approved";
+    } else {
+      dialogue.status = "analyzing";
+    }
 
     await dialogue.save();
 
