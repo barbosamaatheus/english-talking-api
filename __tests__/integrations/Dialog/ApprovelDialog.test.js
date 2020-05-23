@@ -68,13 +68,6 @@ describe("Dialog consultation", () => {
     expect(response.body.message).toBe("User has already approved this dialog");
   });
 
-  /* 
-  
-  ------> TODO <-------
-  When the feature disapproves is complete. Add here a test that checks for an approval_rate less than 70. 
-  In this case, the status should continue to be "analyzing".
-
-  */
   it("Verify that the pass rate is less than 70", async () => {
     const responseApproval = await request
       .put(`/v1/dialog/${dialogId}/approval`)
