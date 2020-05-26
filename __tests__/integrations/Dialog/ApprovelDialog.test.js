@@ -69,9 +69,16 @@ describe("Dialog consultation", () => {
   });
 
   it("Verify that the pass rate is less than 70", async () => {
+    const response = await request.post("/v1/register").send({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
+    const newToken = `Bearer ${response.body.metadata.token}`;
+
     const responseApproval = await request
       .put(`/v1/dialog/${dialogId}/approval`)
-      .set("Authorization", authorization);
+      .set("Authorization", newToken);
 
     const responseDisapproval = await request
       .put(`/v1/dialog/${dialogId}/reject`)
@@ -85,5 +92,19 @@ describe("Dialog consultation", () => {
     expect(consult.statusCode).toBe(200);
     expect(consult.body.data[0].approval_rate).toBe(50);
     expect(consult.body.data[0].status).toBe("analyzing");
+  });
+
+  it("Verify removal of the user from the list of disapprovals", async () => {
+    await request
+      .put(`/v1/dialog/${dialogId}/reject`)
+      .set("Authorization", authorization);
+
+    await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    const consult = await request.get("/v1/dialog").query({ _id: dialogId });
+
+    expect(consult.body.data[0].disapprovals).toEqual([]);
   });
 });

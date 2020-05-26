@@ -54,9 +54,16 @@ describe("Dialog consultation", () => {
   });
 
   it("Check if the bounce rate is less than 70", async () => {
+    const response = await request.post("/v1/register").send({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
+    const newToken = `Bearer ${response.body.metadata.token}`;
+
     const responseDisapproval = await request
       .put(`/v1/dialog/${dialogId}/reject`)
-      .set("Authorization", authorization);
+      .set("Authorization", newToken);
 
     const responseApproval = await request
       .put(`/v1/dialog/${dialogId}/approval`)
@@ -87,5 +94,19 @@ describe("Dialog consultation", () => {
     expect(response.body.message).toBe(
       "The user has already disapproved of this dialog"
     );
+  });
+
+  it("Verify removal of the user from the list of approvals", async () => {
+    await request
+      .put(`/v1/dialog/${dialogId}/approval`)
+      .set("Authorization", authorization);
+
+    await request
+      .put(`/v1/dialog/${dialogId}/reject`)
+      .set("Authorization", authorization);
+
+    const consult = await request.get("/v1/dialog").query({ _id: dialogId });
+
+    expect(consult.body.data[0].approvals).toEqual([]);
   });
 });
