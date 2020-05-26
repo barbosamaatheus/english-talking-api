@@ -20,8 +20,8 @@ module.exports = async (req, res) => {
         .send();
 
     const index = dialogue.disapprovals.indexOf(userId);
-    if (index > -1)
-      dialogue.disapprovals = dialogue.disapprovals.splice(index, 1);
+
+    if (index > -1) dialogue.disapprovals.splice(index, 1);
 
     if (dialogue.approvals.includes(userId))
       return response
