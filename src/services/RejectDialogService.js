@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
         .send();
 
     const index = dialogue.approvals.indexOf(userId);
-    if (index > -1) {
+  if (index > -1) dialogue.approvals = dialogue.approvals.splice(index, 1);
       dialogue.approvals = dialogue.approvals.splice(index, 1);
     }
 
