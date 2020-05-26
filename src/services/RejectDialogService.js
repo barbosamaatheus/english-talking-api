@@ -19,21 +19,21 @@ module.exports = async (req, res) => {
         .message("Resource not found")
         .send();
 
-    const index = dialogue.disapprovals.indexOf(userId);
+    const index = dialogue.approvals.indexOf(userId);
 
-    if (index > -1) dialogue.disapprovals.splice(index, 1);
+    if (index > -1) dialogue.approvals.splice(index, 1);
 
-    if (dialogue.approvals.includes(userId))
+    if (dialogue.disapprovals.includes(userId))
       return response
         .isError()
         .entity(entities.USER)
         .code(response.CONFLICT_409)
-        .message("User has already approved this dialog")
+        .message("The user has already disapproved of this dialog")
         .send();
 
-    dialogue.approvals.push(userId);
+    dialogue.disapprovals.push(userId);
 
-    if (dialogue.approval_rate >= 70) dialogue.status = "approved";
+    if (dialogue.approval_rate < 70) dialogue.status = "analyzing";
 
     await dialogue.save();
 
@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
 
     const message = isValidationError
       ? error.message
-      : "Dialog approvel failed";
+      : "Dialog Disapprovel failed";
 
     return response
       .isError()

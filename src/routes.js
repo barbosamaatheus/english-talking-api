@@ -18,5 +18,10 @@ routes.put(
   AuthMiddleware,
   RatingsController.approval
 );
+routes.put(
+  "/v1/dialog/:dialogId/reject",
+  AuthMiddleware,
+  RatingsController.reject
+);
 
 module.exports = routes;
