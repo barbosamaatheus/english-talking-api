@@ -6,7 +6,6 @@ const app = require("../../../src/app");
 const request = supertest(app);
 
 let authorization;
-// eslint-disable-next-line no-unused-vars
 let dialogId;
 
 beforeAll(async () => {
@@ -54,22 +53,6 @@ describe("Dialog consultation", () => {
     expect(response.body.message).toBe("Resource not found");
   });
 
-  it("Check behavior with the user already experienced in this dialog", async () => {
-    await request
-      .put(`/v1/dialog/${dialogId}/reject`)
-      .set("Authorization", authorization);
-
-    const response = await request
-      .put(`/v1/dialog/${dialogId}/reject`)
-      .set("Authorization", authorization);
-
-    expect(response.statusCode).toBe(409);
-    expect(response.body.error).toBeTruthy();
-    expect(response.body.entity).toBe("user");
-    expect(response.body.message).toBe(
-      "The user has already disapproved of this dialog"
-    );
-  });
   it("Check if the bounce rate is less than 70", async () => {
     const responseDisapproval = await request
       .put(`/v1/dialog/${dialogId}/reject`)
@@ -87,5 +70,22 @@ describe("Dialog consultation", () => {
     expect(consult.statusCode).toBe(200);
     expect(consult.body.data[0].approval_rate).toBe(50);
     expect(consult.body.data[0].status).toBe("analyzing");
+  });
+
+  it("Check behavior with the user already experienced in this dialog", async () => {
+    await request
+      .put(`/v1/dialog/${dialogId}/reject`)
+      .set("Authorization", authorization);
+
+    const response = await request
+      .put(`/v1/dialog/${dialogId}/reject`)
+      .set("Authorization", authorization);
+
+    expect(response.statusCode).toBe(409);
+    expect(response.body.error).toBeTruthy();
+    expect(response.body.entity).toBe("user");
+    expect(response.body.message).toBe(
+      "The user has already disapproved of this dialog"
+    );
   });
 });
