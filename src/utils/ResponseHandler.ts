@@ -1,35 +1,13 @@
 import { Response as HTTPResponse } from "express";
+
 import { FakeResponseHandler } from "../../__tests__/mocks/FakeResponseHandler";
-
-interface Entity {
-  message: string;
-  value: undefined | string;
-}
-
-interface Code {
-  message: string;
-  value: undefined | string;
-}
-
-interface Entities {
-  [key: string]: string;
-}
-
-interface Required {
-  [key: string]: any;
-  entity: Entity;
-  code: Code;
-}
-
-interface IResponse {
-  entity?: string;
-  code?: string;
-  status?: number;
-  error?: boolean;
-  message?: string;
-  data?: any;
-  metadata?: any;
-}
+import {
+  Entities,
+  Required,
+  IResponse,
+  Data,
+  Metadata,
+} from "./ResponseHandler.d";
 
 export class ResponseHandler {
   entities: Entities;
@@ -106,12 +84,12 @@ export class ResponseHandler {
     return this;
   }
 
-  data(data: any) {
+  data(data: Data) {
     this.response.data = data;
     return this;
   }
 
-  metadata(metadata: any) {
+  metadata(metadata: Metadata) {
     this.response.metadata = metadata;
     return this;
   }

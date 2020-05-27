@@ -1,17 +1,9 @@
 import "../config/env";
 import jwt from "jsonwebtoken";
 
-interface Decoded {
-  id: string;
-  value: string;
-}
+import { Decoded } from "./JwtManager.d";
 
-interface IJwtManager {
-  generate: () => string;
-  verify: (token: string) => Promise<Decoded>;
-}
-
-export class JwtManager implements IJwtManager {
+export class JwtManager {
   SECRET_KEY: string;
 
   constructor() {

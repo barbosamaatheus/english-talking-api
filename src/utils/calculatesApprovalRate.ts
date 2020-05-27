@@ -1,9 +1,4 @@
-import { Schema } from "mongoose";
-
-interface ICalculatesApprovalRate {
-  approvals: Schema.Types.ObjectId[];
-  disapprovals: Schema.Types.ObjectId[];
-}
+import { ICalculatesApprovalRate } from "./calculatesApprovalRate.d";
 
 export default function calculatesApprovalRate({
   approvals,
