@@ -4,8 +4,10 @@ import { Schema } from "mongoose";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
+type UserID = Schema.Types.ObjectId;
+
 interface Request extends ExpressRequest {
-  userId?: Schema.Types.ObjectId;
+  userId?: UserID;
 }
 
 export default async function ApprovalDialogService(
@@ -29,13 +31,11 @@ export default async function ApprovalDialogService(
         .message("Resource not found")
         .send();
 
-    const index = dialogue.disapprovals.indexOf(
-      userId as Schema.Types.ObjectId
-    );
+    const index = dialogue.disapprovals.indexOf(userId as UserID);
 
     if (index > -1) dialogue.disapprovals.splice(index, 1);
 
-    if (dialogue.approvals.includes(userId as Schema.Types.ObjectId))
+    if (dialogue.approvals.includes(userId as UserID))
       return response
         .isError()
         .entity(entities.USER)
@@ -43,7 +43,7 @@ export default async function ApprovalDialogService(
         .message("User has already approved this dialog")
         .send();
 
-    dialogue.approvals.push(userId as Schema.Types.ObjectId);
+    dialogue.approvals.push(userId as UserID);
 
     if (dialogue.approval_rate >= 70) dialogue.status = "approved";
 

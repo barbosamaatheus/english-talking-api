@@ -4,8 +4,10 @@ import { Schema } from "mongoose";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
+type UserID = Schema.Types.ObjectId;
+
 interface Request extends ExpressRequest {
-  userId?: Schema.Types.ObjectId;
+  userId?: UserID;
 }
 
 export default async function RejectDialogService(req: Request, res: Response) {
@@ -26,11 +28,11 @@ export default async function RejectDialogService(req: Request, res: Response) {
         .message("Resource not found")
         .send();
 
-    const index = dialogue.approvals.indexOf(userId as Schema.Types.ObjectId);
+    const index = dialogue.approvals.indexOf(userId as UserID);
 
     if (index > -1) dialogue.approvals.splice(index, 1);
 
-    if (dialogue.disapprovals.includes(userId as Schema.Types.ObjectId))
+    if (dialogue.disapprovals.includes(userId as UserID))
       return response
         .isError()
         .entity(entities.USER)
@@ -38,7 +40,7 @@ export default async function RejectDialogService(req: Request, res: Response) {
         .message("The user has already disapproved of this dialog")
         .send();
 
-    dialogue.disapprovals.push(userId as Schema.Types.ObjectId);
+    dialogue.disapprovals.push(userId as UserID);
 
     if (dialogue.approval_rate < 70) dialogue.status = "analyzing";
 
