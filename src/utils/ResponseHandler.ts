@@ -21,22 +21,14 @@ interface Required {
   code: Code;
 }
 
-interface Data {
-  [key: string]: string;
-}
-
-interface Metadata {
-  [key: string]: string;
-}
-
 interface IResponse {
   entity?: string;
   code?: string;
   status?: number;
   error?: boolean;
   message?: string;
-  data?: Data;
-  metadata?: Metadata;
+  data?: any;
+  metadata?: any;
 }
 
 export class ResponseHandler {
@@ -114,12 +106,12 @@ export class ResponseHandler {
     return this;
   }
 
-  data(data: Data) {
+  data(data: any) {
     this.response.data = data;
     return this;
   }
 
-  metadata(metadata: Metadata) {
+  metadata(metadata: any) {
     this.response.metadata = metadata;
     return this;
   }
