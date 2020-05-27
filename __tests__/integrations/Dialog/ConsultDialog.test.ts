@@ -6,8 +6,8 @@ import app from "../../../src/app";
 const request = supertest(app);
 
 let authorization;
-let userId: any;
-let dialogId: any;
+let userId: string;
+let dialogId: string;
 
 const speech = faker.lorem.sentence();
 const answer = faker.lorem.sentence();
