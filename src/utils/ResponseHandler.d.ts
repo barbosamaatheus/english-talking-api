@@ -25,7 +25,7 @@ export type Data =
   | DialogType
   | DialogType[]
   | {
-      user?: UserType | { name: string; email: string };
+      user?: UserType;
     };
 
 export interface Metadata {

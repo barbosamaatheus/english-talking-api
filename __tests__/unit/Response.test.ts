@@ -2,6 +2,7 @@ import faker from "faker";
 
 import { ResponseHandler } from "../../src/utils/ResponseHandler";
 import { FakeResponseHandler } from "../mocks/FakeResponseHandler";
+import User from "../../src/models/User";
 
 const res = new FakeResponseHandler();
 
@@ -35,16 +36,20 @@ it("Check Response Class without sending the 'entity' field", () => {
   );
 });
 
-it("Check Response Class with successfully correctly usage", () => {
+it("Check Response Class with successfully correctly usage", async () => {
   const response = new ResponseHandler(res);
 
   const { entities } = response;
 
+  const user = await User.create({
+    name: "Foo bar",
+    email: "foobar@gmail.com",
+    picture: "foobar",
+    password: "asd",
+  });
+
   const dataRequest = {
-    user: {
-      name: "Foo bar",
-      email: "foobar@gmail.com",
-    },
+    user,
   };
   const metadataRequest = {
     token: "Imagine a random token jwt here, thank you",
