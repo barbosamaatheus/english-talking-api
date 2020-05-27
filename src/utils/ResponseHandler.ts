@@ -32,10 +32,10 @@ interface IResponse {
 }
 
 export class ResponseHandler {
-  entities!: Entities;
-  required!: Required;
-  response!: IResponse;
-  res!: HTTPResponse<IResponse> | FakeResponseHandler;
+  entities: Entities;
+  required: Required;
+  response: IResponse;
+  res: HTTPResponse<IResponse> | FakeResponseHandler;
   status!: number;
 
   constructor(res: HTTPResponse | FakeResponseHandler) {

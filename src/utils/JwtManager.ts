@@ -12,7 +12,7 @@ interface IJwtManager {
 }
 
 export class JwtManager implements IJwtManager {
-  SECRET_KEY!: string;
+  SECRET_KEY: string;
 
   constructor() {
     this.SECRET_KEY = process.env.SECRET_KEY as string;
