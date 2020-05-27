@@ -6,7 +6,7 @@ import { IRequest, IResponse, UserID } from "../http.d";
 export default async function RejectDialogService(
   req: IRequest,
   res: IResponse
-) {
+): Promise<ResponseHandler> {
   const response = new ResponseHandler(res);
   const { entities } = response;
 

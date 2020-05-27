@@ -7,7 +7,7 @@ import { IRequest, IResponse } from "../http.d";
 export default async function RegisterUserService(
   req: IRequest,
   res: IResponse
-) {
+): Promise<ResponseHandler> {
   const jwt = new JwtManager();
 
   const response = new ResponseHandler(res);

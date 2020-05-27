@@ -6,7 +6,7 @@ import { IRequest, IResponse } from "../http.d";
 export default async function CreateDialogService(
   req: IRequest,
   res: IResponse
-) {
+): Promise<ResponseHandler> {
   const response = new ResponseHandler(res);
 
   const { entities } = response;

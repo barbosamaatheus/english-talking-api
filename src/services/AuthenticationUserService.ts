@@ -9,7 +9,7 @@ import { IRequest, IResponse } from "../http.d";
 export default async function AuthenticationUserService(
   req: IRequest,
   res: IResponse
-) {
+): Promise<ResponseHandler> {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");

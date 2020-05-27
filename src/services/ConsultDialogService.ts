@@ -6,7 +6,7 @@ import { IRequest, IResponse } from "../http.d";
 export default async function ConsultDialogService(
   req: IRequest,
   res: IResponse
-) {
+): Promise<ResponseHandler> {
   const { limit, page } = req.headers;
 
   const options = {
