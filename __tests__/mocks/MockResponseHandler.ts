@@ -1,4 +1,4 @@
-export class FakeResponseHandler {
+export class MockResponseHandler {
   status: () => this;
   json: (response: any) => any;
 

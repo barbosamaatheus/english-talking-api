@@ -1,10 +1,10 @@
 import faker from "faker";
 
 import { ResponseHandler } from "../../src/utils/ResponseHandler";
-import { FakeResponseHandler } from "../mocks/FakeResponseHandler";
+import { MockResponseHandler } from "../mocks/MockResponseHandler";
 import User from "../../src/models/User";
 
-const res = new FakeResponseHandler();
+const res = new MockResponseHandler();
 
 it("Check Response Class sending 'entity' field after 'code' field", () => {
   const response = new ResponseHandler(res);

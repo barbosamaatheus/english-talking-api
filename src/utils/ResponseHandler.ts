@@ -1,6 +1,6 @@
 import { Response as IHTTPResponse } from "express";
 
-import { FakeResponseHandler } from "../../__tests__/mocks/FakeResponseHandler";
+import { MockResponseHandler } from "../../__tests__/mocks/MockResponseHandler";
 import {
   IEntities,
   IRequired,
@@ -13,10 +13,10 @@ export class ResponseHandler {
   entities: IEntities;
   required: IRequired;
   response: IResponse;
-  res: IHTTPResponse<IResponse> | FakeResponseHandler;
+  res: IHTTPResponse<IResponse> | MockResponseHandler;
   status!: number;
 
-  constructor(res: IHTTPResponse | FakeResponseHandler) {
+  constructor(res: IHTTPResponse | MockResponseHandler) {
     // All available API entities
     this.entities = {
       USER: "user",
