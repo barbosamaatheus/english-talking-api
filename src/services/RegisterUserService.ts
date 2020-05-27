@@ -1,13 +1,13 @@
-const User = require("../models/User");
+import { Request, Response } from "express";
 
-const Response = require("../utils/responses");
+import { JwtManager } from "../utils/JwtManager";
+import { ResponseHandler } from "../utils/ResponseHandler";
+import User from "../models/User";
 
-const JwtManager = require("../utils/jwtManager");
-
-module.exports = async (req, res) => {
+export default async function RegisterUserService(req: Request, res: Response) {
   const jwt = new JwtManager();
 
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
   const { entities } = response;
 
   try {
@@ -54,4 +54,4 @@ module.exports = async (req, res) => {
       .message(message)
       .send();
   }
-};
+}

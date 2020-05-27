@@ -1,7 +1,14 @@
-const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
+import { Schema, model, Document } from "mongoose";
+import bcrypt from "bcrypt";
 
-const UserSchema = new Schema(
+export type UserType = Document & {
+  name: string;
+  picture: string;
+  email: string;
+  password: string | undefined;
+};
+
+const UserSchema = new Schema<UserType>(
   {
     name: {
       type: String,
@@ -16,7 +23,7 @@ const UserSchema = new Schema(
       unique: true,
       lowercase: true,
       validate: {
-        validator: (email) => {
+        validator: (email: string) => {
           return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
             email
           );
@@ -35,11 +42,11 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.pre("save", async function generateHashPassword(next) {
+UserSchema.pre<UserType>("save", async function generateHashPassword(next) {
   const hash = await bcrypt.hash(this.password, 10);
   this.password = hash;
 
   next();
 });
 
-module.exports = model("User", UserSchema);
+export default model<UserType>("User", UserSchema);

@@ -1,15 +1,20 @@
-const Dialog = require("../models/Dialog");
-const Response = require("../utils/responses");
+import { Request, Response } from "express";
 
-module.exports = async (req, res) => {
+import { ResponseHandler } from "../utils/ResponseHandler";
+import Dialog from "../models/Dialog";
+
+export default async function ConsultDialogService(
+  req: Request,
+  res: Response
+) {
   const { limit, page } = req.headers;
 
   const options = {
-    limit: parseInt(limit, 10) || 10,
-    page: parseInt(page, 10) || 1,
+    limit: parseInt(limit as string, 10) || 10,
+    page: parseInt(page as string, 10) || 1,
   };
 
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
   const { entities } = response;
 
   try {
@@ -19,7 +24,7 @@ module.exports = async (req, res) => {
     });
 
     const count = await Dialog.countDocuments(req.query);
-    res.header("X-Total-Count", count);
+    res.header("X-Total-Count", `${count}`);
 
     if (!count)
       return response
@@ -56,4 +61,4 @@ module.exports = async (req, res) => {
       .message(isValidationError ? err.message : "Dialog consultation failed")
       .send();
   }
-};
+}

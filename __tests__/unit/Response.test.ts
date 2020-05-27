@@ -1,17 +1,12 @@
-const faker = require("faker");
-const Response = require("../../src/utils/responses");
+import faker from "faker";
 
-const FakeRes = class {
-  constructor() {
-    this.status = () => this;
-    this.json = (response) => response;
-  }
-};
+import { ResponseHandler } from "../../src/utils/ResponseHandler";
+import { FakeResponseHandler } from "../mocks/FakeResponseHandler";
+
+const res = new FakeResponseHandler();
 
 it("Check Response Class sending 'entity' field after 'code' field", () => {
-  const res = new FakeRes();
-
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
 
   const test = () => response.code(response.CONFLICT_409);
 
@@ -19,9 +14,7 @@ it("Check Response Class sending 'entity' field after 'code' field", () => {
 });
 
 it("Check Response Class without sending the 'code' field", () => {
-  const res = new FakeRes();
-
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
 
   const { entities } = response;
 
@@ -33,9 +26,7 @@ it("Check Response Class without sending the 'code' field", () => {
 });
 
 it("Check Response Class without sending the 'entity' field", () => {
-  const res = new FakeRes();
-
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
 
   const test = () => response.message(faker.lorem.paragraph()).send();
 
@@ -45,9 +36,7 @@ it("Check Response Class without sending the 'entity' field", () => {
 });
 
 it("Check Response Class with successfully correctly usage", () => {
-  const res = new FakeRes();
-
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
 
   const { entities } = response;
 

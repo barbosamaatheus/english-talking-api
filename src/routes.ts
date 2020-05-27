@@ -1,12 +1,12 @@
-const express = require("express");
+import { Router } from "express";
 
-const AuthMiddleware = require("./middlewares/AuthMiddleware");
+import AuthMiddleware from "./middlewares/AuthMiddleware";
 
-const SessionController = require("./controllers/SessionController");
-const DialogController = require("./controllers/DialogController");
-const RatingsController = require("./controllers/RatingsController");
+import SessionController from "./controllers/SessionController";
+import DialogController from "./controllers/DialogController";
+import RatingsController from "./controllers/RatingsController";
 
-const routes = express.Router();
+const routes = Router();
 
 routes.post("/v1/register", SessionController.register);
 routes.post("/v1/authenticate", SessionController.authenticate);
@@ -24,4 +24,4 @@ routes.put(
   RatingsController.reject
 );
 
-module.exports = routes;
+export default routes;

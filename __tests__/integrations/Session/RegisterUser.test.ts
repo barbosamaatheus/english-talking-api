@@ -1,6 +1,6 @@
-const supertest = require("supertest");
-const faker = require("faker");
-const app = require("../../../src/app");
+import supertest from "supertest";
+import faker from "faker";
+import app from "../../../src/app";
 
 const request = supertest(app);
 
@@ -18,7 +18,7 @@ describe("Register User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(201);
+    expect(response.status).toBe(201);
     expect(response.body.data.user.name).toBe(name);
     expect(response.body.data.user.picture).toBe(picture);
     expect(response.body.data.user.email).toBe(email);
@@ -41,7 +41,7 @@ describe("Register User", () => {
       email,
       password,
     });
-    expect(response.statusCode).toBe(409);
+    expect(response.status).toBe(409);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("User already exists");
   });
@@ -57,7 +57,7 @@ describe("Register User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
       "User validation failed: email: email adreess is not a valid!"
@@ -73,7 +73,7 @@ describe("Register User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
       "User validation failed: email: Path `email` is required."
@@ -88,7 +88,7 @@ describe("Register User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
       "User validation failed: name: Path `name` is required."
@@ -103,7 +103,7 @@ describe("Register User", () => {
       email,
     });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
       "User validation failed: password: Path `password` is required."

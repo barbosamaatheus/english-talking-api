@@ -1,10 +1,10 @@
-const supertest = require("supertest");
-const faker = require("faker");
-const app = require("../../../src/app");
+import supertest from "supertest";
+import faker from "faker";
+import app from "../../../src/app";
 
 const request = supertest(app);
 
-let authorization;
+let authorization: string;
 beforeAll(async () => {
   const response = await request.post("/v1/register").send({
     name: faker.name.findName(),
@@ -22,7 +22,7 @@ describe("Authentication POST /dialog", () => {
   it("No token provider", async () => {
     const response = await request.post("/v1/dialog").send({ speech, answer });
 
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(401);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("No token provider");
   });
@@ -33,7 +33,7 @@ describe("Authentication POST /dialog", () => {
       .set("Authorization", "Outher Token Bearer")
       .send({ speech, answer });
 
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(401);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Token error");
   });
@@ -44,7 +44,7 @@ describe("Authentication POST /dialog", () => {
       .set("Authorization", "Beareer token")
       .send({ speech, answer });
 
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(401);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Token malformatted");
   });
@@ -55,7 +55,7 @@ describe("Authentication POST /dialog", () => {
       .set("Authorization", "Bearer token")
       .send({ speech, answer });
 
-    expect(response.statusCode).toBe(401);
+    expect(response.status).toBe(401);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Token invalid");
   });
@@ -71,7 +71,7 @@ describe("Create Dialog", () => {
       .set("Authorization", authorization)
       .send({ speech, answer });
 
-    expect(response.statusCode).toBe(201);
+    expect(response.status).toBe(201);
     expect(response.body.data.speech).toBe(speech);
     expect(response.body.data.answer).toBe(answer);
     expect(response.body.data.status).toBe("analyzing");
@@ -85,7 +85,7 @@ describe("Create Dialog", () => {
       .set("Authorization", authorization)
       .send({ speech });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
   });
 
   it("Check dialogue creation without sending answer field.", async () => {
@@ -96,6 +96,6 @@ describe("Create Dialog", () => {
       .set("Authorization", authorization)
       .send({ answer });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
   });
 });

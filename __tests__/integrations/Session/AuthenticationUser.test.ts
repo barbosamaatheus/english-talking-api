@@ -1,6 +1,6 @@
-const supertest = require("supertest");
-const faker = require("faker");
-const app = require("../../../src/app");
+import supertest from "supertest";
+import faker from "faker";
+import app from "../../../src/app";
 
 const request = supertest(app);
 
@@ -23,7 +23,7 @@ describe("Authentication User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
     expect(response.body.error).toBeUndefined();
     expect(response.body.data.user.name).toBe(name);
     expect(response.body.data.user.email).toBe(email);
@@ -36,7 +36,7 @@ describe("Authentication User", () => {
       password,
     });
 
-    expect(response.statusCode).toBe(404);
+    expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("User not found");
   });
@@ -44,7 +44,7 @@ describe("Authentication User", () => {
   it("Check user authentication without sending the email field", async () => {
     const response = await request.post("/v1/authenticate").send({ password });
 
-    expect(response.statusCode).toBe(404);
+    expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("User not found");
   });
@@ -55,7 +55,7 @@ describe("Authentication User", () => {
       password: faker.internet.password(),
     });
 
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Invalid Password");
   });
@@ -64,7 +64,7 @@ describe("Authentication User", () => {
     const response = await request.post("/v1/authenticate").send({
       email,
     });
-    expect(response.statusCode).toBe(400);
+    expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Invalid Password");
   });

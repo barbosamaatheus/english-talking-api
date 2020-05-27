@@ -1,8 +1,15 @@
-const Dialog = require("../models/Dialog");
-const Response = require("../utils/responses");
+import { Request as ExpressRequest, Response } from "express";
+import { Schema } from "mongoose";
 
-module.exports = async (req, res) => {
-  const response = new Response(res);
+import { ResponseHandler } from "../utils/ResponseHandler";
+import Dialog from "../models/Dialog";
+
+interface Request extends ExpressRequest {
+  userId?: Schema.Types.ObjectId;
+}
+
+export default async function RejectDialogService(req: Request, res: Response) {
+  const response = new ResponseHandler(res);
   const { entities } = response;
 
   const { dialogId } = req.params;
@@ -19,21 +26,21 @@ module.exports = async (req, res) => {
         .message("Resource not found")
         .send();
 
-    const index = dialogue.disapprovals.indexOf(userId);
+    const index = dialogue.approvals.indexOf(userId as Schema.Types.ObjectId);
 
-    if (index > -1) dialogue.disapprovals.splice(index, 1);
+    if (index > -1) dialogue.approvals.splice(index, 1);
 
-    if (dialogue.approvals.includes(userId))
+    if (dialogue.disapprovals.includes(userId as Schema.Types.ObjectId))
       return response
         .isError()
         .entity(entities.USER)
         .code(response.CONFLICT_409)
-        .message("User has already approved this dialog")
+        .message("The user has already disapproved of this dialog")
         .send();
 
-    dialogue.approvals.push(userId);
+    dialogue.disapprovals.push(userId as Schema.Types.ObjectId);
 
-    if (dialogue.approval_rate >= 70) dialogue.status = "approved";
+    if (dialogue.approval_rate < 70) dialogue.status = "analyzing";
 
     await dialogue.save();
 
@@ -50,7 +57,7 @@ module.exports = async (req, res) => {
 
     const message = isValidationError
       ? error.message
-      : "Dialog approvel failed";
+      : "Dialog Disapprovel failed";
 
     return response
       .isError()
@@ -59,4 +66,4 @@ module.exports = async (req, res) => {
       .message(message)
       .send();
   }
-};
+}

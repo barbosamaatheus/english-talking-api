@@ -1,5 +1,6 @@
-const faker = require("faker");
-const JwtManager = require("../../src/utils/jwtManager");
+import faker from "faker";
+
+import { JwtManager } from "../../src/utils/JwtManager";
 
 it("Check if jwt manager generate a no-undefined token", () => {
   const fakeValue = faker.random.uuid();
@@ -29,7 +30,7 @@ it("Check if the jwt manager decodes the token and returns the fake value genera
 it("Check if the jwt manager reject a invalid token", async () => {
   const jwt = new JwtManager();
 
-  const invalidToken = faker.random.number();
+  const invalidToken = faker.random.number().toString();
 
   const callIfTokenIsInvalid = jest.fn();
 

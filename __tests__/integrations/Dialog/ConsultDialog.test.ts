@@ -1,13 +1,13 @@
 /* eslint-disable dot-notation */
-const supertest = require("supertest");
-const faker = require("faker");
-const app = require("../../../src/app");
+import supertest from "supertest";
+import faker from "faker";
+import app from "../../../src/app";
 
 const request = supertest(app);
 
 let authorization;
-let userId;
-let dialogId;
+let userId: any;
+let dialogId: any;
 
 const speech = faker.lorem.sentence();
 const answer = faker.lorem.sentence();
@@ -35,10 +35,10 @@ beforeAll(async () => {
 
 describe("Dialog consultation", () => {
   it("Check the limit with a valid value", async () => {
-    const limit = 1;
+    const limit = "1";
     const response = await request.get("/v1/dialog").set("limit", limit);
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
     expect(response.body.data).toHaveLength(1);
   });
   it("Check the limit with an invalid value", async () => {
@@ -46,39 +46,39 @@ describe("Dialog consultation", () => {
       .get("/v1/dialog")
       .set("limit", "invalidLimit");
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
     expect(response.body.data).toHaveLength(2);
   });
 
   it("Check the page with a valid value", async () => {
     const page1 = await request
       .get("/v1/dialog")
-      .set("limit", 1)
-      .set("page", 1);
+      .set("limit", "1")
+      .set("page", "1");
 
     const page2 = await request
       .get("/v1/dialog")
-      .set("limit", 1)
-      .set("page", 2);
+      .set("limit", "1")
+      .set("page", "2");
 
-    expect(page1.statusCode).toBe(200);
-    expect(page2.statusCode).toBe(200);
+    expect(page1.status).toBe(200);
+    expect(page2.status).toBe(200);
     expect(page1.body.data[0]["_id"]).not.toBe(page2.body.data[0]["_id"]);
   });
 
   it("Check the page with an invalid value", async () => {
     const page = await request
       .get("/v1/dialog")
-      .set("limit", 1)
+      .set("limit", "1")
       .set("page", "invalidPage");
 
-    expect(page.statusCode).toBe(200);
+    expect(page.status).toBe(200);
   });
 
   it("Check that the x-total-count was correct", async () => {
     const response = await request.get("/v1/dialog");
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
     expect(response.header["x-total-count"]).toBe("2");
   });
 
@@ -107,7 +107,7 @@ describe("Dialog consultation", () => {
       invalid: "invalid",
     });
 
-    expect(response.statusCode).toBe(404);
+    expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
     expect(response.header["x-total-count"]).toBe("0");
   });
@@ -115,7 +115,7 @@ describe("Dialog consultation", () => {
   it("Check return of fields and status", async () => {
     const response = await request.get("/v1/dialog");
 
-    expect(response.statusCode).toBe(200);
+    expect(response.status).toBe(200);
     expect(response.body.data[0].user).toBe(userId);
     expect(response.body.data[0]["_id"]).toBe(dialogId);
     expect(response.body.data[0].speech).toBe(speech);

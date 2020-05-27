@@ -1,14 +1,22 @@
 /* eslint-disable consistent-return */
-require("dotenv").config();
+import "../config/env";
+import { Request as ExpressRequest, Response, NextFunction } from "express";
 
-const JwtManager = require("../utils/jwtManager");
+import { JwtManager } from "../utils/JwtManager";
+import { ResponseHandler } from "../utils/ResponseHandler";
 
-const Response = require("../utils/responses");
+interface Request extends ExpressRequest {
+  userId?: string;
+}
 
-module.exports = async (req, res, next) => {
+export default async function AuthMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const jwt = new JwtManager();
 
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
   const { entities } = response;
 
   const badRequest = response
@@ -32,10 +40,10 @@ module.exports = async (req, res, next) => {
   try {
     const decoded = await jwt.verify(token);
 
-    req.userId = decoded.id;
+    req.userId = decoded?.id;
 
     return next();
   } catch (error) {
     badRequest.message("Token invalid").send();
   }
-};
+}

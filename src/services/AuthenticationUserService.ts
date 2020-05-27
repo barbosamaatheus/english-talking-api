@@ -1,17 +1,21 @@
-const bcrypt = require("bcrypt");
-const Response = require("../utils/responses");
-const User = require("../models/User");
+import { Request, Response } from "express";
+import bcrypt from "bcrypt";
 
-const JwtManager = require("../utils/jwtManager");
+import { JwtManager } from "../utils/JwtManager";
+import { ResponseHandler } from "../utils/ResponseHandler";
+import User from "../models/User";
 
-module.exports = async (req, res) => {
+export default async function AuthenticationUserService(
+  req: Request,
+  res: Response
+) {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
 
   const jwt = new JwtManager();
 
-  const response = new Response(res);
+  const response = new ResponseHandler(res);
   const { entities } = response;
 
   if (!user)
@@ -22,7 +26,7 @@ module.exports = async (req, res) => {
       .message("User not found")
       .send();
 
-  if (!password || !(await bcrypt.compare(password, user.password)))
+  if (!password || !(await bcrypt.compare(password, user.password as string)))
     return response
       .isError()
       .entity(entities.USER)
@@ -38,4 +42,4 @@ module.exports = async (req, res) => {
     .data({ user })
     .metadata({ token: jwt.generate({ id: user.id }) })
     .send();
-};
+}

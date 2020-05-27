@@ -1,5 +1,52 @@
-module.exports = class Response {
-  constructor(res) {
+import { Response as HTTPResponse } from "express";
+import { FakeResponseHandler } from "../../__tests__/mocks/FakeResponseHandler";
+
+interface Entity {
+  message: string;
+  value: undefined | string;
+}
+
+interface Code {
+  message: string;
+  value: undefined | string;
+}
+
+interface Entities {
+  [key: string]: string;
+}
+
+interface Required {
+  [key: string]: any;
+  entity: Entity;
+  code: Code;
+}
+
+interface Data {
+  [key: string]: string;
+}
+
+interface Metadata {
+  [key: string]: string;
+}
+
+interface IResponse {
+  entity?: string;
+  code?: string;
+  status?: number;
+  error?: boolean;
+  message?: string;
+  data?: Data;
+  metadata?: Metadata;
+}
+
+export class ResponseHandler {
+  entities!: Entities;
+  required!: Required;
+  response!: IResponse;
+  res!: HTTPResponse<IResponse> | FakeResponseHandler;
+  status!: number;
+
+  constructor(res: HTTPResponse | FakeResponseHandler) {
     // All available API entities
     this.entities = {
       USER: "user",
@@ -49,12 +96,12 @@ module.exports = class Response {
   }
 
   // Call this method to set a current entity that response
-  entity(entity) {
+  entity(entity: string) {
     this.required.entity.value = entity;
     return this;
   }
 
-  code(code) {
+  code(code: string) {
     if (this.required.entity.value === undefined)
       throw new Error("You must set the entity value before to set the code");
 
@@ -62,17 +109,17 @@ module.exports = class Response {
     return this;
   }
 
-  message(message) {
+  message(message: string) {
     this.response.message = message;
     return this;
   }
 
-  data(data) {
+  data(data: Data) {
     this.response.data = data;
     return this;
   }
 
-  metadata(metadata) {
+  metadata(metadata: Metadata) {
     this.response.metadata = metadata;
     return this;
   }
@@ -133,4 +180,4 @@ module.exports = class Response {
     this.status = 500;
     return `internal-server-error/${this.response.entity}`;
   }
-};
+}

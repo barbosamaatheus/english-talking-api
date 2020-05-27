@@ -1,12 +1,12 @@
 /* eslint-disable dot-notation */
-const supertest = require("supertest");
-const faker = require("faker");
-const app = require("../../../src/app");
+import supertest from "supertest";
+import faker from "faker";
+import app from "../../../src/app";
 
 const request = supertest(app);
 
-let authorization;
-let dialogId;
+let authorization: string;
+let dialogId: string;
 
 beforeAll(async () => {
   const response = await request.post("/v1/register").send({
@@ -35,9 +35,9 @@ describe("Dialog consultation", () => {
       .get("/v1/dialog")
       .query({ _id: dialogId });
 
-    expect(response.statusCode).toBe(204);
+    expect(response.status).toBe(204);
 
-    expect(consultation.statusCode).toBe(200);
+    expect(consultation.status).toBe(200);
     expect(consultation.body.data[0].disapprovals[0]).toBeTruthy();
   });
 
@@ -48,7 +48,7 @@ describe("Dialog consultation", () => {
       .put(`/v1/dialog/${dialogId}/reject`)
       .set("Authorization", authorization);
 
-    expect(response.statusCode).toBe(404);
+    expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Resource not found");
   });
@@ -71,10 +71,10 @@ describe("Dialog consultation", () => {
 
     const consult = await request.get("/v1/dialog").query({ _id: dialogId });
 
-    expect(responseApproval.statusCode).toBe(204);
-    expect(responseDisapproval.statusCode).toBe(204);
+    expect(responseApproval.status).toBe(204);
+    expect(responseDisapproval.status).toBe(204);
 
-    expect(consult.statusCode).toBe(200);
+    expect(consult.status).toBe(200);
     expect(consult.body.data[0].approval_rate).toBe(50);
     expect(consult.body.data[0].status).toBe("analyzing");
   });
@@ -88,7 +88,7 @@ describe("Dialog consultation", () => {
       .put(`/v1/dialog/${dialogId}/reject`)
       .set("Authorization", authorization);
 
-    expect(response.statusCode).toBe(409);
+    expect(response.status).toBe(409);
     expect(response.body.error).toBeTruthy();
     expect(response.body.entity).toBe("user");
     expect(response.body.message).toBe(

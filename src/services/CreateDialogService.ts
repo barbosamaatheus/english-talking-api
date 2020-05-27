@@ -1,9 +1,15 @@
-const Dialog = require("../models/Dialog");
+import { Request as ExpressRequest, Response } from "express";
+import { Schema } from "mongoose";
 
-const Response = require("../utils/responses");
+import { ResponseHandler } from "../utils/ResponseHandler";
+import Dialog from "../models/Dialog";
 
-module.exports = async (req, res) => {
-  const response = new Response(res);
+interface Request extends ExpressRequest {
+  userId?: Schema.Types.ObjectId;
+}
+
+export default async function CreateDialogService(req: Request, res: Response) {
+  const response = new ResponseHandler(res);
 
   const { entities } = response;
 
@@ -35,4 +41,4 @@ module.exports = async (req, res) => {
       .message(isValidationError ? error.message : "Dialog creation failed")
       .send();
   }
-};
+}
