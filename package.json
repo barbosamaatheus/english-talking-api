@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=tests jest --runInBand",
     "lint": "eslint .",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "dev": "cross-env ts-node-dev --respawn src/server.ts"
   },
   "repository": {
     "type": "git",
