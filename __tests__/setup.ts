@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server");
+import { connect as createConnection, connection, disconnect } from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
 
 const mongod = new MongoMemoryServer();
 
@@ -11,10 +11,10 @@ beforeAll(async () => {
     useCreateIndex: true,
   };
 
-  mongoose.connect(MONGODB_URI, mongooseOpts);
+  await createConnection(MONGODB_URI, mongooseOpts);
 });
 afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.disconnect();
+  await connection.dropDatabase();
+  await disconnect();
   await mongod.stop();
 });
