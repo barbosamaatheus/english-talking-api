@@ -11,5 +11,5 @@ export default function calculatesApprovalRate({
 }: ICalculatesApprovalRate) {
   const total = approvals.length + disapprovals.length;
 
-  return (approvals.length / total) * 100 || 0;
+  return Math.round((approvals.length / total) * 100) || 0;
 }
