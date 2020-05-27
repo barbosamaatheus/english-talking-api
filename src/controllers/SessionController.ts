@@ -3,15 +3,14 @@ import AuthenticationUserService from "../services/AuthenticationUserService";
 
 import { IRequest, IResponse } from "../http.d";
 
-class SessionController {
+export default {
   async register(req: IRequest, res: IResponse) {
     const response = await RegisterUserService(req, res);
     return response;
-  }
+  },
+
   async authenticate(req: IRequest, res: IResponse) {
     const response = await AuthenticationUserService(req, res);
     return response;
-  }
-}
-
-export default new SessionController();
+  },
+};
