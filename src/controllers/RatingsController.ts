@@ -1,19 +1,14 @@
-import { Request as ExpressRequest, Response } from "express";
-import { Schema } from "mongoose";
-
 import ApprovalDialogService from "../services/ApprovalDialogService";
 import RejectDialogService from "../services/RejectDialogService";
 
-interface Request extends ExpressRequest {
-  userId?: Schema.Types.ObjectId;
-}
+import { IRequest, IResponse } from "../http.d";
 
 class RatingsController {
-  async approval(req: Request, res: Response) {
+  async approval(req: IRequest, res: IResponse) {
     const response = await ApprovalDialogService(req, res);
     return response;
   }
-  async reject(req: Request, res: Response) {
+  async reject(req: IRequest, res: IResponse) {
     const response = await RejectDialogService(req, res);
     return response;
   }

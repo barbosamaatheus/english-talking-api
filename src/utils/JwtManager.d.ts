@@ -1,4 +1,4 @@
-export interface Decoded {
+export interface IDecoded {
   id: string;
   value: string;
 }

@@ -1,10 +1,13 @@
-import { Request, Response } from "express";
-
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import User from "../models/User";
 
-export default async function RegisterUserService(req: Request, res: Response) {
+import { IRequest, IResponse } from "../http.d";
+
+export default async function RegisterUserService(
+  req: IRequest,
+  res: IResponse
+) {
   const jwt = new JwtManager();
 
   const response = new ResponseHandler(res);

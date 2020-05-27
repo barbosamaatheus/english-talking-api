@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
+import { IRequest, IResponse } from "../http.d";
+
 export default async function ConsultDialogService(
-  req: Request,
-  res: Response
+  req: IRequest,
+  res: IResponse
 ) {
   const { limit, page } = req.headers;
 

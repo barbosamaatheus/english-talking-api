@@ -1,22 +1,22 @@
-import { Response as HTTPResponse } from "express";
+import { Response as IHTTPResponse } from "express";
 
 import { FakeResponseHandler } from "../../__tests__/mocks/FakeResponseHandler";
 import {
-  Entities,
-  Required,
+  IEntities,
+  IRequired,
   IResponse,
   Data,
-  Metadata,
+  IMetadata,
 } from "./ResponseHandler.d";
 
 export class ResponseHandler {
-  entities: Entities;
-  required: Required;
+  entities: IEntities;
+  required: IRequired;
   response: IResponse;
-  res: HTTPResponse<IResponse> | FakeResponseHandler;
+  res: IHTTPResponse<IResponse> | FakeResponseHandler;
   status!: number;
 
-  constructor(res: HTTPResponse | FakeResponseHandler) {
+  constructor(res: IHTTPResponse | FakeResponseHandler) {
     // All available API entities
     this.entities = {
       USER: "user",
@@ -89,7 +89,7 @@ export class ResponseHandler {
     return this;
   }
 
-  metadata(metadata: Metadata) {
+  metadata(metadata: IMetadata) {
     this.response.metadata = metadata;
     return this;
   }

@@ -1,16 +1,12 @@
-import { Request as ExpressRequest, Response } from "express";
-import { Schema } from "mongoose";
-
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
-type UserID = Schema.Types.ObjectId;
+import { IRequest, IResponse, UserID } from "../http.d";
 
-interface Request extends ExpressRequest {
-  userId?: UserID;
-}
-
-export default async function RejectDialogService(req: Request, res: Response) {
+export default async function RejectDialogService(
+  req: IRequest,
+  res: IResponse
+) {
   const response = new ResponseHandler(res);
   const { entities } = response;
 

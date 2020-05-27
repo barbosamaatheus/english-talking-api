@@ -1,7 +1,7 @@
 import "../config/env";
 import jwt from "jsonwebtoken";
 
-import { Decoded } from "./JwtManager.d";
+import { IDecoded } from "./JwtManager.d";
 
 export class JwtManager {
   SECRET_KEY: string;
@@ -15,11 +15,11 @@ export class JwtManager {
   }
 
   verify(token: string) {
-    return new Promise<Decoded>((resolve, reject) => {
+    return new Promise<IDecoded>((resolve, reject) => {
       jwt.verify(token, this.SECRET_KEY, (error, decoded) => {
         if (error) return reject(error);
 
-        return resolve(decoded as Decoded);
+        return resolve(decoded as IDecoded);
       });
     });
   }

@@ -1,13 +1,14 @@
-import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import User from "../models/User";
 
+import { IRequest, IResponse } from "../http.d";
+
 export default async function AuthenticationUserService(
-  req: Request,
-  res: Response
+  req: IRequest,
+  res: IResponse
 ) {
   const { email, password } = req.body;
 

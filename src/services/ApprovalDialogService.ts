@@ -1,18 +1,11 @@
-import { Request as ExpressRequest, Response } from "express";
-import { Schema } from "mongoose";
-
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
-type UserID = Schema.Types.ObjectId;
-
-interface Request extends ExpressRequest {
-  userId?: UserID;
-}
+import { IRequest, IResponse, UserID } from "../http.d";
 
 export default async function ApprovalDialogService(
-  req: Request,
-  res: Response
+  req: IRequest,
+  res: IResponse
 ) {
   const response = new ResponseHandler(res);
   const { entities } = response;

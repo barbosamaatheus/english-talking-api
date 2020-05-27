@@ -1,24 +1,24 @@
 import { UserType } from "../models/User";
 import { DialogType } from "../models/Dialog";
 
-export interface Entity {
+export interface IEntity {
   message: string;
   value: undefined | string;
 }
 
-export interface Code {
+export interface ICode {
   message: string;
   value: undefined | string;
 }
 
-export interface Entities {
+export interface IEntities {
   [key: string]: string;
 }
 
-export interface Required {
+export interface IRequired {
   [key: string]: any;
-  entity: Entity;
-  code: Code;
+  entity: IEntity;
+  code: ICode;
 }
 
 export type Data =
@@ -28,7 +28,7 @@ export type Data =
       user?: UserType;
     };
 
-export interface Metadata {
+export interface IMetadata {
   token?: string;
 }
 
@@ -39,5 +39,5 @@ export interface IResponse {
   error?: boolean;
   message?: string;
   data?: Data;
-  metadata?: Metadata;
+  metadata?: IMetadata;
 }
