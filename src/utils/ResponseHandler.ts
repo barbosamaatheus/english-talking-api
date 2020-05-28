@@ -11,9 +11,13 @@ import {
 
 export class ResponseHandler {
   entities: IEntities;
+
   required: IRequired;
+
   response: IResponse;
+
   res: IHTTPResponse<IResponse> | MockResponseHandler;
+
   status!: number;
 
   constructor(res: IHTTPResponse | MockResponseHandler) {

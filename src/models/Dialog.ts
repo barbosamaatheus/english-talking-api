@@ -50,7 +50,9 @@ const DialogSchema = new Schema<DialogType>(
   }
 );
 
-DialogSchema.virtual("approval_rate").get(function (this: DialogType) {
+DialogSchema.virtual("approval_rate").get(function setApprovalRate(
+  this: DialogType
+) {
   const rate = calculatesApprovalRate({
     approvals: this.approvals,
     disapprovals: this.disapprovals,
