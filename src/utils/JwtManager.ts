@@ -1,7 +1,7 @@
 import "../config/env";
 import jwt from "jsonwebtoken";
 
-import { IDecoded } from "./JwtManager.d";
+import { IDecoded } from "../types/JwtManager";
 
 export class JwtManager {
   SECRET_KEY: string;

@@ -1,7 +1,7 @@
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
-import { IRequest, IResponse } from "../http.d";
+import { IRequest, IResponse } from "../types/http";
 
 export default async function CreateDialogService(
   req: IRequest,

@@ -7,7 +7,7 @@ import {
   IResponse,
   Data,
   IMetadata,
-} from "./ResponseHandler.d";
+} from "../types/ResponseHandler";
 
 export class ResponseHandler {
   entities: IEntities;

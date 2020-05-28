@@ -1,7 +1,7 @@
 import ApprovalDialogService from "../services/ApprovalDialogService";
 import RejectDialogService from "../services/RejectDialogService";
 
-import { IRequest, IResponse } from "../http.d";
+import { IRequest, IResponse } from "../types/http";
 
 export default {
   async approval(req: IRequest, res: IResponse) {

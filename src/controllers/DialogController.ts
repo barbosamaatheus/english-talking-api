@@ -1,7 +1,7 @@
 import CreateDialogService from "../services/CreateDialogService";
 import ConsultDialogService from "../services/ConsultDialogService";
 
-import { IRequest, IResponse } from "../http.d";
+import { IRequest, IResponse } from "../types/http";
 
 export default {
   async index(req: IRequest, res: IResponse) {

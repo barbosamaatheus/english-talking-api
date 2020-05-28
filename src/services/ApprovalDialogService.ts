@@ -1,7 +1,7 @@
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
-import { IRequest, IResponse, UserID } from "../http.d";
+import { IRequest, IResponse, UserID } from "../types/http";
 
 export default async function ApprovalDialogService(
   req: IRequest,

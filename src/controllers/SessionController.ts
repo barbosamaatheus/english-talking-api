@@ -1,7 +1,7 @@
 import RegisterUserService from "../services/RegisterUserService";
 import AuthenticationUserService from "../services/AuthenticationUserService";
 
-import { IRequest, IResponse } from "../http.d";
+import { IRequest, IResponse } from "../types/http";
 
 export default {
   async register(req: IRequest, res: IResponse) {

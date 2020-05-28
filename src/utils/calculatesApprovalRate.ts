@@ -1,4 +1,4 @@
-import { ICalculatesApprovalRate } from "./calculatesApprovalRate.d";
+import { ICalculatesApprovalRate } from "../types/calculatesApprovalRate";
 
 export default function calculatesApprovalRate({
   approvals,

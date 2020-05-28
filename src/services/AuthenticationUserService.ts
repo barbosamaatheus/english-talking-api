@@ -4,7 +4,7 @@ import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import User from "../models/User";
 
-import { IRequest, IResponse } from "../http.d";
+import { IRequest, IResponse } from "../types/http";
 
 export default async function AuthenticationUserService(
   req: IRequest,
