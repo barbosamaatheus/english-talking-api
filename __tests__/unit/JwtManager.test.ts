@@ -30,7 +30,7 @@ it("Check if the jwt manager decodes the token and returns the fake value genera
 it("Check if the jwt manager reject a invalid token", async () => {
   const jwt = new JwtManager();
 
-  const invalidToken = faker.random.number().toString();
+  const invalidToken = faker.random.uuid();
 
   const callIfTokenIsInvalid = jest.fn();
 
