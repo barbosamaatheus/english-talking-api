@@ -42,10 +42,10 @@ it("Check Response Class with successfully correctly usage", async () => {
   const { entities } = response;
 
   const user = await User.create({
-    name: "Foo bar",
-    email: "foobar@gmail.com",
-    picture: "foobar",
-    password: "asd",
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    picture: faker.image.avatar(),
+    password: faker.internet.password(),
   });
 
   const dataRequest = {
