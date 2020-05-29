@@ -18,10 +18,9 @@ describe("Authentication User", () => {
   });
 
   it("Check user authentication with all fields correctly filled.", async () => {
-    const response = await request.post("/v1/authenticate").send({
-      email,
-      password,
-    });
+    const response = await request
+      .get("/v1/authenticate")
+      .auth(email, password);
 
     expect(response.status).toBe(200);
     expect(response.body.error).toBeUndefined();
@@ -31,18 +30,10 @@ describe("Authentication User", () => {
   });
 
   it("Check user authentication with invalid email", async () => {
-    const response = await request.post("/v1/authenticate").send({
-      email: faker.internet.email(),
-      password,
-    });
-
-    expect(response.status).toBe(404);
-    expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe("User not found");
-  });
-
-  it("Check user authentication without sending the email field", async () => {
-    const response = await request.post("/v1/authenticate").send({ password });
+    const InvalidEmail = faker.internet.email();
+    const response = await request
+      .get("/v1/authenticate")
+      .auth(InvalidEmail, password);
 
     expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
@@ -50,10 +41,10 @@ describe("Authentication User", () => {
   });
 
   it("Check user authentication with invalid password", async () => {
-    const response = await request.post("/v1/authenticate").send({
-      email,
-      password: faker.internet.password(),
-    });
+    const invalidPassword = faker.internet.password();
+    const response = await request
+      .get("/v1/authenticate")
+      .auth(email, invalidPassword);
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
@@ -61,11 +52,24 @@ describe("Authentication User", () => {
   });
 
   it("Check user authentication without sending the password field", async () => {
-    const response = await request.post("/v1/authenticate").send({
-      email,
-    });
+    const emptyPassword = "";
+    const response = await request
+      .get("/v1/authenticate")
+      .auth(email, emptyPassword);
+
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("Invalid Password");
+  });
+
+  it("Check user authentication without sending the email field", async () => {
+    const emptyEmail = "";
+    const response = await request
+      .get("/v1/authenticate")
+      .auth(emptyEmail, password);
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBeTruthy();
+    expect(response.body.message).toBe("User not found");
   });
 });
