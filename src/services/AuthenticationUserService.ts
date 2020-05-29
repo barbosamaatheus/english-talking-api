@@ -16,9 +16,7 @@ export default async function AuthenticationUserService(
   const [hashType, hash] = req.headers.authorization?.split(" ");
   const [email, password] = Buffer.from(hash, "base64").toString().split(":");
 
-  const user = await User.findOne({ email}).select("+password");
-
-  console.log(user);
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user)
     return response
