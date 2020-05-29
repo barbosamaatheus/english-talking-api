@@ -9,7 +9,7 @@ import RatingsController from "./controllers/RatingsController";
 const routes = Router();
 
 routes.post("/v1/register", SessionController.register);
-routes.post("/v1/authenticate", SessionController.authenticate);
+routes.get("/v1/authenticate", SessionController.authenticate);
 
 routes.get("/v1/dialog", DialogController.index);
 routes.post("/v1/dialog", AuthMiddleware, DialogController.store);
