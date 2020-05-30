@@ -30,10 +30,10 @@ describe("Authentication User", () => {
   });
 
   it("Check user authentication with invalid email", async () => {
-    const InvalidEmail = faker.internet.email();
+    const invalidEmail = faker.internet.email();
     const response = await request
       .get("/v1/authenticate")
-      .auth(InvalidEmail, password);
+      .auth(invalidEmail, password);
 
     expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
