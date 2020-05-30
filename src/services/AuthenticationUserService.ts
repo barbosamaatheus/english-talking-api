@@ -10,14 +10,13 @@ export default async function AuthenticationUserService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email }).select("+password");
-
   const jwt = new JwtManager();
-
   const response = new ResponseHandler(res);
   const { entities } = response;
+  const [hashType, hash] = req.headers.authorization?.split(" ");
+  const [email, password] = Buffer.from(hash, "base64").toString().split(":");
+
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user)
     return response
