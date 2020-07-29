@@ -15,14 +15,33 @@
 
 # [English Talking API](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
 
+# Table of Contents
+
+- [Overview](#Overview)
+- [Authentication](#Authentication)
+- [Contributing](#Contributing)
+  - [Contribution Guidelines](#Contribution-Guidelines)
+- [Code of Conduct](#Code-of-Conduct)
+- [Need help?](#Need-help?)
+- [License](#License)
+
 # Overview
 
-This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database 
+This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database
 [MongoDB](https://www.mongodb.com/)
 
-the tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest) 
+We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as an automatic code formatter. Please download the plugins in your editor.
 
-See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest) 
+1. [ESLint](https://github.com/Microsoft/vscode-eslint)
+2. [Prettier](https://github.com/prettier/prettier-vscode)
+3. [Editor config](https://github.com/editorconfig/editorconfig-vscode)
+
+> For make sure Prettier formats on save. Insert `"editor.formatOnSave": true` into your User Settings if you use VSCode.
+> To learn more, you can be this [post](https://medium.com/matheus-barbosa/integrating-prettier-eslint-airbnb-style-guide-editorconfig-no-vscode-ff950263adbf)
+
+The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
+
+See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
 
 # Authentication
 
@@ -40,10 +59,14 @@ Thank you for being interested on making this project better. We encourage every
 
 Take a moment to read about our [Contribution Guidelines](/.github/CONTRIBUTING.md) so you can understand how to submit an issue, commit and create pull requests.
 
-## Need help?
+# Code of Conduct
+
+We expect you to follow our [Code of Conduct](/.github/CODE_OF_CONDUCT.md). You can read it to understand what kind of behaviour will and will not be tolerated.
+
+# Need help?
 
 If you need help with this, feel free to open an issue with a description of the problem you're facing. Or, if you prefer, you can send email to maatheusb96@gmail.com
 
-## License
+# License
 
-[MIT License ](https://github.com/barbosamaatheus/english-talking-api/blob/master/LICENSE) © 
+[MIT License ](https://github.com/barbosamaatheus/english-talking-api/blob/master/LICENSE) ©
