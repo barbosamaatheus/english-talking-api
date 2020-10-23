@@ -3,21 +3,26 @@ import Dialog from "../models/Dialog";
 
 import { IRequest, IResponse } from "../types/http";
 
+interface IDialogInterface {
+  speech: string,
+  answer: string,
+  user: string
+}
 export default async function CreateDialogService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
   const response = new ResponseHandler(res);
-
+  
   const { entities } = response;
 
   try {
-    const { speech, answer } = req.body;
-
-    const dialog = await Dialog.create({
+    const { speech, answer }= req.body;
+    
+    const dialog = await Dialog.create<IDialogInterface>({
       speech,
       answer,
-      user: req.userId,
+      user: req.userId as string,
     });
 
     return response
