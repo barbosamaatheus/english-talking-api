@@ -14,9 +14,6 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w"
   },
-  "engines": {
-    "node": "12.18.1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/barbosamaatheus/english-talking-api.git"
