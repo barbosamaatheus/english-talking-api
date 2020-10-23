@@ -2,11 +2,20 @@
   "name": "english-talking-api",
   "version": "0.1.0",
   "description": "This API aims to provide users with the possibility of conducting dialogues in English where the conversations and answers are registered and evaluated by the users themselves.",
-  "main": "src/server.js",
+  "main": "dist/server.js",
   "scripts": {
     "test": "cross-env NODE_ENV=tests jest --runInBand",
     "lint": "eslint .",
-    "dev": "cross-env ts-node-dev --respawn src/server.ts"
+    "dev": "cross-env ts-node-dev --respawn src/server.ts",
+    "build-ts": "tsc",
+    "postinstall": "npm run build-ts",
+    "start": "npm run serve",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
+    "watch-ts": "tsc -w"
+  },
+  "engines": {
+    "node": "12.18.1"
   },
   "repository": {
     "type": "git",
