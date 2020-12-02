@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=tests jest --runInBand",
     "lint": "eslint .",
-    "dev": "cross-env ts-node-dev --respawn src/server.ts",
+    "dev": "cross-env ts-node-dev --respawn src/server.ts --transpile-only --ignore-watch node_modules --respawn",
     "build-ts": "tsc",
     "postinstall": "npm run build-ts",
     "start": "npm run serve",

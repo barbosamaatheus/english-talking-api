@@ -12,7 +12,7 @@ export type DialogType = Document & {
   approval_rate: number;
 };
 
-const DialogSchema = new Schema<DialogType>(
+const DialogSchema = new Schema(
   {
     speech: {
       type: String,

@@ -12,4 +12,6 @@ const mongooseOpts = {
 
 createConnection(MONGODB_URI, mongooseOpts);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log("Server started!");
+});
