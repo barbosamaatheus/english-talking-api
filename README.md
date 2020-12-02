@@ -65,7 +65,8 @@ We expect you to follow our [Code of Conduct](/.github/CODE_OF_CONDUCT.md). You 
 
 # Need help?
 
-If you need help with this, feel free to open an issue with a description of the problem you're facing. Or, if you prefer, you can send email to maatheusb96@gmail.com
+If you need help with this, feel free to open an issue with a description of the problem you're facing. Or, if you prefer, you can send email to maatheusb96@gmail.com  
+You also could join our discord team in case you need any help or have any questions. [Join discord team](https://discord.gg/XTrKQ8w).
 
 # License
 

@@ -8,7 +8,7 @@ export type UserType = Document & {
   password: string | undefined;
 };
 
-const UserSchema = new Schema<UserType>(
+const UserSchema = new Schema(
   {
     name: {
       type: String,
@@ -22,14 +22,6 @@ const UserSchema = new Schema<UserType>(
       required: true,
       unique: true,
       lowercase: true,
-      validate: {
-        validator: (email: string) => {
-          return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-            email
-          );
-        },
-        message: (props) => `${props.path} adreess is not a valid!`,
-      },
     },
     password: {
       type: String,
@@ -43,10 +35,12 @@ const UserSchema = new Schema<UserType>(
 );
 
 UserSchema.pre<UserType>("save", async function generateHashPassword(next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
-
-  next();
+  try {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default model<UserType>("User", UserSchema);
