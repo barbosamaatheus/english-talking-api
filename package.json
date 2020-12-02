@@ -10,8 +10,8 @@
     "build-ts": "tsc",
     "postinstall": "npm run build-ts",
     "start": "npm run serve",
-    "serve": "node dist/server.js",
-    "watch-node": "nodemon dist/server.js",
+    "serve": "node dist/src/server.js",
+    "watch-node": "nodemon dist/src/server.js",
     "watch-ts": "tsc -w"
   },
   "repository": {
