@@ -1,6 +1,6 @@
 {
   "name": "english-talking-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "This API aims to provide users with the possibility of conducting dialogues in English where the conversations and answers are registered and evaluated by the users themselves.",
   "main": "dist/server.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "start": "npm run serve",
     "serve": "node dist/src/server.js",
     "watch-node": "nodemon dist/src/server.js",
-    "watch-ts": "tsc -w"
+    "watch-ts": "tsc -w",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -54,7 +55,8 @@
     "supertest": "^4.0.2",
     "ts-jest": "^26.0.0",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "standard-version": "^9.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
