@@ -17,10 +17,12 @@ const DialogSchema = new Schema(
     speech: {
       type: String,
       required: true,
+      trim: true,
     },
     answer: {
       type: String,
       required: true,
+      trim: true,
     },
     user: {
       type: Schema.Types.ObjectId,
@@ -47,6 +49,7 @@ const DialogSchema = new Schema(
   },
   {
     timestamps: true,
+    collation: { locale: "en", strength: 2 },
   }
 );
 
