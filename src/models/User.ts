@@ -1,46 +1,44 @@
-import { Schema, model, Document } from "mongoose";
-import bcrypt from "bcrypt";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from "typeorm";
+import { IsEmail, MaxLength, MinLength } from "class-validator";
 
-export type UserType = Document & {
+import Dialog from "./Dialog";
+
+@Entity("users")
+export default class User {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column()
+  @MaxLength(50)
+  @MinLength(1)
   name: string;
+
+  @Column()
   picture: string;
+
+  @Column({ unique: true }) // unique nao funciona
+  @IsEmail()
   email: string;
-  password: string | undefined;
-};
 
-const UserSchema = new Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    picture: {
-      type: String,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      select: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+  @MinLength(8) // senha criptografada tem mais de 8 caracteres
+  @Column()
+  password: string;
 
-UserSchema.pre<UserType>("save", async function generateHashPassword(next) {
-  try {
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-  } catch (err) {
-    next(err);
-  }
-});
+  @OneToMany(() => Dialog, (dialog) => dialog.user)
+  dialog: Dialog[];
 
-export default model<UserType>("User", UserSchema);
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: number;
+}

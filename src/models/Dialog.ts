@@ -1,64 +1,56 @@
-import { Schema, model, Document } from "mongoose";
-import calculatesApprovalRate from "../utils/calculatesApprovalRate";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+  ManyToMany,
+} from "typeorm";
+import { MinLength } from "class-validator";
 
-export type DialogType = Document & {
-  _doc: any;
+import User from "./User";
+
+enum Status {
+  APPROVED,
+  ANALYZING,
+}
+
+@Entity("dialogs")
+export default class Dialog {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column()
+  @MinLength(1)
   speech: string;
+
+  @Column()
+  @MinLength(1)
   answer: string;
-  user: Schema.Types.ObjectId;
-  status: string;
-  approvals: Schema.Types.ObjectId[];
-  disapprovals: Schema.Types.ObjectId[];
-  approval_rate: number;
-};
 
-const DialogSchema = new Schema(
-  {
-    speech: {
-      type: String,
-      required: true,
-    },
-    answer: {
-      type: String,
-      required: true,
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
-    status: {
-      type: String,
-      required: true,
-      enum: ["approved", "analyzing"],
-      default: "analyzing",
-    },
-    approvals: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "user",
-      },
-    ],
-    disapprovals: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "user",
-      },
-    ],
-  },
-  {
-    timestamps: true,
-  }
-);
+  @Column({
+    type: "enum",
+    enum: Status,
+    default: Status.ANALYZING,
+  })
+  status: Status;
 
-DialogSchema.virtual("approval_rate").get(function setApprovalRate(
-  this: DialogType
-) {
-  const rate = calculatesApprovalRate({
-    approvals: this.approvals,
-    disapprovals: this.disapprovals,
-  });
+  @ManyToOne(() => User, (user) => user.dialog)
+  user: User;
 
-  return rate;
-});
+  @ManyToMany(() => User)
+  @JoinColumn({ name: "approvals" })
+  approvals: User[];
 
-export default model<DialogType>("Dialog", DialogSchema);
+  @ManyToMany(() => User)
+  @JoinColumn({ name: "disapprovals" })
+  disapprovals: User[];
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: number;
+}
