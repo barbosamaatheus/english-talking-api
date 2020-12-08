@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  JoinTable,
   UpdateDateColumn,
   CreateDateColumn,
   ManyToMany,
@@ -11,11 +12,7 @@ import {
 import { MinLength } from "class-validator";
 
 import User from "./User";
-
-enum Status {
-  APPROVED,
-  ANALYZING,
-}
+import { Status } from "../utils/enumStatus";
 
 @Entity("dialogs")
 export default class Dialog {
@@ -38,14 +35,19 @@ export default class Dialog {
   status: Status;
 
   @ManyToOne(() => User, (user) => user.dialog)
-  user: User;
+  @JoinColumn({ name: "userId" })
+  userId: User;
 
-  @ManyToMany(() => User)
-  @JoinColumn({ name: "approvals" })
+  @ManyToMany(() => User, (user) => user.approvals, {
+    cascade: true,
+  })
+  @JoinTable({ name: "approvals" })
   approvals: User[];
 
-  @ManyToMany(() => User)
-  @JoinColumn({ name: "disapprovals" })
+  @ManyToMany(() => User, (user) => user.disapprovals, {
+    cascade: true,
+  })
+  @JoinTable({ name: "disapprovals" })
   disapprovals: User[];
 
   @CreateDateColumn({ type: "timestamp" })

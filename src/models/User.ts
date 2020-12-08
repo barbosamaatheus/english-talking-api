@@ -2,13 +2,15 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
+  BeforeInsert,
   OneToMany,
+  ManyToMany,
+  JoinColumn,
   UpdateDateColumn,
   CreateDateColumn,
 } from "typeorm";
 import { IsEmail, MaxLength, MinLength } from "class-validator";
+import bcrypt from "bcrypt";
 
 import Dialog from "./Dialog";
 
@@ -33,12 +35,25 @@ export default class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Dialog, (dialog) => dialog.user)
+  @OneToMany(() => Dialog, (dialog) => dialog.userId)
+  @JoinColumn({ name: "userId" })
   dialog: Dialog[];
+
+  @ManyToMany(() => Dialog, (dialog) => dialog.approvals)
+  approvals: Dialog[];
+
+  @ManyToMany(() => Dialog, (dialog) => dialog.disapprovals)
+  disapprovals: Dialog[];
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt: string;
 
   @UpdateDateColumn({ type: "timestamp" })
   updatedAt: number;
+
+  @BeforeInsert()
+  async generateHashPassword() {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+  }
 }

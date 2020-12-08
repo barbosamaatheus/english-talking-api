@@ -1,17 +1,13 @@
 {
-   "type": "postgres",
-   "host": "localhost",
-   "port": 5432,
-   "username": "postgres",
-   "password": "docker",
-   "database": "englishTalkingApi",
-   "entities": [
-      "./src/models/*.ts"
-   ],
-   "migrations": [
-      "./src/database/migrations/*.ts"
-   ],
-   "cli": {
-      "migrationsDir": "./src/database/migrations"
-   }
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "docker",
+  "database": "EnglishTalkingApi",
+  "entities": ["./src/models/*.ts"],
+  "migrations": ["./src/database/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
 }

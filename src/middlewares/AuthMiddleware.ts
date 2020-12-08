@@ -38,7 +38,7 @@ export default async function AuthMiddleware(
   try {
     const decoded = await jwt.verify(token);
 
-    req.userId = decoded?.id;
+    req.userId = decoded.id;
 
     return next();
   } catch (error) {

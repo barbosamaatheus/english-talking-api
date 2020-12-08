@@ -1,8 +1,8 @@
 import { ICalculatesApprovalRate } from "../types/calculatesApprovalRate";
 
 export default function calculatesApprovalRate({
-  approvals,
-  disapprovals,
+  approvals = [],
+  disapprovals = [],
 }: ICalculatesApprovalRate) {
   const total = approvals.length + disapprovals.length;
 

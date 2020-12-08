@@ -1,10 +1,9 @@
 import { Request } from "express";
-import { Schema } from "mongoose";
 
-export type UserID = Schema.Types.ObjectId;
+export type UserID = uuid;
 
 export interface IRequest extends Request {
-  userId?: string | UserID;
+  userId?: uuid;
 }
 
 export { Response as IResponse } from "express";

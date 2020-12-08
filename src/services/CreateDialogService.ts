@@ -1,34 +1,44 @@
+import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
+import User from "../models/User";
+import { Status } from "../utils/enumStatus";
 
 import { IRequest, IResponse } from "../types/http";
+import DialogView from "../views/DialogView";
 
-interface IDialogInterface {
-  speech: string,
-  answer: string,
-  user: string
-}
 export default async function CreateDialogService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
+  const dialogRepository = getRepository(Dialog);
+  const userRepository = getRepository(User);
   const response = new ResponseHandler(res);
-  
+
   const { entities } = response;
 
   try {
-    const { speech, answer }= req.body;
-    
-    const dialog = await Dialog.create<IDialogInterface>({
+    const { speech, answer } = req.body;
+
+    // const user = await userRepository.findOne(req.userId);
+
+    const data = {
       speech,
       answer,
-      user: req.userId as string,
-    });
+      userId: req.userId,
+      status: Status.ANALYZING,
+      approvals: [],
+      disapprovals: [],
+    };
+
+    const dialog = dialogRepository.create(data);
+
+    await dialogRepository.save(dialog);
 
     return response
       .entity(entities.DIALOG)
       .code(response.CREATED_201)
-      .data(dialog)
+      .data(DialogView.render(dialog))
       .send();
   } catch (error) {
     const isValidationError = error.name === "ValidationError";

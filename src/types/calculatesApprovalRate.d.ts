@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+import User from "../models/User";
 
 export interface ICalculatesApprovalRate {
-  approvals: Schema.Types.ObjectId[];
-  disapprovals: Schema.Types.ObjectId[];
+  approvals: User[];
+  disapprovals: User[];
 }

@@ -1,12 +1,18 @@
+import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
-
+import { Status } from "../utils/enumStatus";
 import { IRequest, IResponse, UserID } from "../types/http";
+import calculatesApprovalRate from "../utils/calculatesApprovalRate";
+import User from "../models/User";
 
 export default async function RejectDialogService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
+  const userRepository = getRepository(User);
+  const dialogRepository = getRepository(Dialog);
+
   const response = new ResponseHandler(res);
   const { entities } = response;
 
@@ -14,7 +20,10 @@ export default async function RejectDialogService(
   const { userId } = req;
 
   try {
-    const dialogue = await Dialog.findById(dialogId);
+    const dialogue = await dialogRepository.findOne(dialogId, {
+      relations: ["approvals", "disapprovals"],
+    });
+    const user = await userRepository.findOne(userId);
 
     if (!dialogue)
       return response
@@ -24,11 +33,17 @@ export default async function RejectDialogService(
         .message("Resource not found")
         .send();
 
-    const index = dialogue.approvals.indexOf(userId as UserID);
+    dialogue.approvals = dialogue.approvals.filter((item) => {
+      return item.id !== userId;
+    });
 
-    if (index > -1) dialogue.approvals.splice(index, 1);
+    const userHasDisapproved = dialogue.disapprovals.filter((item) => {
+      return item.id === userId;
+    });
 
-    if (dialogue.disapprovals.includes(userId as UserID))
+    const alreadyDisapproved = userHasDisapproved.length > 0;
+
+    if (alreadyDisapproved)
       return response
         .isError()
         .entity(entities.USER)
@@ -36,11 +51,13 @@ export default async function RejectDialogService(
         .message("The user has already disapproved of this dialog")
         .send();
 
-    dialogue.disapprovals.push(userId as UserID);
+    dialogue.disapprovals.push(user as User);
 
-    if (dialogue.approval_rate < 70) dialogue.status = "analyzing";
+    const { approvals, disapprovals } = dialogue;
+    if (calculatesApprovalRate({ approvals, disapprovals }) < 70)
+      dialogue.status = Status.APPROVED;
 
-    await dialogue.save();
+    await dialogRepository.save(dialogue);
 
     return response
       .entity(entities.DIALOG)

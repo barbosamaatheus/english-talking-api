@@ -1,5 +1,7 @@
+import { getRepository } from "typeorm";
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
+import UserView from "../views/UserView";
 import User from "../models/User";
 
 import { IRequest, IResponse } from "../types/http";
@@ -9,14 +11,14 @@ export default async function RegisterUserService(
   res: IResponse
 ): Promise<ResponseHandler> {
   const jwt = new JwtManager();
-
+  const userRepository = getRepository(User);
   const response = new ResponseHandler(res);
   const { entities } = response;
 
   try {
     const { name, picture, email, password } = req.body;
 
-    if (await User.findOne({ email }))
+    if (await userRepository.findOne({ email }))
       return response
         .isError()
         .entity(entities.USER)
@@ -24,19 +26,20 @@ export default async function RegisterUserService(
         .message("User already exists")
         .send();
 
-    const user = await User.create({
+    const data = {
       name,
       picture,
       email,
       password,
-    });
+    };
 
-    user.password = undefined;
+    const user = userRepository.create(data);
+    await userRepository.save(user);
 
     return response
       .entity(entities.USER)
       .code(response.CREATED_201)
-      .data({ user })
+      .data(UserView.render(user))
       .metadata({
         token: jwt.generate({ id: user.id }),
       })

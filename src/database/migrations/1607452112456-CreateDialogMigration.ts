@@ -29,7 +29,7 @@ export class CreateDialogMigration1607452112456 implements MigrationInterface {
             enum: ["APPROVED", "ANALYZING"],
           },
           {
-            name: "user",
+            name: "userId",
             type: "uuid",
           },
           {
@@ -46,7 +46,7 @@ export class CreateDialogMigration1607452112456 implements MigrationInterface {
         foreignKeys: [
           {
             name: "UserDialog",
-            columnNames: ["user"],
+            columnNames: ["userId"],
             referencedColumnNames: ["id"],
             referencedTableName: "users",
             onUpdate: "CASCADE",

@@ -1,12 +1,15 @@
+import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
 import { IRequest, IResponse } from "../types/http";
+import DialogView from "../views/DialogView";
 
 export default async function ConsultDialogService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
+  const dialogRepository = getRepository(Dialog);
   const { limit, page } = req.headers;
 
   const options = {
@@ -18,12 +21,13 @@ export default async function ConsultDialogService(
   const { entities } = response;
 
   try {
-    const dialogues = await Dialog.find(req.query, null, {
-      limit: options.limit,
+    const findAndCount = await dialogRepository.findAndCount({
+      relations: ["approvals", "disapprovals", "userId"],
+      where: req.query,
+      take: options.limit,
       skip: (options.page - 1) * options.limit,
     });
-
-    const count = await Dialog.countDocuments(req.query);
+    const [dialogues, count] = findAndCount;
     res.header("X-Total-Count", `${count}`);
 
     if (!count)
@@ -34,21 +38,13 @@ export default async function ConsultDialogService(
         .message("Resource not found")
         .send();
 
-    const data = dialogues.map((element) => {
-      return {
-        // eslint-disable-next-line dot-notation
-        ...element["_doc"],
-        approval_rate: element.approval_rate,
-      };
-    });
-
     return response
       .entity(entities.DIALOG)
       .code(response.OK_200)
-      .data(data)
+      .data(DialogView.renderMany(dialogues))
       .send();
-  } catch (err) {
-    const isValidationError = err.name === "ValidationError";
+  } catch (error) {
+    const isValidationError = error.name === "ValidationError";
 
     return response
       .isError()
@@ -58,7 +54,7 @@ export default async function ConsultDialogService(
           ? response.BAD_REQUEST_400
           : response.INTERNAL_SERVER_ERROR_500
       )
-      .message(isValidationError ? err.message : "Dialog consultation failed")
+      .message(isValidationError ? error.message : "Dialog consultation failed")
       .send();
   }
 }

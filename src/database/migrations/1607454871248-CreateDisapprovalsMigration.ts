@@ -16,18 +16,18 @@ export class CreateDisapprovalsMigration1607454871248
             generationStrategy: "increment",
           },
           {
-            name: "userId",
+            name: "usersId",
             type: "uuid",
           },
           {
-            name: "dialogId",
+            name: "dialogsId",
             type: "uuid",
           },
         ],
         foreignKeys: [
           {
             name: "ApprovalsDialogUserId",
-            columnNames: ["userId"],
+            columnNames: ["usersId"],
             referencedColumnNames: ["id"],
             referencedTableName: "users",
             onUpdate: "CASCADE",
@@ -35,9 +35,9 @@ export class CreateDisapprovalsMigration1607454871248
           },
           {
             name: "ApprovalsDialogDialogId",
-            columnNames: ["dialogId"],
+            columnNames: ["dialogsId"],
             referencedColumnNames: ["id"],
-            referencedTableName: "users",
+            referencedTableName: "dialogs",
             onUpdate: "CASCADE",
             onDelete: "CASCADE",
           },
