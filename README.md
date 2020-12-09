@@ -18,6 +18,7 @@
 # Table of Contents
 
 - [Overview](#Overview)
+- [Running the Project](#Running-the-Project)
 - [Authentication](#Authentication)
 - [Contributing](#Contributing)
   - [Contribution Guidelines](#Contribution-Guidelines)
@@ -42,6 +43,31 @@ We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as
 The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
 
 **See a [API Documentation](https://www.postman.com/explore/template/15025/english-talking-api)**
+
+# Running the Project
+
+### Cloning the project
+
+```sh
+$ git clone https://github.com/barbosamaatheus/english-talking-api
+$ cd english-talking-api
+```
+
+### Starting the API
+
+```sh
+# Creating the database Docker image:
+# Within the project, there is already a docker-compose.yml file that has the
+# PostgreSQL as a database, just have Docker(https://www.docker.com/) installed on your machine.
+$ docker-compose up -d # Will start in the background and will not block the shell
+# Install all project dependencies
+$ yarn # or npm install
+# Running migrations to the database
+$ yarn typeorm migration:run
+# Starting the project
+$ yarn dev
+## You should receive a "Server started!" on your terminal
+```
 
 # Authentication
 

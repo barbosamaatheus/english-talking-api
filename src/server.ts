@@ -1,16 +1,13 @@
-import { connect as createConnection } from "mongoose";
 import app from "./app";
+import connection from "./database/connection";
 
 const PORT = process.env.PORT || 3000;
 
-const MONGODB_URI = process.env.DB_PROD as string;
-const mongooseOpts = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
+const createConnection = async () => {
+  await connection.create();
 };
 
-createConnection(MONGODB_URI, mongooseOpts);
+createConnection();
 
 app.listen(PORT, () => {
   console.log("Server started!");

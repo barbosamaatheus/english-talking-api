@@ -5,60 +5,16 @@ import app from "../../../src/app";
 const request = supertest(app);
 
 let authorization: string;
+
 beforeAll(async () => {
   const response = await request.post("/v1/register").send({
     name: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
+    picture: faker.image.imageUrl(),
   });
 
   authorization = `Bearer ${response.body.metadata.token}`;
-});
-
-describe("Authentication POST /dialog", () => {
-  const speech = faker.lorem.sentence();
-  const answer = faker.lorem.sentence();
-
-  it("No token provider", async () => {
-    const response = await request.post("/v1/dialog").send({ speech, answer });
-
-    expect(response.status).toBe(401);
-    expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe("No token provider");
-  });
-
-  it("Token error", async () => {
-    const response = await request
-      .post("/v1/dialog")
-      .set("Authorization", "Outher Token Bearer")
-      .send({ speech, answer });
-
-    expect(response.status).toBe(401);
-    expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe("Token error");
-  });
-
-  it("Token malformatted", async () => {
-    const response = await request
-      .post("/v1/dialog")
-      .set("Authorization", "Beareer token")
-      .send({ speech, answer });
-
-    expect(response.status).toBe(401);
-    expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe("Token malformatted");
-  });
-
-  it("Token invalid", async () => {
-    const response = await request
-      .post("/v1/dialog")
-      .set("Authorization", "Bearer token")
-      .send({ speech, answer });
-
-    expect(response.status).toBe(401);
-    expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe("Token invalid");
-  });
 });
 
 describe("Create Dialog", () => {
@@ -74,10 +30,10 @@ describe("Create Dialog", () => {
     expect(response.status).toBe(201);
     expect(response.body.data.speech).toBe(speech);
     expect(response.body.data.answer).toBe(answer);
-    expect(response.body.data.status).toBe("analyzing");
+    expect(response.body.data.status).toBe("ANALYZING");
   });
 
-  it("Check dialogue creation without sending the field speech.", async () => {
+  it("Check dialogue creation without sending the field answer.", async () => {
     const speech = faker.lorem.sentence();
 
     const response = await request
@@ -88,7 +44,7 @@ describe("Create Dialog", () => {
     expect(response.status).toBe(400);
   });
 
-  it("Check dialogue creation without sending answer field.", async () => {
+  it("Check dialogue creation without sending speech field.", async () => {
     const answer = faker.lorem.sentence();
 
     const response = await request

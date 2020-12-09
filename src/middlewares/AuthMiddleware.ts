@@ -5,7 +5,7 @@ import { NextFunction as INextFunction } from "express";
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 
-import { IRequest, IResponse } from "../types/http";
+import { IRequest, IResponse } from "../@types/http";
 
 export default async function AuthMiddleware(
   req: IRequest,
@@ -38,7 +38,7 @@ export default async function AuthMiddleware(
   try {
     const decoded = await jwt.verify(token);
 
-    req.userId = decoded?.id;
+    req.userId = decoded.id;
 
     return next();
   } catch (error) {

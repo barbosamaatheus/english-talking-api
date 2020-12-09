@@ -1,0 +1,12 @@
+version: "3.1"
+
+services:
+  english_talking_api_db:
+    image: postgres
+    container_name: EnglishTalkingApi
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: EnglishTalkingApi
+    ports:
+      - 5432:5432
