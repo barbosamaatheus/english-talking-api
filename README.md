@@ -13,7 +13,7 @@
 
 </div>
 
-# [English Talking API](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
+# [English Talking API](https://www.postman.com/explore/template/15025/english-talking-api)
 
 # Table of Contents
 
@@ -41,7 +41,7 @@ We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as
 
 The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
 
-See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
+**See a [API Documentation](https://www.postman.com/explore/template/15025/english-talking-api)**
 
 # Authentication
 
