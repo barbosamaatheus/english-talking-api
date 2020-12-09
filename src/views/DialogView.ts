@@ -15,7 +15,7 @@ export default {
       answer: dialog.answer,
       status: dialog.status,
       approval_rate: calculatesApprovalRate({ approvals, disapprovals }),
-      user: dialog.userId.id,
+      user: dialog.user.id || dialog.user,
       approvals: renderEvaluation(dialog.approvals),
       disapprovals: renderEvaluation(dialog.disapprovals),
       createdAt: dialog.createdAt,

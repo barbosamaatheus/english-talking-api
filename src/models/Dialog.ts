@@ -37,8 +37,8 @@ export default class Dialog {
   @ManyToOne(() => User, (user) => user.dialog, {
     cascade: true,
   })
-  @JoinColumn({ name: "userId" })
-  userId: User;
+  @JoinColumn({ name: "user" })
+  user: User;
 
   @ManyToMany(() => User, (user) => user.approvals, {
     cascade: true,

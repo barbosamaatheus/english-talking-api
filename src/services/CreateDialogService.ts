@@ -25,7 +25,7 @@ export default async function CreateDialogService(
     const data = {
       speech,
       answer,
-      userId: user,
+      user: req.userId,
       status: Status.ANALYZING,
       approvals: [],
       disapprovals: [],
@@ -33,8 +33,6 @@ export default async function CreateDialogService(
 
     const dialog = dialogRepository.create(data);
     await dialogRepository.save(dialog);
-
-    console.log(dialog);
 
     return response
       .entity(entities.DIALOG)

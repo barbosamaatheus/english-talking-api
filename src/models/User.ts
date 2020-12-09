@@ -35,8 +35,8 @@ export default class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Dialog, (dialog) => dialog.userId)
-  @JoinColumn({ name: "userId" })
+  @OneToMany(() => Dialog, (dialog) => dialog.user)
+  @JoinColumn({ name: "user" })
   dialog: Dialog[];
 
   @ManyToMany(() => Dialog, (dialog) => dialog.approvals)

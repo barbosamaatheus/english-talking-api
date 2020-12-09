@@ -1,4 +1,5 @@
 import { getRepository } from "typeorm";
+import { validate } from "class-validator";
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import UserView from "../views/UserView";
@@ -34,7 +35,13 @@ export default async function RegisterUserService(
     };
 
     const user = userRepository.create(data);
-    await userRepository.save(user);
+    const errors = await validate(user);
+
+    if (errors.length > 0) {
+      throw new Error(`${[errors[0]]}`);
+    } else {
+      await userRepository.save(user);
+    }
 
     return response
       .entity(entities.USER)
@@ -45,7 +52,8 @@ export default async function RegisterUserService(
       })
       .send();
   } catch (error) {
-    const isValidationError = error.name === "QueryFailedError";
+    const isValidationError =
+      error.name === "QueryFailedError" || error.name === "Error";
 
     const code = isValidationError
       ? response.BAD_REQUEST_400

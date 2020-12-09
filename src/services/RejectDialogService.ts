@@ -55,7 +55,7 @@ export default async function RejectDialogService(
 
     const { approvals, disapprovals } = dialogue;
     if (calculatesApprovalRate({ approvals, disapprovals }) < 70)
-      dialogue.status = Status.APPROVED;
+      dialogue.status = Status.ANALYZING;
 
     await dialogRepository.save(dialogue);
 

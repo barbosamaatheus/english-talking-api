@@ -22,7 +22,7 @@ export default async function ConsultDialogService(
 
   try {
     const findAndCount = await dialogRepository.findAndCount({
-      relations: ["approvals", "disapprovals", "userId"],
+      relations: ["approvals", "disapprovals", "user"],
       where: req.query,
       take: options.limit,
       skip: (options.page - 1) * options.limit,
@@ -44,6 +44,7 @@ export default async function ConsultDialogService(
       .data(DialogView.renderMany(dialogues))
       .send();
   } catch (error) {
+    res.header("x-total-count", "0");
     const isValidationError = error.name === "QueryFailedError";
 
     return response
