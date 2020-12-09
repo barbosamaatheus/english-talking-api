@@ -13,6 +13,7 @@ beforeAll(async () => {
     name: faker.name.findName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
+    picture: faker.image.imageUrl(),
   });
   authorization = `Bearer ${response.body.metadata.token}`;
 });
@@ -22,10 +23,10 @@ beforeEach(async () => {
     .post("/v1/dialog")
     .set("Authorization", authorization)
     .send({ speech: faker.lorem.sentence(), answer: faker.lorem.sentence() });
-  dialogId = dialog.body.data["_id"];
+  dialogId = dialog.body.data.id;
 });
 
-describe("Dialog consultation", () => {
+describe("Dialog Reject", () => {
   it("Check the rejection of the dialog", async () => {
     const response = await request
       .put(`/v1/dialog/${dialogId}/reject`)
@@ -33,7 +34,7 @@ describe("Dialog consultation", () => {
 
     const consultation = await request
       .get("/v1/dialog")
-      .query({ _id: dialogId });
+      .query({ id: dialogId });
 
     expect(response.status).toBe(204);
 
@@ -42,7 +43,7 @@ describe("Dialog consultation", () => {
   });
 
   it("Check the rejection of the non-existent dialogue", async () => {
-    dialogId = "5e1a0651741b255ddda996c4"; // This _id not exits
+    dialogId = faker.random.uuid();
 
     const response = await request
       .put(`/v1/dialog/${dialogId}/reject`)
@@ -58,6 +59,7 @@ describe("Dialog consultation", () => {
       name: faker.name.findName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      picture: faker.image.imageUrl(),
     });
     const newToken = `Bearer ${response.body.metadata.token}`;
 
@@ -69,14 +71,14 @@ describe("Dialog consultation", () => {
       .put(`/v1/dialog/${dialogId}/approval`)
       .set("Authorization", authorization);
 
-    const consult = await request.get("/v1/dialog").query({ _id: dialogId });
+    const consult = await request.get("/v1/dialog").query({ id: dialogId });
 
     expect(responseApproval.status).toBe(204);
     expect(responseDisapproval.status).toBe(204);
 
     expect(consult.status).toBe(200);
     expect(consult.body.data[0].approval_rate).toBe(50);
-    expect(consult.body.data[0].status).toBe("analyzing");
+    expect(consult.body.data[0].status).toBe("ANALYZING");
   });
 
   it("Check behavior with the user already experienced in this dialog", async () => {
@@ -105,7 +107,7 @@ describe("Dialog consultation", () => {
       .put(`/v1/dialog/${dialogId}/reject`)
       .set("Authorization", authorization);
 
-    const consult = await request.get("/v1/dialog").query({ _id: dialogId });
+    const consult = await request.get("/v1/dialog").query({ id: dialogId });
 
     expect(consult.body.data[0].approvals).toEqual([]);
   });

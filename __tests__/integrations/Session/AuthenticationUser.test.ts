@@ -7,6 +7,7 @@ const request = supertest(app);
 const name = faker.name.findName();
 const email = faker.internet.email().toLowerCase();
 const password = faker.internet.password();
+const picture = faker.image.imageUrl();
 
 describe("Authentication User", () => {
   beforeAll(async () => {
@@ -14,6 +15,7 @@ describe("Authentication User", () => {
       name,
       email,
       password,
+      picture,
     });
   });
 
@@ -24,8 +26,8 @@ describe("Authentication User", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.error).toBeUndefined();
-    expect(response.body.data.user.name).toBe(name);
-    expect(response.body.data.user.email).toBe(email);
+    expect(response.body.data.name).toBe(name);
+    expect(response.body.data.email).toBe(email);
     expect(response.body.metadata.token).toBeTruthy();
   });
 
