@@ -1,5 +1,4 @@
 import "./config/env";
-import "./database/connection";
 
 import express from "express";
 import cors from "cors";

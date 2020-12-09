@@ -5,6 +5,10 @@
   "username": "postgres",
   "password": "docker",
   "database": "EnglishTalkingApi",
+  "dropSchema": true,
+  "logging": false,
+  "synchroize": true,
+  "migrationsRun": true,
   "entities": ["./src/models/*.ts"],
   "migrations": ["./src/database/migrations/*.ts"],
   "cli": {
