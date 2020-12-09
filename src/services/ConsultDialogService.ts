@@ -22,7 +22,7 @@ export default async function ConsultDialogService(
 
   try {
     const findAndCount = await dialogRepository.findAndCount({
-      relations: ["approvals", "disapprovals", "user"],
+      relations: ["approvals", "disapprovals", "owner"],
       where: req.query,
       take: options.limit,
       skip: (options.page - 1) * options.limit,

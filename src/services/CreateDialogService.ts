@@ -20,12 +20,10 @@ export default async function CreateDialogService(
   try {
     const { speech, answer } = req.body;
 
-    const user = await userRepository.findOne(req.userId);
-
     const data = {
       speech,
       answer,
-      user: req.userId,
+      owner: req.userId,
       status: Status.ANALYZING,
       approvals: [],
       disapprovals: [],

@@ -88,7 +88,7 @@ describe("Dialog consultation", () => {
       status: "ANALYZING",
     });
     const responseUser = await request.get("/v1/dialog").query({
-      user: userId,
+      owner: userId,
     });
     const responseId = await request.get("/v1/dialog").query({
       id: dialogId,
@@ -97,7 +97,7 @@ describe("Dialog consultation", () => {
     const responseAnswer = await request.get("/v1/dialog").query({ answer });
 
     expect(responseStatus.body.data[0].status).toBe("ANALYZING");
-    expect(responseUser.body.data[0].user).toBe(userId);
+    expect(responseUser.body.data[0].owner).toBe(userId);
     expect(responseId.body.data[0].id).toBe(dialogId);
     expect(responseSpeech.body.data[0].speech).toBe(speech);
     expect(responseAnswer.body.data[0].answer).toBe(answer);
@@ -116,10 +116,6 @@ describe("Dialog consultation", () => {
     const response = await request.get("/v1/dialog");
 
     expect(response.status).toBe(200);
-    expect(response.body.data[1].user).toBe(userId);
-    expect(response.body.data[1].id).toBe(dialogId);
-    expect(response.body.data[1].speech).toBe(speech);
-    expect(response.body.data[1].answer).toBe(answer);
-    expect(response.body.data[1].approval_rate).toBe(0);
+    expect(response.body.data[0].approval_rate).toBe(0);
   });
 });
