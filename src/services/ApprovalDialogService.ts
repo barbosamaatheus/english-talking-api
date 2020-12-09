@@ -3,7 +3,7 @@ import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 import User from "../models/User";
 import { Status } from "../utils/enumStatus";
-import { IRequest, IResponse, UserID } from "../types/http";
+import { IRequest, IResponse, UserID } from "../@types/http";
 import calculatesApprovalRate from "../utils/calculatesApprovalRate";
 
 export default async function ApprovalDialogService(
@@ -64,7 +64,7 @@ export default async function ApprovalDialogService(
       .code(response.NO_CONTENT_204)
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    const isValidationError = error.name === "QueryFailedError";
 
     const code = isValidationError
       ? response.BAD_REQUEST_400

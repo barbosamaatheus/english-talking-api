@@ -2,7 +2,7 @@ import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 import { Status } from "../utils/enumStatus";
-import { IRequest, IResponse, UserID } from "../types/http";
+import { IRequest, IResponse, UserID } from "../@types/http";
 import calculatesApprovalRate from "../utils/calculatesApprovalRate";
 import User from "../models/User";
 
@@ -64,7 +64,7 @@ export default async function RejectDialogService(
       .code(response.NO_CONTENT_204)
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    const isValidationError = error.name === "QueryFailedError";
 
     const code = isValidationError
       ? response.BAD_REQUEST_400

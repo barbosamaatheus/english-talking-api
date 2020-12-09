@@ -5,7 +5,7 @@ import { NextFunction as INextFunction } from "express";
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 
-import { IRequest, IResponse } from "../types/http";
+import { IRequest, IResponse } from "../@types/http";
 
 export default async function AuthMiddleware(
   req: IRequest,

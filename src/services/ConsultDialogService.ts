@@ -2,7 +2,7 @@ import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
-import { IRequest, IResponse } from "../types/http";
+import { IRequest, IResponse } from "../@types/http";
 import DialogView from "../views/DialogView";
 
 export default async function ConsultDialogService(
@@ -44,7 +44,7 @@ export default async function ConsultDialogService(
       .data(DialogView.renderMany(dialogues))
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    const isValidationError = error.name === "QueryFailedError";
 
     return response
       .isError()

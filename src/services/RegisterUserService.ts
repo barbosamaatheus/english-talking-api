@@ -4,7 +4,7 @@ import { ResponseHandler } from "../utils/ResponseHandler";
 import UserView from "../views/UserView";
 import User from "../models/User";
 
-import { IRequest, IResponse } from "../types/http";
+import { IRequest, IResponse } from "../@types/http";
 
 export default async function RegisterUserService(
   req: IRequest,
@@ -45,7 +45,7 @@ export default async function RegisterUserService(
       })
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    const isValidationError = error.name === "QueryFailedError";
 
     const code = isValidationError
       ? response.BAD_REQUEST_400

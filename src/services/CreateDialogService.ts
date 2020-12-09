@@ -4,7 +4,7 @@ import Dialog from "../models/Dialog";
 import User from "../models/User";
 import { Status } from "../utils/enumStatus";
 
-import { IRequest, IResponse } from "../types/http";
+import { IRequest, IResponse } from "../@types/http";
 import DialogView from "../views/DialogView";
 
 export default async function CreateDialogService(
@@ -20,20 +20,21 @@ export default async function CreateDialogService(
   try {
     const { speech, answer } = req.body;
 
-    // const user = await userRepository.findOne(req.userId);
+    const user = await userRepository.findOne(req.userId);
 
     const data = {
       speech,
       answer,
-      userId: req.userId,
+      userId: user,
       status: Status.ANALYZING,
       approvals: [],
       disapprovals: [],
     };
 
     const dialog = dialogRepository.create(data);
-
     await dialogRepository.save(dialog);
+
+    console.log(dialog);
 
     return response
       .entity(entities.DIALOG)
@@ -41,7 +42,7 @@ export default async function CreateDialogService(
       .data(DialogView.render(dialog))
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    const isValidationError = error.name === "QueryFailedError";
 
     return response
       .isError()

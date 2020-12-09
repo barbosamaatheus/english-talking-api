@@ -34,7 +34,9 @@ export default class Dialog {
   })
   status: Status;
 
-  @ManyToOne(() => User, (user) => user.dialog)
+  @ManyToOne(() => User, (user) => user.dialog, {
+    cascade: true,
+  })
   @JoinColumn({ name: "userId" })
   userId: User;
 
