@@ -77,7 +77,7 @@ describe("Dialog Reject", () => {
     expect(responseDisapproval.status).toBe(204);
 
     expect(consult.status).toBe(200);
-    expect(consult.body.data[0].approval_rate).toBe(50);
+    expect(consult.body.data[0].approvalRate).toBe(50);
     expect(consult.body.data[0].status).toBe("ANALYZING");
   });
 

@@ -116,6 +116,6 @@ describe("Dialog consultation", () => {
     const response = await request.get("/v1/dialog");
 
     expect(response.status).toBe(200);
-    expect(response.body.data[0].approval_rate).toBe(0);
+    expect(response.body.data[0].approvalRate).toBe(0);
   });
 });

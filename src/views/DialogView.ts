@@ -15,7 +15,7 @@ export default {
       speech: captalize(dialog.speech),
       answer: captalize(dialog.answer),
       status: dialog.status,
-      approval_rate: calculatesApprovalRate({ approvals, disapprovals }),
+      approvalRate: calculatesApprovalRate({ approvals, disapprovals }),
       owner: dialog.owner.id || dialog.owner,
       approvals: renderEvaluation(dialog.approvals),
       disapprovals: renderEvaluation(dialog.disapprovals),

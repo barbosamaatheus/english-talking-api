@@ -40,7 +40,7 @@ describe("Dialog Approval", () => {
 
     expect(consult.status).toBe(200);
     expect(consult.body.data[0].status).toBe("APPROVED");
-    expect(consult.body.data[0].approval_rate).toBe(100);
+    expect(consult.body.data[0].approvalRate).toBe(100);
     expect(consult.body.data[0].approvals[0]).toBeTruthy();
   });
 
@@ -93,7 +93,7 @@ describe("Dialog Approval", () => {
     expect(responseDisapproval.status).toBe(204);
 
     expect(consult.status).toBe(200);
-    expect(consult.body.data[0].approval_rate).toBe(50);
+    expect(consult.body.data[0].approvalRate).toBe(50);
     expect(consult.body.data[0].status).toBe("ANALYZING");
   });
 
