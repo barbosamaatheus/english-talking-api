@@ -31,7 +31,7 @@ export default class User {
   @IsEmail()
   email: string;
 
-  @MinLength(8) // senha criptografada tem mais de 8 caracteres
+  @MinLength(6) // senha criptografada tem mais de 8 caracteres
   @Column()
   password: string;
 

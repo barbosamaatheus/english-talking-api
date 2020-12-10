@@ -21,13 +21,15 @@ export default async function CreateDialogService(
     const { speech, answer } = req.body;
 
     const data = {
-      speech,
-      answer,
+      speech: speech.toLowerCase(),
+      answer: answer.toLowerCase(),
       owner: req.userId,
       status: Status.ANALYZING,
       approvals: [],
       disapprovals: [],
     };
+
+    console.log(data);
 
     const dialog = dialogRepository.create(data);
     await dialogRepository.save(dialog);
