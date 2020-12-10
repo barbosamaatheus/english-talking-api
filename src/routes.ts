@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import AuthMiddleware from "./middlewares/AuthMiddleware";
+import QueryMiddleware from "./middlewares/QueryMiddleware";
 
 import SessionController from "./controllers/SessionController";
 import DialogController from "./controllers/DialogController";
@@ -11,7 +12,7 @@ const routes = Router();
 routes.post("/v1/register", SessionController.register);
 routes.get("/v1/authenticate", SessionController.authenticate);
 
-routes.get("/v1/dialog", DialogController.index);
+routes.get("/v1/dialog", QueryMiddleware, DialogController.index);
 routes.post("/v1/dialog", AuthMiddleware, DialogController.store);
 routes.put(
   "/v1/dialog/:dialogId/approval",
