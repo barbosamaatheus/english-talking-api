@@ -10,7 +10,7 @@
     "build-ts": "tsc",
     "start": "npm run serve",
     "postinstall": "npm run build-ts",
-    "serve": "node dist/src/server.js",
+    "serve": "cross-env NODE_ENV=production node dist/src/server.js",
     "watch-node": "nodemon dist/src/server.js",
     "watch-ts": "tsc -w",
     "release": "standard-version",
