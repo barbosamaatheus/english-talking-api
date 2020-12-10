@@ -28,8 +28,7 @@
 
 # Overview
 
-This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database
-[MongoDB](https://www.mongodb.com/)
+This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and postgresSQL database
 
 We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as an automatic code formatter. Please download the plugins in your editor.
 
