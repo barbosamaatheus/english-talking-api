@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
-import User from "../models/User";
+
 import { Status } from "../utils/enumStatus";
 
 import { IRequest, IResponse } from "../@types/http";
@@ -12,13 +12,20 @@ export default async function CreateDialogService(
   res: IResponse
 ): Promise<ResponseHandler> {
   const dialogRepository = getRepository(Dialog);
-  const userRepository = getRepository(User);
+
   const response = new ResponseHandler(res);
 
   const { entities } = response;
 
   try {
     const { speech, answer } = req.body;
+    if (!speech || !answer)
+      return response
+        .isError()
+        .entity(entities.DIALOG)
+        .code(response.BAD_REQUEST_400)
+        .message("Speech or Answer not sent")
+        .send();
 
     const data = {
       speech: speech.toLowerCase(),
@@ -29,8 +36,6 @@ export default async function CreateDialogService(
       disapprovals: [],
     };
 
-    console.log(data);
-
     const dialog = dialogRepository.create(data);
     await dialogRepository.save(dialog);
 
@@ -40,6 +45,7 @@ export default async function CreateDialogService(
       .data(DialogView.render(dialog))
       .send();
   } catch (error) {
+    console.log(error);
     const isValidationError = error.name === "QueryFailedError";
 
     return response

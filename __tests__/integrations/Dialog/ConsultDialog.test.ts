@@ -1,7 +1,7 @@
-/* eslint-disable dot-notation */
 import supertest from "supertest";
 import faker from "faker";
 import app from "../../../src/app";
+import captalize from "../../../src/utils/captalize";
 
 const request = supertest(app);
 
@@ -9,8 +9,8 @@ let authorization;
 let userId: string;
 let dialogId: string;
 
-const speech = faker.lorem.sentence();
-const answer = faker.lorem.sentence();
+const speech = faker.lorem.sentence().toLowerCase();
+const answer = faker.lorem.sentence().toLowerCase();
 
 beforeAll(async () => {
   const response = await request.post("/v1/register").send({
@@ -99,8 +99,8 @@ describe("Dialog consultation", () => {
     expect(responseStatus.body.data[0].status).toBe("ANALYZING");
     expect(responseUser.body.data[0].owner).toBe(userId);
     expect(responseId.body.data[0].id).toBe(dialogId);
-    expect(responseSpeech.body.data[0].speech).toBe(speech);
-    expect(responseAnswer.body.data[0].answer).toBe(answer);
+    expect(responseSpeech.body.data[0].speech).toBe(captalize(speech));
+    expect(responseAnswer.body.data[0].answer).toBe(captalize(answer));
   });
 
   it("Check invalid query", async () => {
