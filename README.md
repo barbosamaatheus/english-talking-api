@@ -13,11 +13,12 @@
 
 </div>
 
-# [English Talking API](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
+# [English Talking API](https://www.postman.com/explore/template/15025/english-talking-api)
 
 # Table of Contents
 
 - [Overview](#Overview)
+- [Running the Project](#Running-the-Project)
 - [Authentication](#Authentication)
 - [Contributing](#Contributing)
   - [Contribution Guidelines](#Contribution-Guidelines)
@@ -27,8 +28,7 @@
 
 # Overview
 
-This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and with NOSql database
-[MongoDB](https://www.mongodb.com/)
+This is a RestFull API built in the javaScript language using [Node.js](https://nodejs.org/en/download/) technology and postgresSQL database
 
 We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as an automatic code formatter. Please download the plugins in your editor.
 
@@ -41,7 +41,32 @@ We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as
 
 The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
 
-See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest)
+**See a [API Documentation](https://www.postman.com/explore/template/15025/english-talking-api)**
+
+# Running the Project
+
+### Cloning the project
+
+```sh
+$ git clone https://github.com/barbosamaatheus/english-talking-api
+$ cd english-talking-api
+```
+
+### Starting the API
+
+```sh
+# Creating the database Docker image:
+# Within the project, there is already a docker-compose.yml file that has the
+# PostgreSQL as a database, just have Docker(https://www.docker.com/) installed on your machine.
+$ docker-compose up -d # Will start in the background and will not block the shell
+# Install all project dependencies
+$ yarn # or npm install
+# Running migrations to the database
+$ yarn typeorm migration:run
+# Starting the project
+$ yarn dev
+## You should receive a "Server started!" on your terminal
+```
 
 # Authentication
 

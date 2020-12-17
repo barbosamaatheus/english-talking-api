@@ -1,22 +1,29 @@
+import { getRepository } from "typeorm";
 import bcrypt from "bcrypt";
 
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import User from "../models/User";
 
-import { IRequest, IResponse } from "../types/http";
+import { IRequest, IResponse } from "../@types/http";
+import UserView from "../views/UserView";
 
 export default async function AuthenticationUserService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
+  const userRepository = getRepository(User);
+
   const jwt = new JwtManager();
   const response = new ResponseHandler(res);
+
   const { entities } = response;
-  const [hashType, hash] = req.headers.authorization?.split(" ");
+
+  const authorization = req.headers.authorization as String;
+  const [hashType, hash] = authorization.split(" ");
   const [email, password] = Buffer.from(hash, "base64").toString().split(":");
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await userRepository.findOne({ email });
 
   if (!user)
     return response
@@ -34,12 +41,10 @@ export default async function AuthenticationUserService(
       .message("Invalid Password")
       .send();
 
-  user.password = undefined;
-
   return response
     .entity(entities.USER)
     .code(response.OK_200)
-    .data({ user })
+    .data(UserView.render(user))
     .metadata({ token: jwt.generate({ id: user.id }) })
     .send();
 }

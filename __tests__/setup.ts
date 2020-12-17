@@ -1,20 +1,11 @@
-import { connect as createConnection, connection, disconnect } from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
-
-const mongod = new MongoMemoryServer();
+import connection from "../src/database/connection";
 
 beforeAll(async () => {
-  const MONGODB_URI = await mongod.getConnectionString();
-  const mongooseOpts = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  };
-
-  await createConnection(MONGODB_URI, mongooseOpts);
+  await connection.create();
+  await connection.clear();
 });
+
 afterAll(async () => {
-  await connection.dropDatabase();
-  await disconnect();
-  await mongod.stop();
+  await connection.clear();
+  await connection.close();
 });

@@ -1,12 +1,18 @@
+import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
-
-import { IRequest, IResponse, UserID } from "../types/http";
+import User from "../models/User";
+import { Status } from "../utils/enumStatus";
+import { IRequest, IResponse, UserID } from "../@types/http";
+import calculatesApprovalRate from "../utils/calculatesApprovalRate";
 
 export default async function ApprovalDialogService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
+  const userRepository = getRepository(User);
+  const dialogRepository = getRepository(Dialog);
+
   const response = new ResponseHandler(res);
   const { entities } = response;
 
@@ -14,7 +20,9 @@ export default async function ApprovalDialogService(
   const { userId } = req;
 
   try {
-    const dialogue = await Dialog.findById(dialogId);
+    const dialogue = await dialogRepository.findOne(dialogId, {
+      relations: ["approvals", "disapprovals"],
+    });
 
     if (!dialogue)
       return response
@@ -24,11 +32,17 @@ export default async function ApprovalDialogService(
         .message("Resource not found")
         .send();
 
-    const index = dialogue.disapprovals.indexOf(userId as UserID);
+    dialogue.disapprovals = dialogue.disapprovals.filter((item) => {
+      return item.id !== userId;
+    });
 
-    if (index > -1) dialogue.disapprovals.splice(index, 1);
+    const userHasApproved = dialogue.approvals.filter((item) => {
+      return item.id === userId;
+    });
 
-    if (dialogue.approvals.includes(userId as UserID))
+    const alreadyApproved = userHasApproved.length > 0;
+
+    if (alreadyApproved)
       return response
         .isError()
         .entity(entities.USER)
@@ -36,18 +50,21 @@ export default async function ApprovalDialogService(
         .message("User has already approved this dialog")
         .send();
 
-    dialogue.approvals.push(userId as UserID);
+    const user = await userRepository.findOne(userId);
+    dialogue.approvals.push(user as User);
 
-    if (dialogue.approval_rate >= 70) dialogue.status = "approved";
+    const { approvals, disapprovals } = dialogue;
+    if (calculatesApprovalRate({ approvals, disapprovals }) >= 70)
+      dialogue.status = Status.APPROVED;
 
-    await dialogue.save();
+    await dialogRepository.save(dialogue);
 
     return response
       .entity(entities.DIALOG)
       .code(response.NO_CONTENT_204)
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    const isValidationError = error.name === "QueryFailedError";
 
     const code = isValidationError
       ? response.BAD_REQUEST_400

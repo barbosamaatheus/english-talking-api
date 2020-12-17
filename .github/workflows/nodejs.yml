@@ -11,19 +11,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js '12.x'
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-        
-    - name: Install dependencies
-      run: yarn
+      - name: Use Node.js '12.x'
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
 
-    - name: Run tests
-      run: yarn test
+      - name: Build the docker-compose stack
+        run: docker-compose up -d
 
-      env:
-        SECRET_KEY: '9903f1bb0f4bbe259a609d0ae4da576a'
-      
+      - name: Check running containers
+        run: docker ps -a
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run tests
+        run: yarn test
+
+        env:
+          SECRET_KEY: "9903f1bb0f4bbe259a609d0ae4da576a"
+          DATABASE_URL: "postgres://postgres:docker@localhost:5432/EnglishTalkingApi"

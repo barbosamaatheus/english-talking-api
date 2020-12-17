@@ -1,37 +1,52 @@
+import { getRepository } from "typeorm";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 
-import { IRequest, IResponse } from "../types/http";
+import { Status } from "../utils/enumStatus";
 
-interface IDialogInterface {
-  speech: string,
-  answer: string,
-  user: string
-}
+import { IRequest, IResponse } from "../@types/http";
+import DialogView from "../views/DialogView";
+
 export default async function CreateDialogService(
   req: IRequest,
   res: IResponse
 ): Promise<ResponseHandler> {
+  const dialogRepository = getRepository(Dialog);
+
   const response = new ResponseHandler(res);
-  
+
   const { entities } = response;
 
   try {
-    const { speech, answer }= req.body;
-    
-    const dialog = await Dialog.create<IDialogInterface>({
-      speech,
-      answer,
-      user: req.userId as string,
-    });
+    const { speech, answer } = req.body;
+    if (!speech || !answer)
+      return response
+        .isError()
+        .entity(entities.DIALOG)
+        .code(response.BAD_REQUEST_400)
+        .message("Speech or Answer not sent")
+        .send();
+
+    const data = {
+      speech: speech.toLowerCase(),
+      answer: answer.toLowerCase(),
+      owner: req.userId,
+      status: Status.ANALYZING,
+      approvals: [],
+      disapprovals: [],
+    };
+
+    const dialog = dialogRepository.create(data);
+    await dialogRepository.save(dialog);
 
     return response
       .entity(entities.DIALOG)
       .code(response.CREATED_201)
-      .data(dialog)
+      .data(DialogView.render(dialog))
       .send();
   } catch (error) {
-    const isValidationError = error.name === "ValidationError";
+    console.log(error);
+    const isValidationError = error.name === "QueryFailedError";
 
     return response
       .isError()

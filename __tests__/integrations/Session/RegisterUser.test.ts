@@ -19,9 +19,9 @@ describe("Register User", () => {
     });
 
     expect(response.status).toBe(201);
-    expect(response.body.data.user.name).toBe(name);
-    expect(response.body.data.user.picture).toBe(picture);
-    expect(response.body.data.user.email).toBe(email);
+    expect(response.body.data.name).toBe(name);
+    expect(response.body.data.picture).toBe(picture);
+    expect(response.body.data.email).toBe(email);
     expect(response.body.metadata.token).toBeTruthy();
   });
 
@@ -29,84 +29,95 @@ describe("Register User", () => {
     const name = faker.name.findName();
     const email = faker.internet.email();
     const password = faker.internet.password();
+    const picture = faker.image.imageUrl();
 
     await request.post("/v1/register").send({
       name,
       email,
       password,
+      picture,
     });
 
     const response = await request.post("/v1/register").send({
       name,
       email,
       password,
+      picture,
     });
     expect(response.status).toBe(409);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe("User already exists");
   });
 
-  /* it("Check user registration with invalid email", async () => {
+  it("Check user registration with invalid email", async () => {
     const name = faker.name.findName();
     const email = "invalidEmail";
     const password = faker.internet.password();
+    const picture = faker.image.imageUrl();
 
     const response = await request.post("/v1/register").send({
       name,
       email,
       password,
+      picture,
     });
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
-      "User validation failed: email: email adreess is not a valid!"
+      "An instance of User has failed the validation:\n - property email has failed the following constraints: isEmail \n"
     );
   });
-*/
+
   it("Check user registration without sending the email field", async () => {
     const name = faker.name.findName();
     const password = faker.internet.password();
+    const picture = faker.image.imageUrl();
 
     const response = await request.post("/v1/register").send({
       name,
+      picture,
       password,
     });
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
-      "User validation failed: email: Path `email` is required."
+      "An instance of User has failed the validation:\n - property email has failed the following constraints: isEmail \n"
     );
   });
   it("Check user registration without sending the name field", async () => {
     const email = faker.internet.email();
     const password = faker.internet.password();
+    const picture = faker.image.imageUrl();
 
     const response = await request.post("/v1/register").send({
       email,
       password,
+      picture,
     });
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
-      "User validation failed: name: Path `name` is required."
+      "An instance of User has failed the validation:\n - property name has failed the following constraints: minLength, maxLength \n"
     );
   });
   it("Check user registration without sending the password field", async () => {
     const name = faker.name.firstName();
     const email = faker.internet.email();
+    const picture = faker.image.imageUrl();
 
     const response = await request.post("/v1/register").send({
       name,
       email,
+      picture,
     });
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(
-      "User validation failed: password: Path `password` is required."
+      "An instance of User has failed the validation:\n - property password has failed the following constraints: minLength \n"
     );
   });
 });
