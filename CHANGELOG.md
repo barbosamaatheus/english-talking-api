@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## 1.0.0 (2020-12-02)
+## 1.0.0 (2020-12-17)
 
 
 ### Features
@@ -25,6 +25,13 @@ All notable changes to this project will be documented in this file. See [standa
 * **#23:** add class that rejects dialogs ([b868257](https://github.com/barbosamaatheus/english-talking-api/commit/b868257c2f3b253486b47f516e0ab2f3b9e65d0b)), closes [#23](https://github.com/barbosamaatheus/english-talking-api/issues/23)
 * **#23:** add reject method ([0af6eef](https://github.com/barbosamaatheus/english-talking-api/commit/0af6eef17b84e13f0dce5e9f7ffcb4aa302aa318)), closes [#23](https://github.com/barbosamaatheus/english-talking-api/issues/23)
 * **#23:** add route to the disapproval method ([d1ef389](https://github.com/barbosamaatheus/english-talking-api/commit/d1ef3897b51bd055219c2d94ef4a986a8e76f6c4)), closes [#23](https://github.com/barbosamaatheus/english-talking-api/issues/23)
+* **#34:** rename types to [@types](https://github.com/types) ([125a796](https://github.com/barbosamaatheus/english-talking-api/commit/125a796efefea5d8225ee16bf51fc0797e3777cb)), closes [#34](https://github.com/barbosamaatheus/english-talking-api/issues/34)
+* **#35:** add connection and ormconfig ([455f96e](https://github.com/barbosamaatheus/english-talking-api/commit/455f96edf6eb8bd70cbf320b8be85572c0fb8fca)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** add models and migrations ([1d3a5be](https://github.com/barbosamaatheus/english-talking-api/commit/1d3a5be3b2b390f22f4326b09fb70bd2cb7af374)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** migrate server to typeorm ([77d5252](https://github.com/barbosamaatheus/english-talking-api/commit/77d5252797cac1759cba2bdb9af3729bba5677dc)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** rename user to owner ([1020212](https://github.com/barbosamaatheus/english-talking-api/commit/1020212fa65f9132eb32ec6fc9415844a451ee78)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** update services to use typeorm ([c8432b7](https://github.com/barbosamaatheus/english-talking-api/commit/c8432b76c9c261aab8d5371fc0235f2a170b9f62)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* add cors ([12c8d22](https://github.com/barbosamaatheus/english-talking-api/commit/12c8d22cb06d349015de8729b6c96e189a933efc))
 * add tests for jwt manager ([6a83924](https://github.com/barbosamaatheus/english-talking-api/commit/6a8392497ee647a47ec3bf3c3fc473f06443de44))
 * add tests for Response Class ([16464cd](https://github.com/barbosamaatheus/english-talking-api/commit/16464cd501c758a16ba2bd024e6577742f6569f0))
 * create jwt manager file ([9374bab](https://github.com/barbosamaatheus/english-talking-api/commit/9374babb41d6529c9d465a6143861b14914f974c))
@@ -38,6 +45,8 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * fix ts erros ([2c0b6b1](https://github.com/barbosamaatheus/english-talking-api/commit/2c0b6b15efa3c646788e0ce27611643817fac4dd))
+* ignore case sensitive ([213c193](https://github.com/barbosamaatheus/english-talking-api/commit/213c193df8b610316c4e4d1f235480fa90dc55b7))
+* update approvalRate name ([dcb31f0](https://github.com/barbosamaatheus/english-talking-api/commit/dcb31f0d06e09b5d779f2c7ab94c50f2745cc148))
 * **#20:** add a change in function ([6ef8b3f](https://github.com/barbosamaatheus/english-talking-api/commit/6ef8b3f735c1f90106d6fc4c7839a849a7e99643)), closes [#20](https://github.com/barbosamaatheus/english-talking-api/issues/20)
 * **#20:** add a variable change ([b613bb4](https://github.com/barbosamaatheus/english-talking-api/commit/b613bb403cd1d0780c5101d91f89f4843522d0f8)), closes [#20](https://github.com/barbosamaatheus/english-talking-api/issues/20)
 * **#20:** check if the dialogs are null or empty ([0951dc8](https://github.com/barbosamaatheus/english-talking-api/commit/0951dc812e031fa60fe930a30adb2b8eab04956b)), closes [#20](https://github.com/barbosamaatheus/english-talking-api/issues/20)
@@ -75,3 +84,4 @@ All notable changes to this project will be documented in this file. See [standa
 * remove wrong service entity ([101d3b0](https://github.com/barbosamaatheus/english-talking-api/commit/101d3b039159fee84383f705f0eca7128f8bfd29))
 * the RegisterUser takes only the data needed for registration ([3da4f5f](https://github.com/barbosamaatheus/english-talking-api/commit/3da4f5fb557164829ade47db0194076cd85958a0))
 * **#9:** adionar valor default ([68a6193](https://github.com/barbosamaatheus/english-talking-api/commit/68a6193a9216fabd74d69c75874b6cd6c7321ef3)), closes [#9](https://github.com/barbosamaatheus/english-talking-api/issues/9)
+* **35:** fix bugs ([16983a2](https://github.com/barbosamaatheus/english-talking-api/commit/16983a2544b1af9d9751193757e18a606cd37400))
