@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/barbosamaatheus/english-talking-api/compare/v1.0.0...v1.1.0) (2020-12-17)
+
+
+### Features
+
+* **#34:** rename types to [@types](https://github.com/types) ([125a796](https://github.com/barbosamaatheus/english-talking-api/commit/125a796efefea5d8225ee16bf51fc0797e3777cb)), closes [#34](https://github.com/barbosamaatheus/english-talking-api/issues/34)
+* **#35:** add connection and ormconfig ([455f96e](https://github.com/barbosamaatheus/english-talking-api/commit/455f96edf6eb8bd70cbf320b8be85572c0fb8fca)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** add models and migrations ([1d3a5be](https://github.com/barbosamaatheus/english-talking-api/commit/1d3a5be3b2b390f22f4326b09fb70bd2cb7af374)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** migrate server to typeorm ([77d5252](https://github.com/barbosamaatheus/english-talking-api/commit/77d5252797cac1759cba2bdb9af3729bba5677dc)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** rename user to owner ([1020212](https://github.com/barbosamaatheus/english-talking-api/commit/1020212fa65f9132eb32ec6fc9415844a451ee78)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* **#35:** update services to use typeorm ([c8432b7](https://github.com/barbosamaatheus/english-talking-api/commit/c8432b76c9c261aab8d5371fc0235f2a170b9f62)), closes [#35](https://github.com/barbosamaatheus/english-talking-api/issues/35)
+* add cors ([12c8d22](https://github.com/barbosamaatheus/english-talking-api/commit/12c8d22cb06d349015de8729b6c96e189a933efc))
+
+
+### Bug Fixes
+
+* ignore case sensitive ([213c193](https://github.com/barbosamaatheus/english-talking-api/commit/213c193df8b610316c4e4d1f235480fa90dc55b7))
+* update approvalRate name ([dcb31f0](https://github.com/barbosamaatheus/english-talking-api/commit/dcb31f0d06e09b5d779f2c7ab94c50f2745cc148))
+* **35:** fix bugs ([16983a2](https://github.com/barbosamaatheus/english-talking-api/commit/16983a2544b1af9d9751193757e18a606cd37400))
+
 ## 1.0.0 (2020-12-02)
 
 
