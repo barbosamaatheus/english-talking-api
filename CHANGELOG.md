@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/barbosamaatheus/english-talking-api/compare/v1.0.0...v1.0.1) (2020-12-19)
+
+
+### Bug Fixes
+
+* add trim ([188f394](https://github.com/barbosamaatheus/english-talking-api/commit/188f3946db42b8522ecaf8827f692c64f9cbd8b3))
+
 ## 1.0.0 (2020-12-17)
 
 
