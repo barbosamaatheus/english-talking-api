@@ -3,14 +3,15 @@ import { Router } from "express";
 import AuthMiddleware from "./middlewares/AuthMiddleware";
 import QueryMiddleware from "./middlewares/QueryMiddleware";
 
-import SessionController from "./controllers/SessionController";
 import DialogController from "./controllers/DialogController";
 import RatingsController from "./controllers/RatingsController";
 
+import UserController from './controllers/userControllers'
+
 const routes = Router();
 
-routes.post("/register", SessionController.register);
-routes.get("/authenticate", SessionController.authenticate);
+routes.post("/register", UserController().register);
+routes.get("/authenticate", UserController().authenticate);
 
 routes.route("/dialog")
   .get(QueryMiddleware, DialogController.index)
