@@ -9,18 +9,21 @@ import RatingsController from "./controllers/RatingsController";
 
 const routes = Router();
 
-routes.post("/v1/register", SessionController.register);
-routes.get("/v1/authenticate", SessionController.authenticate);
+routes.post("/register", SessionController.register);
+routes.get("/authenticate", SessionController.authenticate);
 
-routes.get("/v1/dialog", QueryMiddleware, DialogController.index);
-routes.post("/v1/dialog", AuthMiddleware, DialogController.store);
+routes.route("/dialog")
+  .get(QueryMiddleware, DialogController.index)
+  .post(AuthMiddleware, DialogController.store);
+
 routes.put(
-  "/v1/dialog/:dialogId/approval",
+  "/dialog/:dialogId/approval",
   AuthMiddleware,
   RatingsController.approval
 );
+
 routes.put(
-  "/v1/dialog/:dialogId/reject",
+  "/dialog/:dialogId/reject",
   AuthMiddleware,
   RatingsController.reject
 );

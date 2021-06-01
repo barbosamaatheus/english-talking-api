@@ -45,7 +45,6 @@ export default async function CreateDialogService(
       .data(DialogView.render(dialog))
       .send();
   } catch (error) {
-    console.log(error);
     const isValidationError = error.name === "QueryFailedError";
 
     return response
