@@ -1,11 +1,9 @@
-import { NextFunction as INextFunction } from "express";
-
-import { IRequest, IResponse } from "../@types/http";
+import { Request, Response, NextFunction } from "express";
 
 export default async function AuthMiddleware(
-  req: IRequest,
-  res: IResponse,
-  next: INextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) {
   const { speech, answer } = req.query;
   if (speech) {

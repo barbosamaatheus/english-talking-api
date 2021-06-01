@@ -1,14 +1,14 @@
 import { getRepository } from "typeorm";
+import { Request, Response } from "express";
 import { ResponseHandler } from "../utils/ResponseHandler";
 import Dialog from "../models/Dialog";
 import User from "../models/User";
 import { Status } from "../utils/enumStatus";
-import { IRequest, IResponse, UserID } from "../@types/http";
 import calculatesApprovalRate from "../utils/calculatesApprovalRate";
 
 export default async function ApprovalDialogService(
-  req: IRequest,
-  res: IResponse
+  req: Request,
+  res: Response
 ): Promise<ResponseHandler> {
   const userRepository = getRepository(User);
   const dialogRepository = getRepository(Dialog);

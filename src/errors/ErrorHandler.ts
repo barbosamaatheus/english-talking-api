@@ -14,4 +14,4 @@ class ErrorHandler
   }
 }
 
-export default ErrorHandler;
+export default new ErrorHandler();

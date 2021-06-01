@@ -1,16 +1,14 @@
 /* eslint-disable consistent-return */
 import "../config/env";
-import { NextFunction as INextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 
 import { JwtManager } from "../utils/JwtManager";
 import { ResponseHandler } from "../utils/ResponseHandler";
 
-import { IRequest, IResponse } from "../@types/http";
-
 export default async function AuthMiddleware(
-  req: IRequest,
-  res: IResponse,
-  next: INextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) {
   const jwt = new JwtManager();
 
