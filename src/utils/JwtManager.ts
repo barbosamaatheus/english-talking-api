@@ -1,9 +1,9 @@
 import "../config/env";
 import jwt from "jsonwebtoken";
 
-import { IDecoded } from "../@types/JwtManager";
+import IDecoded from "../@types/appTypes/JwtManager";
 
-export class JwtManager {
+export default class JwtManager {
   SECRET_KEY: string;
 
   constructor() {
