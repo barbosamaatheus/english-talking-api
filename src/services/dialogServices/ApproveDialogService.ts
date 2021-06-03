@@ -58,7 +58,7 @@ export default class ApproveDialogService
       LIMIT 1
     `, [dialogId]);
 
-    const average = await calculatesApprovalRate.exec({
+    const average = calculatesApprovalRate.exec({
       approvals: Number(approvals),
       disapprovals: Number(disapprovals)
     });
