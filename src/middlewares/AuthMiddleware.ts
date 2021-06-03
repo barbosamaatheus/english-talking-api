@@ -1,45 +1,33 @@
-/* eslint-disable consistent-return */
 import "../config/env";
 import { Request, Response, NextFunction } from "express";
 
-import { JwtManager } from "../utils/JwtManager";
-import { ResponseHandler } from "../utils/ResponseHandler";
+import JwtManager from "../utils/JwtManager";
+import UnauthorizedError from "../errors/errorsTypes/UnauthorizedError";
 
-export default async function AuthMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const jwt = new JwtManager();
+class AuthMiddleware
+{
+  public async exec(request: Request, response: Response, next: NextFunction): Promise<void>
+  {
+    const { authorization } = request.headers;
 
-  const response = new ResponseHandler(res);
-  const { entities } = response;
+    if(!authorization) throw new UnauthorizedError("No token provider");
 
-  const badRequest = response
-    .isError()
-    .entity(entities.USER)
-    .code(response.UNAUTHORIZED_401);
+    const tokenComponents = authorization.split(" ");
 
-  const authHeader = req.headers.authorization;
+    if(tokenComponents.length !== 2)
+      throw new UnauthorizedError("Token error");
+      
+    const [ schema, token ] = tokenComponents;
+    
+    if(!/^Bearer$/i.test(schema))
+      throw new UnauthorizedError("Token malformatted");
 
-  if (!authHeader) return badRequest.message("No token provider").send();
-
-  const parts = authHeader.split(" ");
-
-  if (parts.length !== 2) return badRequest.message("Token error").send();
-
-  const [schema, token] = parts;
-
-  if (!/^Bearer$/i.test(schema))
-    return badRequest.message("Token malformatted").send();
-
-  try {
+    const jwt = new JwtManager();
     const decoded = await jwt.verify(token);
 
-    req.userId = decoded.id;
-
+    request.userId = decoded.id;
     return next();
-  } catch (error) {
-    badRequest.message("Token invalid").send();
   }
 }
+
+export default new AuthMiddleware();

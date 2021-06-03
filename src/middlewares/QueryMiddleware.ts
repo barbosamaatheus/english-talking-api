@@ -1,16 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 
-export default async function AuthMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const { speech, answer } = req.query;
-  if (speech) {
-    req.query.speech = speech.toString().toLowerCase();
+class QueryMiddleware
+{
+  public async exec(req: Request, res: Response, next: NextFunction): Promise<void>
+  {
+    const { speech, answer } = req.query;
+    req.where = {};
+    
+    if(speech) req.where.speech = speech.toString().toLowerCase();
+    if(answer) req.where.answer = answer.toString().toLowerCase();
+    
+    next();
   }
-  if (answer) {
-    req.query.answer = answer.toString().toLowerCase();
-  }
-  next();
 }
+
+export default new QueryMiddleware();
