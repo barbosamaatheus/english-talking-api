@@ -1,7 +1,7 @@
 import { getRepository, Repository } from "typeorm";
 
 import Dialog from "../../models/Dialog";
-import Status from "../../utils/enumStatus";
+import Status from "../../utils/EnumStatus";
 import CreateDialog from "../../@types/appTypes/CreateDialog";
 import BadRequestError from "../../errors/errorsTypes/BadRequestError";
 

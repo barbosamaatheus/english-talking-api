@@ -1,15 +1,18 @@
 import { createConnection, getConnection } from "typeorm";
 
 const connection = {
-  async create() {
+  async create()
+  {
     await createConnection();
   },
 
-  async close() {
+  async close()
+  {
     await getConnection().close();
   },
 
-  async clear() {
+  async clear()
+  {
     const connec = getConnection();
     const entities = connec.entityMetadatas;
 
@@ -17,6 +20,7 @@ const connection = {
       const repository = connec.getRepository(entity.name);
       await repository.query(`DELETE FROM ${entity.tableName}`);
     });
-  },
+  }
 };
+
 export default connection;

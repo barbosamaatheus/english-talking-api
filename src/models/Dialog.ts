@@ -12,7 +12,7 @@ import {
 import { MinLength } from "class-validator";
 
 import User from "./User";
-import { Status } from "../utils/enumStatus";
+import Status from "../utils/EnumStatus";
 
 @Entity("dialogs")
 export default class Dialog {
@@ -38,7 +38,7 @@ export default class Dialog {
     cascade: true,
   })
   @JoinColumn({ name: "owner" })
-  owner: User;
+  owner: User | string;
 
   @ManyToMany(() => User, (user) => user.approvals, {
     cascade: true,

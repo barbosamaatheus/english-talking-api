@@ -1,11 +1,11 @@
-import { getRepository, Repository } from "typeorm";
+import { getConnection, getRepository, Repository } from "typeorm";
 
 import Dialog from "../../models/Dialog";
-import Status from "../../utils/enumStatus";
+import Status from "../../utils/EnumStatus";
 import DialogAndUser from "../../@types/appTypes/DialogAndUser";
 import ConflictError from "../../errors/errorsTypes/ConflictError";
 import NotFoundError from "../../errors/errorsTypes/NotFoundError";
-import calculatesApprovalRate from "../../utils/calculatesApprovalRate";
+import calculatesApprovalRate from "../../utils/CalculatesApprovalRate";
 
 export default class ApproveDialogService
 {
@@ -44,7 +44,24 @@ export default class ApproveDialogService
       .of(dialogue)
       .add(userId);
 
-    const average = await calculatesApprovalRate.exec(dialogId);
+    const [{ approvals }] = await getConnection().query(`
+      SELECT COUNT(id) as approvals
+      FROM approvals
+      WHERE "dialogsId" = $1
+      LIMIT 1
+    `, [dialogId]);
+    
+    const [{ disapprovals }] = await getConnection().query(`
+      SELECT COUNT(id) as disapprovals
+      FROM disapprovals
+      WHERE "dialogsId" = $1
+      LIMIT 1
+    `, [dialogId]);
+
+    const average = await calculatesApprovalRate.exec({
+      approvals: Number(approvals),
+      disapprovals: Number(disapprovals)
+    });
     const minimunAverageForApproved = 70;
 
     if(average >= minimunAverageForApproved)
