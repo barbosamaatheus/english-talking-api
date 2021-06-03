@@ -5,7 +5,7 @@ import dialogRoutes from './dialog.routes'
 
 const routes = Router();
 
-routes.use('/users', userRoutes);
-routes.use('/dialogs', dialogRoutes);
+routes.use('/user', userRoutes);
+routes.use('/dialog', dialogRoutes);
 
 export default routes;

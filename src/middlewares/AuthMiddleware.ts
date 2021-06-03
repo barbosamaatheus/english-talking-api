@@ -19,14 +19,19 @@ class AuthMiddleware
       
     const [ schema, token ] = tokenComponents;
     
-    if(!/^Bearer$/i.test(schema))
+    
+    if(!RegExp(/^Bearer$/, 'i').test(schema))
       throw new UnauthorizedError("Token malformatted");
 
-    const jwt = new JwtManager();
-    const decoded = await jwt.verify(token);
-
-    request.userId = decoded.id;
-    return next();
+    try {
+      const jwt = new JwtManager();
+      const decoded = await jwt.verify(token);
+  
+      request.userId = decoded.id;
+      return next();
+    } catch {
+      throw new UnauthorizedError("Token invalid");
+    }
   }
 }
 
