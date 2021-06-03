@@ -1,7 +1,7 @@
-import "./config/env";
-
-import "express-async-errors"
 import express from "express";
+import "express-async-errors"
+
+import "./config/env";
 import routes from "./routes";
 import errorHandler from './errors/ErrorHandler'
 
