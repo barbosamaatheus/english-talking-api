@@ -1,10 +1,10 @@
 
-import UserRegisterController from "./UserRegisterController"
-import UserAuthenticateController from './UserAuthenticateController'
+import RegisterUserController from "./RegisterUserController";
+import AuthenticateUserController from "./AuthenticateUserController";
 
 export default () => { 
-  const register = new UserRegisterController().handle
-  const authenticate = new UserAuthenticateController().handle
+  const register = new RegisterUserController().handle;
+  const login = new AuthenticateUserController().handle;
 
-  return { register, authenticate }
-}
+  return { register, login };
+};
