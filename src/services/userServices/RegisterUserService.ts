@@ -1,14 +1,12 @@
 import { validate } from "class-validator";
 import { getRepository, Repository } from "typeorm";
-import { Token } from "../../@types/Token";
-import { UserRegisterDTO } from "../../@types/UserRegisterDTO";
-import BadRequestError from "../../errors/errorsTypes/BadRequestError";
-import ConflictError from "../../errors/errorsTypes/ConflictError";
-import InternalServerError from "../../errors/errorsTypes/InternalServerError";
-import User from "../../models/User";
-import { JwtManager } from "../../utils/JwtManager";
 
-export default class UserRegisterService
+import User from "../../models/User";
+import UserRegister from "../../@types/appTypes/UserRegister";
+import ConflictError from "../../errors/errorsTypes/ConflictError";
+import BadRequestError from "../../errors/errorsTypes/BadRequestError";
+
+export default class RegisterUserService
 {
   private repository: Repository<User> 
   
@@ -17,7 +15,7 @@ export default class UserRegisterService
     this.repository = getRepository(User)
   }
 
-  public async execute({ name, picture, email, password }: UserRegisterDTO): Promise<Token>
+  public async execute({ name, picture, email, password }: UserRegister): Promise<void>
   {
     const userAlreadyExists = await this.repository.findOne({ email });
     if(userAlreadyExists) throw new ConflictError("User already exists");
@@ -28,8 +26,5 @@ export default class UserRegisterService
     if(errors.length) throw new BadRequestError(`Invalid ${errors[0].property}`);
 
     await this.repository.save(user);
-    
-    const jwt = new JwtManager();
-    return { token: jwt.generate({ id: user.id }) };
   }
 }

@@ -1,14 +1,14 @@
 import { compare } from "bcrypt";
 import { getRepository, Repository } from "typeorm";
 
-import { Auth } from "../../@types/Auth";
-import { Token } from "../../@types/Token";
+import User from "../../models/User";
+import Auth from "../../@types/appTypes/Auth";
+import Token from "../../@types/appTypes/Token";
+import JwtManager from "../../utils/JwtManager";
 import BadRequestError from "../../errors/errorsTypes/BadRequestError";
 import UnauthorizedError from "../../errors/errorsTypes/UnauthorizedError";
-import User from "../../models/User";
-import { JwtManager } from "../../utils/JwtManager";
 
-export default class UserAuthenticateService
+export default class AuthenticateUserService
 {
   private repository: Repository<User>
 
