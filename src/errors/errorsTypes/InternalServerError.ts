@@ -6,7 +6,7 @@ class InternalServerError extends AppError
   {
     super(message, 500);
     Object.setPrototypeOf(this, InternalServerError.prototype);
-  }
-}
+  };
+};
 
 export default InternalServerError
