@@ -1,38 +1,40 @@
-import calculatesApprovalRate from "../../src/utils/calculatesApprovalRate";
-import User from "../../src/models/User";
+import calculatesApprovalRate from "../../src/utils/CalculatesApprovalRate";
 
-it("Check function without approvals and disapprovals", () => {
-  const rate = calculatesApprovalRate({
-    approvals: [],
-    disapprovals: [],
+describe('Test calculate Approvals Rate', () => {
+  it("Check function without approvals and disapprovals", () => {
+    const rate = calculatesApprovalRate.exec({
+      approvals: 0,
+      disapprovals: 0
+    });
+  
+    expect(rate).toBe(0);
   });
-
-  expect(rate).toBe(0);
-});
-
-it("To vary the role with approvals and disapprovals", () => {
-  const rate = calculatesApprovalRate({
-    approvals: [new User()],
-    disapprovals: [new User()],
+  
+  it("To vary the role with approvals and disapprovals", () => {
+    const rate = calculatesApprovalRate.exec({
+      approvals: 1,
+      disapprovals: 1,
+    });
+  
+    expect(rate).toBe(50);
   });
-
-  expect(rate).toBe(50);
-});
-
-it("Check the function without the approvals", () => {
-  const rate = calculatesApprovalRate({
-    approvals: [],
-    disapprovals: [new User()],
+  
+  it("Check the function without the approvals", () => {
+    const rate = calculatesApprovalRate.exec({
+      approvals: 0,
+      disapprovals: 1,
+    });
+  
+    expect(rate).toBe(0);
   });
-
-  expect(rate).toBe(0);
-});
-
-it("Check function without disappprovals", () => {
-  const rate = calculatesApprovalRate({
-    approvals: [new User()],
-    disapprovals: [],
+  
+  it("Check function without disappprovals", () => {
+    const rate = calculatesApprovalRate.exec({
+      approvals: 1,
+      disapprovals: 0,
+    });
+  
+    expect(rate).toBe(100);
   });
+})
 
-  expect(rate).toBe(100);
-});

@@ -9,6 +9,4 @@ const createConnection = async () => {
 
 createConnection();
 
-app.listen(PORT, () => {
-  console.log("Server started!");
-});
+app.listen(PORT, () => console.log("Server started!"));

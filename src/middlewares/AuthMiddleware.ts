@@ -1,47 +1,38 @@
-/* eslint-disable consistent-return */
 import "../config/env";
-import { NextFunction as INextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 
-import { JwtManager } from "../utils/JwtManager";
-import { ResponseHandler } from "../utils/ResponseHandler";
+import JwtManager from "../utils/JwtManager";
+import UnauthorizedError from "../errors/errorsTypes/UnauthorizedError";
 
-import { IRequest, IResponse } from "../@types/http";
+class AuthMiddleware
+{
+  public async exec(request: Request, response: Response, next: NextFunction): Promise<void>
+  {
+    const { authorization } = request.headers;
 
-export default async function AuthMiddleware(
-  req: IRequest,
-  res: IResponse,
-  next: INextFunction
-) {
-  const jwt = new JwtManager();
+    if(!authorization) throw new UnauthorizedError("No token provider");
 
-  const response = new ResponseHandler(res);
-  const { entities } = response;
+    const tokenComponents = authorization.split(" ");
 
-  const badRequest = response
-    .isError()
-    .entity(entities.USER)
-    .code(response.UNAUTHORIZED_401);
+    if(tokenComponents.length !== 2)
+      throw new UnauthorizedError("Token error");
+      
+    const [ schema, token ] = tokenComponents;
+    
+    
+    if(!RegExp(/^Bearer$/, 'i').test(schema))
+      throw new UnauthorizedError("Token malformatted");
 
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) return badRequest.message("No token provider").send();
-
-  const parts = authHeader.split(" ");
-
-  if (parts.length !== 2) return badRequest.message("Token error").send();
-
-  const [schema, token] = parts;
-
-  if (!/^Bearer$/i.test(schema))
-    return badRequest.message("Token malformatted").send();
-
-  try {
-    const decoded = await jwt.verify(token);
-
-    req.userId = decoded.id;
-
-    return next();
-  } catch (error) {
-    badRequest.message("Token invalid").send();
+    try {
+      const jwt = new JwtManager();
+      const decoded = await jwt.verify(token);
+  
+      request.userId = decoded.id;
+      return next();
+    } catch {
+      throw new UnauthorizedError("Token invalid");
+    }
   }
 }
+
+export default new AuthMiddleware();

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=tests jest --runInBand",
     "lint": "eslint .",
-    "dev": "cross-env ts-node-dev --respawn src/server.ts --transpile-only --ignore-watch node_modules --respawn",
+    "dev": "cross-env ts-node-dev --transpile-only --ignore-watch node_modules --respawn --clear src/server.ts",
     "build": "tsc",
     "start": "cross-env NODE_ENV=production node dist/src/server.js",
     "watch-node": "nodemon dist/src/server.js",
@@ -65,6 +65,7 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.10",
