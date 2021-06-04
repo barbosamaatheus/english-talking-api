@@ -4,6 +4,7 @@ declare namespace Express {
     where: {
       speech?: string;
       answer?: string;
+      id?: string;
     };
   }
 };

@@ -22,7 +22,7 @@ export default class ConsultDialogController
     });
       
     return response
-      .header("X-Total-Count", `${count}`)
+      .header("x-total-count", `${count}`)
       .status(200)
       .json(dialogues);
   }
