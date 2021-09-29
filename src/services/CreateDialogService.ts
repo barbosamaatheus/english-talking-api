@@ -28,8 +28,8 @@ export default async function CreateDialogService(
         .send();
 
     const data = {
-      speech: speech.toLowerCase(),
-      answer: answer.toLowerCase(),
+      speech: speech.toLowerCase().trim(),
+      answer: answer.toLowerCase().trim(),
       owner: req.userId,
       status: Status.ANALYZING,
       approvals: [],
@@ -44,8 +44,7 @@ export default async function CreateDialogService(
       .code(response.CREATED_201)
       .data(DialogView.render(dialog))
       .send();
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
     const isValidationError = error.name === "QueryFailedError";
 
     return response

@@ -43,7 +43,7 @@ export default async function ConsultDialogService(
       .code(response.OK_200)
       .data(DialogView.renderMany(dialogues))
       .send();
-  } catch (error) {
+  } catch (error: any) {
     res.header("x-total-count", "0");
     const isValidationError = error.name === "QueryFailedError";
 

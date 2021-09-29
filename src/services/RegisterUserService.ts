@@ -51,7 +51,7 @@ export default async function RegisterUserService(
         token: jwt.generate({ id: user.id }),
       })
       .send();
-  } catch (error) {
+  } catch (error: any) {
     const isValidationError =
       error.name === "QueryFailedError" || error.name === "Error";
 

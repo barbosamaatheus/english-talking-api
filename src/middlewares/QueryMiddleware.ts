@@ -9,10 +9,10 @@ export default async function AuthMiddleware(
 ) {
   const { speech, answer } = req.query;
   if (speech) {
-    req.query.speech = speech.toString().toLowerCase();
+    req.query.speech = speech.toString().toLowerCase().trim();
   }
   if (answer) {
-    req.query.answer = answer.toString().toLowerCase();
+    req.query.answer = answer.toString().toLowerCase().trim();
   }
   next();
 }
