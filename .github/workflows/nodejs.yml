@@ -26,6 +26,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn
+                
+      - name: Run Migrations
+        run: yarn typeorm migration:run
 
       - name: Run tests
         run: yarn test
