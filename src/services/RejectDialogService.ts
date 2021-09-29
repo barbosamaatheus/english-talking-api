@@ -63,7 +63,7 @@ export default async function RejectDialogService(
       .entity(entities.DIALOG)
       .code(response.NO_CONTENT_204)
       .send();
-  } catch (error) {
+  } catch (error: any) {
     const isValidationError = error.name === "QueryFailedError";
 
     const code = isValidationError
