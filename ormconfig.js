@@ -6,6 +6,7 @@ const production = {
   migrations: ["dist/src/database/migrations/*.js"],
   migrationsRun: true,
   logging: false,
+  ssl: true,
 };
 
 const development = {
