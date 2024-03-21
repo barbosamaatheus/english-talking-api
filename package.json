@@ -68,7 +68,7 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.10",
-    "typeorm": "0.2.29"
+    "typeorm": "0.3.0"
   },
   "husky": {
     "hooks": {
