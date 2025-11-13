@@ -18,13 +18,13 @@
 # Indice
 
 - [Visão Geral](#Visão-Geral)
-- [Executando o projeto](#Running-the-Project)
-- [Autenticação](#Authentication)
-- [Contribuindo](#Contributing)
-  - [Guidelines da contribuição](#Contribution-Guidelines)
-- [Código de Conduta](#Code-of-Conduct)
-- [Precisa de Ajuda?](#Need-help?)
-- [Licença](#License)
+- [Executando o projeto](#Executando-o-projeto)
+- [Autenticação](#Autenticação)
+- [Contribuindo](#Contribuindo)
+  - [Guidelines da contribuição](#Guidelines-da-contribuição)
+- [Código de Conduta](#Código-de-Conduta)
+- [Precisa de Ajuda?](#Precisa-de-Ajuda?)
+- [Licença](#Licença)
 
 # Visão Geral
 
