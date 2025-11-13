@@ -17,14 +17,14 @@
 
 # Indice
 
-- [Overview](#Overview)
-- [Running the Project](#Running-the-Project)
-- [Authentication](#Authentication)
-- [Contributing](#Contributing)
-  - [Contribution Guidelines](#Contribution-Guidelines)
-- [Code of Conduct](#Code-of-Conduct)
-- [Need help?](#Need-help?)
-- [License](#License)
+- [Visão Geral](#Overview)
+- [Executando o projeto](#Running-the-Project)
+- [Autenticação](#Authentication)
+- [Contribuindo](#Contributing)
+  - [Guidelines da contribuição](#Contribution-Guidelines)
+- [Código de Conduta](#Code-of-Conduct)
+- [Precisa de Ajuda?](#Need-help?)
+- [Licença](#License)
 
 # Visão Geral
 
@@ -68,31 +68,31 @@ $ yarn dev
 ## Você deverá receber um "Server started!" no seu terminal
 ```
 
-# Authentication
+# Autenticação
 
-Authentication is based on [Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/).
+A autenticação é baseada em [Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/).
 
-To authenticate, you must register as a user to receive an access token. Follow the [Register User documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest#8cbbe716-28b4-410b-bab3-0cddff5671d6)
+Para autenticar, você deve se registrar como usuário para receber um token de acesso. Siga as instruções em [Register User documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest#8cbbe716-28b4-410b-bab3-0cddff5671d6)
 
-In requests for the [Dialogue module](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest#c640e92c-5ec8-4dfe-8185-30de2f6368ca), your access token must be passed through the 'Authorization' attribute in the request header with the word Bearer as prefix.
+Em requests para o [Dialogue module](https://documenter.getpostman.com/view/8498314/Szf9V75Q?version=latest#c640e92c-5ec8-4dfe-8185-30de2f6368ca),seu token de acesso deve ser passado pelo atributo “Authorization” no cabeçalho da solicitação com a word Bearer como prefixo.
 
-# Contributing
+# Contribuindo
 
-Thank you for being interested on making this project better. We encourage everyone to help improving this project with some new features, bug fixes and performance issues. Please take a little bit of your time to read our guides, so this process can be faster and easier.
+Obrigado pelo seu interesse em melhorar este projeto. Incentivamos todos a ajudar a melhorar este projeto com novos recursos, correções de bugs e problemas de desempenho. Reserve um pouco do seu tempo para ler nossos guias, para que esse processo seja mais rápido e fácil.
 
-### Contribution Guidelines
+### Guidelines da contribuição
 
-Take a moment to read about our [Contribution Guidelines](/.github/CONTRIBUTING.md) so you can understand how to submit an issue, commit and create pull requests.
+Reserve um momento para ler sobre as nossas [Contribution Guidelines](/.github/CONTRIBUTING.md) para que você possa entender como fazer e enviar uma issue, commit e criar pull requests.
 
-# Code of Conduct
+# Código de Conduta
 
-We expect you to follow our [Code of Conduct](/.github/CODE_OF_CONDUCT.md). You can read it to understand what kind of behaviour will and will not be tolerated.
+Esperamos que você siga nossos [Code of Conduct](/.github/CODE_OF_CONDUCT.md). Você pode lê-lo para entender que tipo de comportamento será ou não tolerado.
 
-# Need help?
+# Precisa de Ajuda?
 
-If you need help with this, feel free to open an issue with a description of the problem you're facing. Or, if you prefer, you can send email to maatheusb96@gmail.com  
-You also could join our discord team in case you need any help or have any questions. [Join discord team](https://discord.gg/XTrKQ8w).
+Se precisar de ajuda, sinta-se à vontade para abrir uma issue com uma descrição do problema que está enfrentando. Ou, se preferir, envie um e-mail para maatheusb96@gmail.com  
+Você também pode se juntar à nossa equipe do Discord caso precise de ajuda ou tenha alguma dúvida. [Join discord team](https://discord.gg/XTrKQ8w).
 
-# License
+# Licença
 
 [MIT License ](https://github.com/barbosamaatheus/english-talking-api/blob/master/LICENSE) ©
