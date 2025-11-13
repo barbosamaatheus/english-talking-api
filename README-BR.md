@@ -9,7 +9,7 @@
 <div align="center">
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-[![Licença: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 </div>
 
@@ -28,7 +28,7 @@
 
 # Visão Geral
 
-Esta é uma API RestFull criada na linguagem JavaScript utilizando tecnologia e banco de dados PostgreSQL.
+Esta é uma API RestFull criada na linguagem JavaScript utilizando tecnologia [Node.js](https://nodejs.org/en/download/) e banco de dados PostgreSQL.
 
 Utilizamos as integrações Eslint, Prettier, editorconfig e Airbnb Style Guide como formatadores automáticos de código. Baixe os plug-ins no seu editor.
 
@@ -39,33 +39,33 @@ Utilizamos as integrações Eslint, Prettier, editorconfig e Airbnb Style Guide 
 > Para garantir que o Prettier formate ao salvar, insira `“editor.formatOnSave”: true` nas suas configurações de usuário se você usar o VSCode.
 > Para aprender mais, entre neste [post](https://medium.com/matheus-barbosa/integrating-prettier-eslint-airbnb-style-guide-editorconfig-no-vscode-ff950263adbf)
 
-The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
+Os testes são realizados usando [Jest](https://jestjs.io/) e o [supertest](https://github.com/visionmedia/supertest)
 
-**See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q)**
+**Veja [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q)**
 
-# Running the Project
+# Executando o projeto
 
-### Cloning the project
+### Clonando o projeto
 
 ```sh
 $ git clone https://github.com/barbosamaatheus/english-talking-api
 $ cd english-talking-api
 ```
 
-### Starting the API
+### Iniciando a API
 
 ```sh
-# Creating the database Docker image:
-# Within the project, there is already a docker-compose.yml file that has the
-# PostgreSQL as a database, just have Docker(https://www.docker.com/) installed on your machine.
-$ docker-compose up -d # Will start in the background and will not block the shell
-# Install all project dependencies
-$ yarn # or npm install
-# Running migrations to the database
+# Criando a imagem Docker do banco de dados:
+# Dentro do projeto, já existe um arquivo docker-compose.yml que tem o
+# PostgreSQL como banco de dados, basta ter o Docker (https://www.docker.com/) instalado em sua máquina.
+$ docker-compose up -d # Iniciará em segundo plano e não bloqueará o shell
+# Instale todas as dependências do projeto
+$ yarn # ou npm install
+# Executando migrations para o banco de dados
 $ yarn typeorm migration:run
-# Starting the project
+# Iniciando o projeto
 $ yarn dev
-## You should receive a "Server started!" on your terminal
+## Você deverá receber um "Server started!" no seu terminal
 ```
 
 # Authentication
