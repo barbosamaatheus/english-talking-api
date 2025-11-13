@@ -23,7 +23,7 @@
 - [Contribuindo](#Contribuindo)
   - [Guidelines da contribuição](#Guidelines-da-contribuição)
 - [Código de Conduta](#Código-de-Conduta)
-- [Precisa de Ajuda?](#Precisa-de-Ajuda?)
+- [Precisa de Ajuda?](#Precisa-de-Ajuda)
 - [Licença](#Licença)
 
 # Visão Geral
@@ -88,7 +88,7 @@ Reserve um momento para ler sobre as nossas [Contribution Guidelines](/.github/C
 
 Esperamos que você siga nossos [Code of Conduct](/.github/CODE_OF_CONDUCT.md). Você pode lê-lo para entender que tipo de comportamento será ou não tolerado.
 
-# Precisa de Ajuda?
+# Precisa de Ajuda
 
 Se precisar de ajuda, sinta-se à vontade para abrir uma issue com uma descrição do problema que está enfrentando. Ou, se preferir, envie um e-mail para maatheusb96@gmail.com  
 Você também pode se juntar à nossa equipe do Discord caso precise de ajuda ou tenha alguma dúvida. [Join discord team](https://discord.gg/XTrKQ8w).
