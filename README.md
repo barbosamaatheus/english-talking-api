@@ -66,6 +66,10 @@ $ yarn typeorm migration:run
 $ yarn dev
 ## You should receive a "Server started!" on your terminal
 ```
+## Documentation
+
+The previous Postman documentation link was unavailable.
+To avoid broken access, the documentation section was updated until a new public collection is provided.
 
 # Authentication
 
