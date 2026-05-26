@@ -40,7 +40,7 @@ We use the Eslint, Prettier, editorconfig and Airbnb Style Guide integrations as
 
 The tests are produced using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)
 
-**See a [API Documentation](https://documenter.getpostman.com/view/8498314/Szf9V75Q)**
+**API documentation currently unavailable.**
 
 # Running the Project
 
